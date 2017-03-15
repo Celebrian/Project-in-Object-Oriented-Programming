@@ -3,4 +3,12 @@
 
 //Grener klasse deklarasjon
 
+#include "ListTool2B.h"
+
+class Grener {
+private:
+	List* nasjonListe;
+public:
+
+};
 #endif

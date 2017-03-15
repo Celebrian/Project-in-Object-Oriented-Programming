@@ -3,8 +3,6 @@
 
 //Deltagere klasse deklarasjon
 
-using namespace std;
-
 #include "ListTool2B.h"
 
 class Deltagere {

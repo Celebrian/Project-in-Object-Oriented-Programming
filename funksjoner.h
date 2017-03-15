@@ -1,10 +1,10 @@
 #if !defined(__FUNKSJONER_H)
 #define  FUNKSJONER_H
 
+//Hjelpefunksjoner deklarasjoner
+
 #include <fstream>
 using namespace std;
-
-//Hjelpefunksjoner deklarasjoner
 
 void skrivMeny();
 void skrivMenyN();
@@ -21,7 +21,6 @@ void MenyG();
 void MenyO();
 void MenyOL();
 void MenyOR();
-
 
 char les();
 int les(char* t, int min, int max);

@@ -3,15 +3,17 @@
 
 //Gren klasse deklarasjon
 
-using namespace std;
-
+#include "const.h"
+#include "enum.h"
 #include "ListTool2B.h"
+#include "ovelse.h"
 
 class Gren : public TextElement {
+	resultatType typeResultat;
+	int antallOvelser;
+	Ovelse* ovelser[MAXOVELSER];
+public:
 
 };
-
-
-
 
 #endif

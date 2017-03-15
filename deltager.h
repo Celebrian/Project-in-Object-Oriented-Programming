@@ -2,9 +2,6 @@
 #define  __DELTAGER_H
 
 //Deltager klasse deklarasjon
-#include <iostream>
-
-using namespace std;
 
 #include "const.h"
 #include "enum.h"

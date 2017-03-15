@@ -3,4 +3,15 @@
 
 //Ovelse klasse deklarasjon
 
+#include "const.h"
+
+class Ovelse : public NumElement {		
+	char* navn;
+	int klokkeStart;
+	int dato;
+	int antallDeltagere;
+	int deltagerListe[MAXDELTAGER][4];		//PROBABLY NOT FINAL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	int resultatListe[MAXDELTAGER][4];		//SAME AS THE ONE ABOVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+};
+
 #endif

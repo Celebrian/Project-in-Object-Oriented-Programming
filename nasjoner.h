@@ -2,7 +2,6 @@
 #define  NASJONER_H
 
 //Nasjoner klasse deklarasjon
-using namespace std;
 
 #include "ListTool2B.h"
 

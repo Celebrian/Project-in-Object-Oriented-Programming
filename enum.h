@@ -7,4 +7,7 @@ enum kjonn {
 	jente, gutt
 };
 
+enum resultatType {
+	poeng, tid
+};
 #endif

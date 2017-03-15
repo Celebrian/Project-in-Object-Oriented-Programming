@@ -3,4 +3,14 @@
 
 //Medaljer klasse deklarasjon
 
+#include "statestikk.h"
+#include "ListTool2B.h"
+
+class Medaljer : public Statestikk {
+private:
+	List* medaljeListe;
+public:
+
+};
+
 #endif

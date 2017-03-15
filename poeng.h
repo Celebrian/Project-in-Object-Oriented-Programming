@@ -3,4 +3,17 @@
 
 //Poeng klasse deklarasjon
 
+#include "statestikk.h"
+#include "ListTool2B.h"
+
+class Poeng : public Statestikk {
+private: 
+	List* poengListe;
+public:
+
+};
+
+
+
+
 #endif

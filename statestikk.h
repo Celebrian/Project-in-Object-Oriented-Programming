@@ -3,4 +3,13 @@
 
 //Statestikk klasse deklarasjon
 
+#include "const.h"
+
+class Statestikk {
+private:
+	char nasjonForkortelser[MAXNASJONER][LANDSKODE];
+public:
+
+};
+
 #endif

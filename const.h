@@ -9,5 +9,6 @@ const int MAXNASJONER = 200;			//Max antall nasjoner
 const int MAXOVELSER = 20;				//Max antall øvelser
 const int MINDELTAGER = 1000;
 const int MAXDELTAGER = 2000;
+
 #endif
 
