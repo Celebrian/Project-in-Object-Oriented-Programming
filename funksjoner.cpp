@@ -108,6 +108,8 @@ void skrivMenyO()
 	cout << "\n\tN = Registrer en ny øvelse";
 	cout << "\n\tE = Endre en øvelse";
 	cout << "\n\tA = Skriv alle data om alle øvelser";
+	cout << "\n\tL = Startliste undermeny";
+	cout << "\n\tR = Resultatliste undermeny";
 	cout << "\n\tQ = Forrige meny";
 }
 
@@ -126,7 +128,7 @@ void skrivMenyOR()
 	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
 	cout << "\n\tS = Skriv resultatliste";
 	cout << "\n\tE = Ny resultatliste";
-	cout << "\n\tS = Fjerne resultatliste";
+	cout << "\n\tF = Fjerne resultatliste";
 	cout << "\n\tQ = Forrige meny";
 }
 
