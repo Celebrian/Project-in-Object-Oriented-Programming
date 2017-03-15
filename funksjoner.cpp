@@ -6,6 +6,7 @@
 #include <fstream>
 #include "const.h"
 #include "funksjoner.h"
+#include <cctype>
 
 using namespace std;
 
@@ -287,4 +288,16 @@ void MenyOR()
 		}
 		valg = les();
 	}
+}
+
+int lesKlokkeSlett()
+{
+	int klokka;
+	do
+	{
+		cout << "\nLes inn klokkeslett (TTMM)" << endl;
+		cin >> klokka;
+	} while (!isdigit(klokka) || (klokka < 0) 
+		|| ((klokka / 100) > 23 ) || ((klokka % 100) > 59) );
+	return klokka;
 }

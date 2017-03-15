@@ -4,6 +4,7 @@
 //Ovelse klasse deklarasjon
 
 #include "const.h"
+#include "ListTool2B.h"
 
 class Ovelse : public NumElement {		
 	char* navn;

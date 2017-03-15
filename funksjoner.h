@@ -29,4 +29,7 @@ void les(const char* t, char* &s);
 void lesInnFraFil(char* &s, ifstream & inn);
 
 
+
+//Leser inn klokkeslett
+int lesKlokkeSlett();
 #endif
