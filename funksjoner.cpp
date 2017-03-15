@@ -288,3 +288,39 @@ void MenyOR()
 		valg = les();
 	}
 }
+
+int lesDato()						//LESE LOVELIG DATO
+{
+	int dato, aaaa, mm, dd;			//Variabler for dato, dag, måned og år
+	do
+	{
+		cout << "\tSkriv inn gyldig dato fra "	//Ber om gyldig dato
+			<< 0 << " - " << 3000				//Mellom årstall
+			<< " (p† formen: ††††mmdd) ";		//På formen aaaammdd
+		cin >> dato; cin.ignore();				//Leser inn og forkaster \n
+		aaaa = dato / 10000;					//Henter bare året fra dato
+		mm = (dato / 100) % 100;				//Henter måneden fra dato
+		dd = dato % 100;						//Henter dagen fra dato
+
+	} while ((!isdigit(dato)) || !finnesDato(dd, mm, aaaa));		//Så lenge datoen ikke fins
+	return dato;							//Returnerer gyldig dato
+}
+
+bool skuddaar(int aa) {    //  Sjekker om et visst år er skuddår:
+						   //  Skuddår dersom: (delelig med 400) ELLER 
+						   //    (delelig med 4 OG ikke med 100)
+	return ((aa % 400 == 0) || ((aa % 4 == 0) && (aa % 100) != 0));
+}
+
+bool finnesDato(int da, int ma, int aa) {
+	//  Setter opp antall dager i månedene.
+	//   Verdien for februar settes senere.
+	int dagerPrMaaned[12] = { 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	if (aa < 0 || aa > 3000) return false;    //  Ulovlig år.
+	if (ma < 1 || ma > 12)   return false;    //  Ulovlig måned.
+											  //Ut fra om året er skuddår eller ei
+	dagerPrMaaned[1] = (skuddaar(aa)) ? 29 : 28;//så settes februar verdien
+	if (da < 1 || da > dagerPrMaaned[ma - 1])  return false;  // Ulovlig dag:
+															  //  Garantert at er en lovlig dato!!
+	return true;                          // Returnerer at datoen finnes.
+}
