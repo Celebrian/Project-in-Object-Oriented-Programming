@@ -3,4 +3,15 @@
 
 //Deltagere klasse deklarasjon
 
+using namespace std;
+
+#include "ListTool2B.h"
+
+class Deltagere {
+private: 
+	List* deltagerListe;
+public:
+
+};
+
 #endif

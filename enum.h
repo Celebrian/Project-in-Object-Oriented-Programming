@@ -3,4 +3,8 @@
 
 //ENUM'er:
 
+enum kjonn {
+	jente, gutt
+};
+
 #endif
