@@ -38,4 +38,18 @@ bool finnesDato(int da, int ma, int aa);	//     fra OPPG_20.
 
 //Leser inn klokkeslett
 int lesKlokkeSlett();
+
+//MenyN() funksjoner:
+void registrerNasjon();
+void endreNasjon();
+void hoveddataNasjon();
+void deltagereNasjon();
+void alleDataEnNasjon();
+
+//MenyD funksjoner:
+void registrerDeltager();
+void endreDeltager();
+void hovedDeltager();
+void gittDeltager();
+
 #endif
