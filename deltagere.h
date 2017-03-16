@@ -8,8 +8,13 @@
 class Deltagere {
 private: 
 	List* deltagerListe;
+	int sisteDeltager;
 public:
-
+	Deltagere();
+	void lagNyDeltager();
+	void endreDeltager();
+	void skrivUt();
+	void skrivUtValgt();
 };
 
 #endif
