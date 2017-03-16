@@ -9,12 +9,13 @@
 #include "const.h"
 #include "funksjoner.h"
 #include "deltager.h"
+#include "deltagere.h"
 #include "nasjoner.h"
 
 
 using namespace std;
 
-extern Deltager deltagerobjekt;
+extern Deltagere deltagerobjekt;
 extern Nasjoner nasjonobjekt;
 
 char les() // leser inn et ikke-blankt tegn.
@@ -186,10 +187,10 @@ void MenyD()
 	valg = les();             //  Leser brukerens valg.
 	while (valg != 'Q') {
 		switch (valg) {
-		case 'N': cout << "\nRegistrer ny deltager"; break;
-		case 'E': cout << "\nEndrer deltager";  break;
-		case 'A': cout << "\nSkriver alle"; break;
-		case 'S': cout << "\skriver alle data";  break;
+		case 'N': registrerDeltager(); break;
+		case 'E': endreDeltager();  break;
+		case 'A': hovedDeltager(); break;
+		case 'S': gittDeltager();  break;
 		default:  skrivMenyD();       break;
 		}
 		valg = les();
@@ -346,20 +347,20 @@ bool finnesDato(int da, int ma, int aa) {
 
 void registrerDeltager()
 {
-	Deltager
+	deltagerobjekt.lagNyDeltager();
 }
 
 void endreDeltager()
 {
-
+	deltagerobjekt.endreDeltager();
 }
 
 void hovedDeltager()
 {
-
+	deltagerobjekt.skrivUt();
 }
 
 void gittDeltager()
 {
-
+	deltagerobjekt.skrivUtValgt();
 }

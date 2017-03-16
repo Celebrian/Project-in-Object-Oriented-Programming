@@ -10,14 +10,13 @@
 class Deltager : public NumElement {
 private:
 	char* navn;
-	char nasjon[LANDSKODE];
+	char nasjon[LANDSKODE+1];
 	kjonn gender;
 public:
-
+	Deltager(int n);
+	void endreNyDeltager();
+	virtual void display();
 };
-
-
-
 
 
 #endif
