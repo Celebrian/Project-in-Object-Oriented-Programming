@@ -4,12 +4,18 @@
 
 #include <iostream>
 #include <fstream>
+#include <cctype>
+
 #include "const.h"
 #include "funksjoner.h"
-#include <cctype>
+#include "deltager.h"
+#include "nasjoner.h"
+
 
 using namespace std;
 
+extern Deltager deltagerobjekt;
+extern Nasjoner nasjonobjekt;
 
 char les() // leser inn et ikke-blankt tegn.
 {
@@ -336,4 +342,24 @@ bool finnesDato(int da, int ma, int aa) {
 	if (da < 1 || da > dagerPrMaaned[ma - 1])  return false;  // Ulovlig dag:
 															  //  Garantert at er en lovlig dato!!
 	return true;                          // Returnerer at datoen finnes.
+}
+
+void registrerDeltager()
+{
+	Deltager
+}
+
+void endreDeltager()
+{
+
+}
+
+void hovedDeltager()
+{
+
+}
+
+void gittDeltager()
+{
+
 }
