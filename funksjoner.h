@@ -4,6 +4,7 @@
 //Hjelpefunksjoner deklarasjoner
 
 #include <fstream>
+
 using namespace std;
 
 //Skriv meny funksjoner
@@ -30,6 +31,7 @@ int les(char* t, int min, int max);
 void les(const char t[], char s[], const int LEN);
 void les(const char* t, char* &s);
 void lesInnFraFil(char* &s, ifstream & inn);
+int lesTelefon();
 
 //Skjekk dato funksjoner
 int lesDato();								//Sjekker at dato finnes

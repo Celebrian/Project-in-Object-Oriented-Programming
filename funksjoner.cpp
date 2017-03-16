@@ -344,6 +344,26 @@ bool finnesDato(int da, int ma, int aa) {
 	return true;                          // Returnerer at datoen finnes.
 }
 
+void registrerNasjon() {
+	nasjonobjekt.registrerNasjon();
+}
+
+void endreNasjon() {
+
+}
+
+void hoveddataNasjon() {
+
+}
+
+void deltagereNasjon() {
+
+}
+
+void alleDataEnNasjon() {
+
+}
+
 void registrerDeltager()
 {
 	Deltager

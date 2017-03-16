@@ -11,8 +11,13 @@ private:
 	int antallDeltagere;
 	char* kontaktNavn;
 	int kontaktTelefon;
-	//char* andreData;
 public:
-}
+	Nasjon(char* landskode);
+	void endreNasjon();
+	void endreNasjonNavn();
+	void endreKontaktNavn();
+	void endreTelefon();
+	virtual void display();
+};
 
 #endif
