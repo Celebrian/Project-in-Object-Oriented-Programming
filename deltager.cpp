@@ -49,3 +49,8 @@ void Deltager::displayAll()
 		<< "\n\tNasjon: " << nasjon << "\n\tKjønn: "
 		<< ((gender == jente) ? "jente" : "gutt") << endl;
 }
+
+bool Deltager::sjekkLand(char ch[LANDSKODE])
+{
+	return(nasjon == ch);
+}

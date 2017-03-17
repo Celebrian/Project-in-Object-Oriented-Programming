@@ -36,9 +36,9 @@ void Nasjoner::MenyN()
 		case 'N': registrerNasjon();			break;
 		case 'E': endreNasjon();				break;
 		case 'A': nasjonListe->displayList();	break;
-		case 'T': cout << "\nSkriver tropp";	break;
-		case 'S': skrivEnNasjon();;  break;
-		default:  skrivMenyN();       break;
+		case 'T': skrivNasjonDeltagere();		break;
+		case 'S': skrivEnNasjon();				break;
+		default:  skrivMenyN();					break;
 		}
 		valg = les();
 	}
