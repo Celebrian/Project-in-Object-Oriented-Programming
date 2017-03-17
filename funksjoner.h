@@ -54,4 +54,10 @@ void endreDeltager();
 void hovedDeltager();
 void gittDeltager();
 
+//MenyG funksjoner:
+void registrerGren();
+void endreGren();
+void hovedGren();
+void gittGren();
+
 #endif

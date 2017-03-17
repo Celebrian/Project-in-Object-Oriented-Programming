@@ -24,6 +24,7 @@ void Deltagere::lagNyDeltager()
 		Deltager* nyDeltager;
 		nyDeltager = new Deltager(temp);
 		deltagerListe->add(nyDeltager);
+		sisteDeltager++;
 	}
 }
 
