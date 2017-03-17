@@ -15,6 +15,7 @@ public:
 	void endreDeltager();
 	void skrivUt();
 	void skrivUtValgt();
+	void loopGjennom(char ch[LANDSKODE+1]);
 };
 
 #endif

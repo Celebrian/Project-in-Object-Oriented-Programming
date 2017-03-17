@@ -17,6 +17,7 @@ public:
 	void endreNyDeltager();
 	virtual void display();
 	void displayAll();
+	bool sjekkLand(char ch[MAXNASJONER+1]);
 };
 
 

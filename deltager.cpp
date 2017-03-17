@@ -49,3 +49,8 @@ void Deltager::displayAll()
 		<< "\n\tNasjon: " << nasjon << "\n\tKjønn: "
 		<< ((gender == jente) ? "jente" : "gutt") << endl;
 }
+
+bool Deltager::sjekkLand(char ch[MAXNASJONER + 1])
+{
+	return(nasjon == ch);
+}
