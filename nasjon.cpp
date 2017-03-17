@@ -14,7 +14,7 @@ using namespace std;
 Nasjon::Nasjon(char * landskode) : TextElement(landskode)
 {
 	les("Komplett nasjonsnavn", navn);
-	antallDeltagere = les("Antall deltagere i troppen", MINDELTAGER, MAXDELTAGER);
+	antallDeltagere = les("Antall deltagere i troppen", MINDELTAGERE, MAXDELTAGERE);
 	les("Skriv navnet på nasjonens kontaktperson", kontaktNavn);
 	kontaktTelefon = lesTelefon();
 }
@@ -48,19 +48,22 @@ void Nasjon::endreNasjon()
 
 void Nasjon::endreNasjonNavn()
 {
-	delete[] navn;
-	les("Skriv inn nytt nasjonsnavn: ", navn);
+	delete[] navn;									//Frigjør navn array i minnet
+	les("Skriv inn nytt nasjonsnavn: ", navn);		//Leser inn nytt navn
+	cout << "\n\tNasjonsnavn endret." << endl;
 }
 
 void Nasjon::endreKontaktNavn()
 {
-	delete[] kontaktNavn;
+	delete[] kontaktNavn;							//Frigjør kontaktnavn i minnet
 	les("Skriv inn nytt navn på kontakt person: ", kontaktNavn);
+	cout << "\n\tNavnet på kontaktperson endret." << endl;
 }
 
 void Nasjon::endreTelefon()
 {
 	kontaktTelefon = lesTelefon();
+	cout << "\n\tTelefonnummer til kontaktperson endret." << endl;
 }
 
 void Nasjon::display()

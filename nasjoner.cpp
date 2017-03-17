@@ -3,6 +3,7 @@
 using namespace std;
 
 #include "ListTool2B.h"
+#include "funksjoner.h"
 #include "deltagere.h"
 #include "nasjoner.h"
 #include "nasjon.h"
@@ -12,9 +13,9 @@ extern Deltagere deltagerobjekt;
 
 Nasjoner::Nasjoner()
 {
-	nasjonListe = new List(Sorted);
+	nasjonListe = new List(Sorted);							//Setter nasjonListe til å peke på en ny sorted list
 }
-void Nasjoner::skrivMenyN()
+void Nasjoner::skrivMenyN()									//Skriv undermenyen for N til skjerm
 {
 	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
 	cout << "\n\tN = Registrer en ny nasjon";
@@ -27,10 +28,10 @@ void Nasjoner::skrivMenyN()
 
 void Nasjoner::MenyN()
 {
-	char valg;                //  Brukerens valg.
+	char valg;						//  Brukerens valg.
 	skrivMenyN();                  //  skriver ut meny med valg.
 
-	valg = les();             //  Leser brukerens valg.
+	valg = les();				  //  Leser brukerens valg.
 	while (valg != 'Q') {
 		switch (valg) {
 		case 'N': registrerNasjon();			break;
@@ -48,11 +49,20 @@ void Nasjoner::registrerNasjon()
 {
 	Nasjon* nyNasjon;
 	char temp[LANDSKODE + 1];
-	if (nasjonListe->noOfElements() < MAXNASJONER)
+
+	if (nasjonListe->noOfElements() < MAXNASJONER)				//Hvis det er plass til flere nasjoner
 	{
-		lesNasjon("Landkode på formen XXX", temp, LANDSKODE);
-		nyNasjon = new Nasjon(temp);
-		nasjonListe->add(nyNasjon);
+		lesNasjon("Landkode på formen XXX", temp, LANDSKODE);	//Les inn landskode
+		if (!nasjonListe->inList(temp))							//Hvis landskoden IKKE finnes fra før
+		{
+			nyNasjon = new Nasjon(temp);						//Lager nytt objekt
+			nasjonListe->add(nyNasjon);							//og legger inn i lista
+			cout << "\n\n\tNasjonen har blitt lagt til." << endl;
+		}
+		else
+		{
+			cout << "\n\tDet finnes allerede en nasjon med dette navnet." << endl;
+		}
 	}
 	else
 	{
@@ -66,26 +76,31 @@ void Nasjoner::endreNasjon()
 	char temp[MAXTXT + 1];
 
 	lesNasjon("Skriv inn landskode på nasjon du vil endre på", temp, LANDSKODE);
-	if (nasjonListe->inList(temp))
+	if (nasjonListe->inList(temp))							//Hvis landskoden finnes i lista
 	{
-		tempNasjon = (Nasjon*)nasjonListe->remove(temp);
-		tempNasjon->endreNasjon();
-		nasjonListe->add(tempNasjon);
+		tempNasjon = (Nasjon*)nasjonListe->remove(temp);	//Ta ut av lista
+		tempNasjon->endreNasjon();							//Kjør objektets endre nasjon
+		nasjonListe->add(tempNasjon);						//Og legg tilbake i lista
 	}
 	else
 	{
-		cout << "Ingen Nasjoner med denne landskoden!";
+		cout << "\n\tIngen nasjoner med denne landskoden!";
 	}
 }
 
 void Nasjoner::skrivNasjonDeltagere()
 {
 	char temp[LANDSKODE + 1];
+
 	lesNasjon("Skriv inn landskode", temp, LANDSKODE);
-	if (nasjonListe->inList(temp))
+	if (nasjonListe->inList(temp))							//Hvis landskoden finnes i lista
 	{
-		cout << "\n\tNasjon: " << temp << endl;
-		deltagerobjekt.loopGjennom(temp);
+		cout << "\n\tNasjon: " << temp << endl;				//Skriv landskoden
+		deltagerobjekt.loopGjennom(temp);					//Og alle deltagere med denne landskoden
+	}
+	else
+	{
+		cout << "\n\tIngen nasjoner med denne landskoden" << endl;
 	}
 }
 
@@ -93,12 +108,20 @@ void Nasjoner::skrivEnNasjon()
 {
 	Nasjon* tempNasjon;
 	char temp[LANDSKODE];
-	do
+
+	if (nasjonListe->noOfElements() != 0)						//Skjekker at det finnes minst en nasjon
 	{
-		lesNasjon("Skriv inn landskode som det skal skrives informasjon om", temp, LANDSKODE);
-	} while (!nasjonListe->inList(temp));
-	tempNasjon = (Nasjon*)nasjonListe->remove(temp);
-	tempNasjon->display();
-	nasjonListe->add(tempNasjon);
+		do
+		{
+			lesNasjon("Skriv inn landskode som det skal skrives informasjon om", temp, LANDSKODE);
+		} while (!nasjonListe->inList(temp));					//Les til en virkelig landskode
+		tempNasjon = (Nasjon*)nasjonListe->remove(temp);
+		tempNasjon->display();									//Kjør dette landets displayfunksjon
+		nasjonListe->add(tempNasjon);
+	}
+	else
+	{
+		cout << "\n\tIngen nasjoner i lista." << endl;
+	}
 }
 

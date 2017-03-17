@@ -24,28 +24,21 @@ void MenyOL();
 void MenyOR();
 
 //Les funksjoner
-char les();
-int les(char* t, int min, int max);
-void les(const char t[], char s[], const int LEN);
+char les();									//Leser, returnerer og upcaser en enkel char
+int les(char* t, const int min, const int max);		//Leser og returnerer en int mellom MIN og MAX
+void les(const char t[], char s[], const int LEN);	//Leser inn text i S, max LEN lang
 void les(const char* t, char* &s);
-void lesNasjon(const char t[], char s[], const int LEN);
+void lesNasjon(const char t[], char s[], const int LEN);	//Leser inn en landskode i S
 void lesInnFraFil(char* &s, ifstream & inn);
-int lesTelefon();
+int lesTelefon();							//Leser inn et lovelig telefonnummer
 
 //Skjekk dato funksjoner
 int lesDato();								//Sjekker at dato finnes
 bool skuddaar(int aa);						//  Hentet/kopiert (nesten) RETT
-bool finnesDato(int da, int ma, int aa);	//     fra OPPG_20.
+bool finnesDato(int da, int ma, int aa);	//     fra OPPG_20 - Endret av PK for oblig_3
 
 //Leser inn klokkeslett
 int lesKlokkeSlett();
-
-//MenyN() funksjoner:
-void registrerNasjon();
-void endreNasjon();
-void hoveddataNasjon();
-void deltagereNasjon();
-void alleDataEnNasjon();
 
 //MenyD funksjoner:
 void registrerDeltager();
@@ -58,5 +51,10 @@ void registrerGren();
 void endreGren();
 void hovedGren();
 void gittGren();
+
+
+//Andre funksjoner
+bool kunTall(char t[]);				//Skjekker at en text bare inneholder tall
+
 
 #endif

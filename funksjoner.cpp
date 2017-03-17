@@ -28,7 +28,7 @@ char les() // leser inn et ikke-blankt tegn.
 	return (toupper(ch));
 }
 
-int les(char* t, int min, int max) { // leser inn et tall mellom to grenser.
+int les(char* t, const int min, const int max) { // leser inn et tall mellom to grenser.
 	int tall;
 	do {
 		cout << '\t' << t << " (" << min << '-' << max << "):  ";
@@ -37,7 +37,7 @@ int les(char* t, int min, int max) { // leser inn et tall mellom to grenser.
 	return tall;
 }
 
-void les(const char t[], char s[], const int LEN) { // leser inn en text
+void les(const char t[], char s[], const int LEN) { // leser inn en ikke-blank text
 	do {
 		cout << '\t' << t << ": ";	cin.getline(s, LEN);
 	} while (strlen(s) == 0);
@@ -57,7 +57,15 @@ void lesInnFraFil(char* &s, ifstream & inn)
 
 int lesTelefon()
 {
-	return 0;
+	char temp[TELEFONNUMMER + 1];
+	int gyldigNummer;
+
+	do
+	{
+		les("Skriv inn telefonnummer, 10 tegn, landskode først, kun tall", temp, TELEFONNUMMER);
+	} while (!kunTall(temp));			//Leser inn nummer til det er bare tall
+	gyldigNummer = (int) temp;			//Caster til int, siden det bare er tall
+	return gyldigNummer;				//Returnerer gyldig nummer
 }
 
 void les(const char* t, char* &s) // tar med char pointer og en pointer
@@ -77,14 +85,16 @@ void les(const char* t, char* &s) // tar med char pointer og en pointer
 void lesNasjon(const char t[], char s[], const int LEN)
 {
 	char temp[MAXTXT + 1];
+
 	do {
-		cout << '\t' << t << ": ";	cin.getline(temp, LEN);
-	} while (strlen(temp) != 3);
-	for (int i = 0; i < 3; i++)
+		cout << '\t' << t << ": ";
+		cin.getline(temp, LEN);
+	} while (strlen(temp) != 3);			//Leser inn i temp helt til det er 3 tegn
+	for (int i = 0; i < 3; i++)				//Går gjennom tegnene
 	{
-		temp[i] = toupper(temp[i]);
+		temp[i] = toupper(temp[i]);			//Upcaser hvert tegn
 	}
-	strcpy(s, temp);
+	strcpy(s, temp);						//Kopierer over i medsendt array
 }
 
 void skrivMeny()
@@ -158,7 +168,7 @@ void Meny()
 	kommando = les();             //  Leser brukerens valg.
 	while (kommando != 'X') {
 		switch (kommando) {
-		case 'N': nasjonerObjekt.MenyN(); break;
+		case 'N': nasjonerObjekt.MenyN();		break;
 		case 'D': MenyD();  break;
 		case 'G': MenyG(); break;
 		case 'O': MenyO();   break;
@@ -336,27 +346,6 @@ bool finnesDato(int da, int ma, int aa) {
 	return true;                          // Returnerer at datoen finnes.
 }
 
-//NASJON FUNKSJONER
-void registrerNasjon() {
-	nasjonerObjekt.registrerNasjon();
-}
-
-void endreNasjon() {
-
-}
-
-void hoveddataNasjon() {
-
-}
-
-void deltagereNasjon() {
-
-}
-
-void alleDataEnNasjon() {
-
-}
-
 
 // DELTAGERE FUNKSJONER
 void registrerDeltager()
@@ -398,4 +387,20 @@ void hovedGren()
 void gittGren()
 {
 	grenobjekt.skrivUtValgt();
+}
+
+bool kunTall(char t[])
+{
+	bool bareTall = true;
+	int i = 0;
+
+	while (i < strlen(t) || bareTall)
+	{
+		if (!isdigit(t[i]))
+		{
+			bareTall = false;
+		}
+		i++;
+	}
+	return true;
 }
