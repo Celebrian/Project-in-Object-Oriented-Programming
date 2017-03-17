@@ -12,8 +12,12 @@ private:
 	List* nasjonListe;
 public:
 	Nasjoner();
+	void skrivMenyN();
+	void MenyN();
 	void registrerNasjon();
 	void endreNasjon();
+
+	void skrivEnNasjon();
 };
 
 

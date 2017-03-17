@@ -13,6 +13,7 @@ using namespace std;
 
 Nasjon::Nasjon(char * landskode) : TextElement(landskode)
 {
+	les("Komplett nasjonsnavn", navn);
 	antallDeltagere = les("Antall deltagere i troppen", MINDELTAGER, MAXDELTAGER);
 	les("Skriv navnet på nasjonens kontaktperson", kontaktNavn);
 	kontaktTelefon = lesTelefon();
@@ -24,9 +25,9 @@ void Nasjon::endreNasjon()
 
 	cout << "\n\tHva vil du endre? "
 		<< "\n\tN - Det fulle navnet til nasjonen."
-		<< "\n\tK - Endre navn på kontaktperson"
-		<< "\n\tT - Endre telefon på kontaktperson"
-		<< "\n\tQ - For å gå tilbake";
+		<< "\n\tK - Navn på kontaktperson"
+		<< "\n\tT - Telefon på kontaktperson"
+		<< "\n\tQ - Ingenting, gå opp en meny";
 	ch = les();
 	while (ch != 'Q')
 	{
@@ -37,9 +38,9 @@ void Nasjon::endreNasjon()
 		case 'T': endreTelefon();		break;
 		default: cout << "\n\tHva vil du endre? "
 			<< "\n\tN - Det fulle navnet til nasjonen."
-			<< "\n\tK - Endre navn på kontaktperson"
-			<< "\n\tT - Endre telefon på kontaktperson"
-			<< "\n\tQ - For å gå tilbake";	break;
+			<< "\n\tK - Navn på kontaktperson"
+			<< "\n\tT - Telefon på kontaktperson"
+			<< "\n\tQ - Ingenting, gå opp en meny";	break;
 		}
 		ch = les();
 	}
@@ -66,6 +67,15 @@ void Nasjon::display()
 {
 	cout << "\n\n\tLandskode: " << text
 		<< "\n\tNasjonsnavn: " << navn
+		<< "\n\tKontaktperson: " << kontaktNavn
+		<< "\n\tTelefonkontakt: " << kontaktTelefon;
+}
+
+void Nasjon::displayAlt()
+{
+	cout << "\n\n\tLandskode: " << text
+		<< "\n\tNasjonsnavn: " << navn
+		<< "\n\tAntall deltagere: " << antallDeltagere
 		<< "\n\tKontaktperson: " << kontaktNavn
 		<< "\n\tTelefonkontakt: " << kontaktTelefon;
 }

@@ -9,7 +9,6 @@ using namespace std;
 
 //Skriv meny funksjoner
 void skrivMeny();
-void skrivMenyN();
 void skrivMenyD();
 void skrivMenyG();
 void skrivMenyO();
@@ -18,7 +17,6 @@ void skrivMenyOR();
 
 //Meny funksjoner
 void Meny();
-void MenyN();
 void MenyD();
 void MenyG();
 void MenyO();
@@ -30,6 +28,7 @@ char les();
 int les(char* t, int min, int max);
 void les(const char t[], char s[], const int LEN);
 void les(const char* t, char* &s);
+void lesNasjon(const char t[], char s[], const int LEN);
 void lesInnFraFil(char* &s, ifstream & inn);
 int lesTelefon();
 

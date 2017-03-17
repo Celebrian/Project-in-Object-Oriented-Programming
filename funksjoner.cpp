@@ -16,7 +16,7 @@
 using namespace std;
 
 extern Deltagere deltagerobjekt;
-extern Nasjoner nasjonobjekt;
+extern Nasjoner nasjonerObjekt;
 
 char les() // leser inn et ikke-blankt tegn.
 {
@@ -43,7 +43,7 @@ void les(const char t[], char s[], const int LEN) { // leser inn en text
 
 void lesInnFraFil(char* &s, ifstream & inn)
 { // funksjon for a hente char til pointers når man leser fra fil
-	char temp[MAXTXT]; // lager en temp array
+	char temp[MAXTXT + 1]; // lager en temp array
 	do
 	{
 		inn.getline(temp, MAXTXT); // henter teksten fra fil
@@ -53,18 +53,36 @@ void lesInnFraFil(char* &s, ifstream & inn)
 	s[strlen(temp)] = '\0'; // legger til pa slutten av s
 }
 
+int lesTelefon()
+{
+	return 0;
+}
+
 void les(const char* t, char* &s) // tar med char pointer og en pointer
 {	// pointeren er referanseoverfort for a ikke tulle med dens 
 	// originale plass i memory.
-	char temp[MAXTXT]; // lager en array med max strorrelse
+	char temp[MAXTXT + 1]; // lager en array med max strorrelse
 	do
 	{
-		cout << t;
+		cout << "\t" << t << ": ";
 		cin.getline(temp, MAXTXT); // henter tenkst og legger den inn i temp
 	} while (strlen(temp) == 0);
 	s = new char[strlen(temp) + 1]; // lager array med fikset storrelse
 	strcpy(s, temp); // kopierer fra temp og inn i s
 	s[strlen(temp)] = '\0'; // legger inn pa slutten av arrayen.
+}
+
+void lesNasjon(const char t[], char s[], const int LEN)
+{
+	char temp[MAXTXT + 1];
+	do {
+		cout << '\t' << t << ": ";	cin.getline(temp, LEN);
+	} while (strlen(temp) != 3);
+	for (int i = 0; i < 3; i++)
+	{
+		temp[i] = toupper(temp[i]);
+	}
+	strcpy(s, temp);
 }
 
 void skrivMeny()
@@ -79,16 +97,6 @@ void skrivMeny()
 	cout << "\n\tX = eXit";
 }
 
-void skrivMenyN()
-{
-	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
-	cout << "\n\tN = Registrer en ny nasjon";
-	cout << "\n\tE = Endre en nasjon";
-	cout << "\n\tA = Skriv alle data om alle nasjoner";
-	cout << "\n\tT = Skriv en nasjons deltagertropp";
-	cout << "\n\tS = Skriv alle data om en gitt nasjon";
-	cout << "\n\tQ = Forrige meny";
-}
 
 void skrivMenyD()
 {
@@ -148,7 +156,7 @@ void Meny()
 	kommando = les();             //  Leser brukerens valg.
 	while (kommando != 'X') {
 		switch (kommando) {
-		case 'N': MenyN(); break;
+		case 'N': nasjonerObjekt.MenyN(); break;
 		case 'D': MenyD();  break;
 		case 'G': MenyG(); break;
 		case 'O': MenyO();   break;
@@ -157,25 +165,6 @@ void Meny()
 		default:  skrivMeny();       break;
 		}
 		kommando = les();
-	}
-}
-
-void MenyN()
-{
-	char valg;                //  Brukerens valg.
-	skrivMenyN();                  //  skriver ut meny med valg.
-
-	valg = les();             //  Leser brukerens valg.
-	while (valg != 'Q') {
-		switch (valg) {
-		case 'N': cout << "\nRegistrer ny nasjon"; break;
-		case 'E': cout << "\nEndrer nasjon";  break;
-		case 'A': cout << "\nSkriver alle"; break;
-		case 'T': cout << "\nskriver tropp";   break;
-		case 'S': cout << "\skriver alle data";  break;
-		default:  skrivMenyN();       break;
-		}
-		valg = les();
 	}
 }
 
@@ -208,7 +197,7 @@ void MenyG()
 		case 'N': cout << "\nRegistrer ny gren"; break;
 		case 'E': cout << "\nEndrer gren";  break;
 		case 'A': cout << "\nSkriver alle"; break;
-		case 'S': cout << "\skriver alle data";  break;
+		case 'S': cout << "\nSkriver alle data";  break;
 		default:  skrivMenyG();       break;
 		}
 		valg = les();
@@ -237,7 +226,7 @@ void MenyO()
 		case 'N': cout << "\nRegistrer ny øvelse i " << tempNavn; break;
 		case 'E': cout << "\nEndrer en øvelse i: " << tempNavn;  break;
 		case 'F': cout << "\nFjerner en ævelse i: " << tempNavn;; break;
-		case 'S': cout << "\skriver data om alle øvelser i: " << tempNavn;  break;
+		case 'S': cout << "\nSkriver data om alle øvelser i: " << tempNavn;  break;
 		case 'L': MenyOL(); break;
 		case 'R': MenyOR(); break;
 		default:  skrivMenyO();       break;
@@ -346,7 +335,7 @@ bool finnesDato(int da, int ma, int aa) {
 }
 
 void registrerNasjon() {
-	nasjonobjekt.registrerNasjon();
+	nasjonerObjekt.registrerNasjon();
 }
 
 void endreNasjon() {
