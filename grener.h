@@ -10,6 +10,7 @@ private:
 	List* grenListe;
 	int sisteGren;
 public:
+	Grener();
 	void lagNyGren();
 	void endreGren();
 	void skrivUt();

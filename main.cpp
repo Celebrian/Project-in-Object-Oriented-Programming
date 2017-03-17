@@ -1,4 +1,3 @@
-#include "const.h"
 #include "funksjoner.h"
 #include "nasjoner.h"
 #include "deltagere.h"
@@ -6,7 +5,7 @@
 #include "medaljer.h"
 #include "poeng.h"
 
-Nasjoner nasjonobjekt;
+Nasjoner nasjonerObjekt;
 Deltagere deltagerobjekt;
 Grener grenobjekt;
 Medaljer medaljeobjekt;

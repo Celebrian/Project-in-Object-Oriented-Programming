@@ -18,6 +18,7 @@ public:
 	void endreKontaktNavn();
 	void endreTelefon();
 	virtual void display();
+	void displayAlt();
 };
 
 #endif

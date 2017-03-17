@@ -8,6 +8,7 @@ using namespace std;
 
 Gren::Gren(char * ch) : TextElement(ch)
 {
+
 	navn = ch;
 	char chr;  cout << "\nVelg resultat type: P(oeng)/T(id)";
 	chr = les();

@@ -7,6 +7,11 @@ using namespace std;
 #include "const.h"
 #include "gren.h"
 
+Grener::Grener()
+{
+	grenListe = new List(Sorted);
+}
+
 void Grener::lagNyGren()
 {
 	char* temp;
@@ -14,7 +19,7 @@ void Grener::lagNyGren()
 	{
 		les("\nSkriv inn navn på gren: ", temp);
 	} while (grenListe->inList(temp));
-	if (grenListe->noOfElements() < MAXDELTAGERE)
+	if (grenListe->noOfElements() < MAXDELTAGER)
 	{
 		Gren* nyGren;
 		nyGren = new Gren(temp);
@@ -47,5 +52,5 @@ void Grener::skrivUt()
 
 void Grener::skrivUtValgt()
 {
-
+	// GJØR DETTE ETTER O ER FERDIG.
 }
