@@ -16,7 +16,7 @@ public:
 	void MenyN();
 	void registrerNasjon();
 	void endreNasjon();
-
+	void skrivNasjonDeltagere();
 	void skrivEnNasjon();
 };
 

@@ -3,8 +3,11 @@
 using namespace std;
 
 #include "ListTool2B.h"
+#include "deltagere.h"
 #include "nasjoner.h"
 #include "nasjon.h"
+
+extern Deltagere deltagerobjekt;
 
 Nasjoner::Nasjoner()
 {
@@ -72,6 +75,11 @@ void Nasjoner::endreNasjon()
 	{
 		cout << "Ingen Nasjoner med denne landskoden!";
 	}
+}
+
+void Nasjoner::skrivNasjonDeltagere()
+{
+	
 }
 
 void Nasjoner::skrivEnNasjon()
