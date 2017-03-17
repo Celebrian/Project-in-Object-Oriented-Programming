@@ -11,11 +11,13 @@
 #include "deltager.h"
 #include "deltagere.h"
 #include "nasjoner.h"
+#include "grener.h"
 
 
 using namespace std;
 
 extern Deltagere deltagerobjekt;
+extern Grener grenobjekt;
 extern Nasjoner nasjonerObjekt;
 
 char les() // leser inn et ikke-blankt tegn.
@@ -194,10 +196,10 @@ void MenyG()
 	valg = les();             //  Leser brukerens valg.
 	while (valg != 'Q') {
 		switch (valg) {
-		case 'N': cout << "\nRegistrer ny gren"; break;
-		case 'E': cout << "\nEndrer gren";  break;
-		case 'A': cout << "\nSkriver alle"; break;
-		case 'S': cout << "\nSkriver alle data";  break;
+		case 'N': registrerGren(); ; break;
+		case 'E': endreGren();  break;
+		case 'A': hovedGren(); break;
+		case 'S': gittGren();  break;
 		default:  skrivMenyG();       break;
 		}
 		valg = les();
@@ -334,6 +336,7 @@ bool finnesDato(int da, int ma, int aa) {
 	return true;                          // Returnerer at datoen finnes.
 }
 
+//NASJON FUNKSJONER
 void registrerNasjon() {
 	nasjonerObjekt.registrerNasjon();
 }
@@ -354,6 +357,8 @@ void alleDataEnNasjon() {
 
 }
 
+
+// DELTAGERE FUNKSJONER
 void registrerDeltager()
 {
 	deltagerobjekt.lagNyDeltager();
@@ -372,4 +377,25 @@ void hovedDeltager()
 void gittDeltager()
 {
 	deltagerobjekt.skrivUtValgt();
+}
+
+// GRENER FUNKSJONER
+void registrerGren()
+{
+	grenobjekt.lagNyGren();
+}
+
+void endreGren()
+{
+	grenobjekt.endreGren();
+}
+
+void hovedGren()
+{
+	grenobjekt.skrivUt();
+}
+
+void gittGren()
+{
+	grenobjekt.skrivUtValgt();
 }

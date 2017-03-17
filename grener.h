@@ -7,8 +7,14 @@
 
 class Grener {
 private:
-	List* nasjonListe;
+	List* grenListe;
+	int sisteGren;
 public:
+	Grener();
+	void lagNyGren();
+	void endreGren();
+	void skrivUt();
+	void skrivUtValgt();
 
 };
 #endif

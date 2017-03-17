@@ -24,6 +24,7 @@ void Deltagere::lagNyDeltager()
 		Deltager* nyDeltager;
 		nyDeltager = new Deltager(temp);
 		deltagerListe->add(nyDeltager);
+		sisteDeltager++;
 	}
 }
 
@@ -56,10 +57,24 @@ void Deltagere::skrivUtValgt()
 	if (deltagerListe->inList(temp))
 	{
 		temppeker = (Deltager*)deltagerListe->remove(temp);
-		temppeker->display();
+		temppeker->displayAll();
 		deltagerListe->add(temppeker);
 	}
 	else {
 		cout << "\nDeltager finnes ikke." << endl;
+	}
+}
+
+void Deltagere::loopGjennom(char ch[LANDSKODE+1])
+{
+	Deltager* temppeker;
+	int temp = deltagerListe->noOfElements();
+	for (int i = 1; i < temp; i++)
+	{
+		temppeker = (Deltager*)deltagerListe->remove(temp);
+		if (temppeker->sjekkLand(ch)) {
+			temppeker->display();
+		}
+		deltagerListe->add(temppeker);
 	}
 }

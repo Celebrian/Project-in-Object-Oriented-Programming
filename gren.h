@@ -9,11 +9,14 @@
 #include "ovelse.h"
 
 class Gren : public TextElement {
+	char* navn;
 	resultatType typeResultat;
 	int antallOvelser;
 	Ovelse* ovelser[MAXOVELSER];
 public:
-
+	Gren(char* ch);
+	void endreNyGren();
+	virtual void display();
 };
 
 #endif

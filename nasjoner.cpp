@@ -9,6 +9,7 @@ using namespace std;
 
 extern Deltagere deltagerobjekt;
 
+
 Nasjoner::Nasjoner()
 {
 	nasjonListe = new List(Sorted);
@@ -79,7 +80,13 @@ void Nasjoner::endreNasjon()
 
 void Nasjoner::skrivNasjonDeltagere()
 {
-	
+	char temp[LANDSKODE + 1];
+	lesNasjon("Skriv inn landskode", temp, LANDSKODE);
+	if (nasjonListe->inList(temp))
+	{
+		cout << "\n\tNasjon: " << temp << endl;
+		deltagerobjekt.loopGjennom(temp);
+	}
 }
 
 void Nasjoner::skrivEnNasjon()

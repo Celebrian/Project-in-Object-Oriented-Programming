@@ -3,7 +3,10 @@
 
 //Nasjon klasse deklarasjon
 
+#include "deltagere.h"
 #include "ListTool2B.h"
+
+extern Deltagere deltagerobjekt;
 
 class Nasjon : public TextElement {
 private:

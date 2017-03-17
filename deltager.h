@@ -16,6 +16,7 @@ public:
 	Deltager(int n);
 	void endreNyDeltager();
 	virtual void display();
+	void displayAll();
 };
 
 

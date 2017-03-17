@@ -11,7 +11,7 @@ Deltager::Deltager(int n) : NumElement(n)
 {
 	number = n;
 	les("\nSkriv inn navn: ", navn);
-	les("\nSkriv inn nasjonsforkortelse", nasjon, LANDSKODE);
+	lesNasjon("\nSkriv inn nasjonsforkortelse", nasjon, LANDSKODE);
 	char ch;  cout << "\nVelg kjønn G(utt)/J(ente)";
 	ch = les();
 	gender = (ch == 'M') ? gutt : jente;
@@ -36,6 +36,13 @@ void Deltager::endreNyDeltager()
 }
 
 void Deltager::display()
+{
+	cout << "\n\tDeltagernummer: " << number
+		<< "\n\tNavn: " << navn << "\n\tKjønn: "
+		<< ((gender == jente) ? "jente" : "gutt") << endl;
+}
+
+void Deltager::displayAll()
 {
 	cout << "\n\tDeltagernummer: " << number
 		<< "\n\tNavn: " << navn
