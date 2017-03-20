@@ -7,15 +7,17 @@
 
 class Nasjoner {
 private:
-	List* nasjonListe;
+	List* nasjonListe;				//Liste over nasjoner
 public:
-	Nasjoner();
-	void skrivMenyN();
-	void MenyN();
-	void registrerNasjon();
-	void endreNasjon();
-	void skrivNasjonDeltagere();
-	void skrivEnNasjon();
+	Nasjoner();						//Construktor
+	void skrivMenyN();				//Skriver undermeny N
+	void MenyN();					//Undermeny N
+	void registrerNasjon();			//Registrerer ny nasjon
+	void endreNasjon();				//Endrer data ved en nasjon
+	void skrivNasjonDeltagere();	//Skriver alle deltagere ved en nasjon
+	void skrivEnNasjon();			//Skriver all informasjon om en nasjon
+	void lesNasjonerFraFil();		//Leser Nasjoner fra fil
+	void skrivNasjonerTilFil();		//Skriver nasjoner til fil
 };
 
 
