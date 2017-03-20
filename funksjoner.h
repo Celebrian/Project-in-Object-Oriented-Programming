@@ -9,16 +9,12 @@ using namespace std;
 
 //Skriv meny funksjoner
 void skrivMeny();
-void skrivMenyD();
-void skrivMenyG();
 void skrivMenyO();
 void skrivMenyOL();
 void skrivMenyOR();
 
 //Meny funksjoner
 void Meny();
-void MenyD();
-void MenyG();
 void MenyO();
 void MenyOL();
 void MenyOR();
@@ -39,12 +35,6 @@ bool finnesDato(int da, int ma, int aa);	//     fra OPPG_20 - Endret av PK for o
 
 //Leser inn klokkeslett
 int lesKlokkeSlett();
-
-//MenyD funksjoner:
-void registrerDeltager();
-void endreDeltager();
-void hovedDeltager();
-void gittDeltager();
 
 //MenyG funksjoner:
 void registrerGren();

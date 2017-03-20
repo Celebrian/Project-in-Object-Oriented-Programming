@@ -109,27 +109,6 @@ void skrivMeny()
 	cout << "\n\tX = eXit";
 }
 
-
-void skrivMenyD()
-{
-	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
-	cout << "\n\tN = Registrer en ny deltaker";
-	cout << "\n\tE = Endre en deltaker";
-	cout << "\n\tA = Skriv alle data om alle deltakere";
-	cout << "\n\tS = Skriv alle data om en gitt deltaker";
-	cout << "\n\tQ = Forrige meny";
-}
-
-void skrivMenyG()
-{
-	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
-	cout << "\n\tN = Registrer en ny gren";
-	cout << "\n\tE = Endre en gren";
-	cout << "\n\tA = Skriv alle data om alle grener";
-	cout << "\n\tS = Skriv alle data om en gitt gren";
-	cout << "\n\tQ = Forrige meny";
-}
-
 void skrivMenyO()
 {
 	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
@@ -169,50 +148,14 @@ void Meny()
 	while (kommando != 'X') {
 		switch (kommando) {
 		case 'N': nasjonerObjekt.MenyN();		break;
-		case 'D': MenyD();  break;
-		case 'G': MenyG(); break;
+		case 'D': deltagerobjekt.MenyD();  break;
+		case 'G': grenobjekt.MenyH(); break;
 		case 'O': MenyO();   break;
 		case 'M': cout << "\nMedaljeoveriskt";  break;
 		case 'P': cout << "\nPoengoveriskt";    break;
 		default:  skrivMeny();       break;
 		}
 		kommando = les();
-	}
-}
-
-void MenyD()
-{
-	char valg;                //  Brukerens valg.
-	skrivMenyD();                  //  skriver ut meny med valg.
-
-	valg = les();             //  Leser brukerens valg.
-	while (valg != 'Q') {
-		switch (valg) {
-		case 'N': registrerDeltager(); break;
-		case 'E': endreDeltager();  break;
-		case 'A': hovedDeltager(); break;
-		case 'S': gittDeltager();  break;
-		default:  skrivMenyD();       break;
-		}
-		valg = les();
-	}
-}
-
-void MenyG()
-{
-	char valg;                //  Brukerens valg.
-	skrivMenyG();                  //  skriver ut meny med valg.
-
-	valg = les();             //  Leser brukerens valg.
-	while (valg != 'Q') {
-		switch (valg) {
-		case 'N': registrerGren(); ; break;
-		case 'E': endreGren();  break;
-		case 'A': hovedGren(); break;
-		case 'S': gittGren();  break;
-		default:  skrivMenyG();       break;
-		}
-		valg = les();
 	}
 }
 
@@ -344,28 +287,6 @@ bool finnesDato(int da, int ma, int aa) {
 	if (da < 1 || da > dagerPrMaaned[ma - 1])  return false;  // Ulovlig dag:
 															  //  Garantert at er en lovlig dato!!
 	return true;                          // Returnerer at datoen finnes.
-}
-
-
-// DELTAGERE FUNKSJONER
-void registrerDeltager()
-{
-	deltagerobjekt.lagNyDeltager();
-}
-
-void endreDeltager()
-{
-	deltagerobjekt.endreDeltager();
-}
-
-void hovedDeltager()
-{
-	deltagerobjekt.skrivUt();
-}
-
-void gittDeltager()
-{
-	deltagerobjekt.skrivUtValgt();
 }
 
 // GRENER FUNKSJONER

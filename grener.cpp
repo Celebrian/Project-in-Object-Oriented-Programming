@@ -54,3 +54,32 @@ void Grener::skrivUtValgt()
 {
 	// GJØR DETTE ETTER O ER FERDIG.
 }
+
+void Grener::MenyH()
+{
+	
+		char valg;                //  Brukerens valg.
+		skrivMenyG();                  //  skriver ut meny med valg.
+
+		valg = les();             //  Leser brukerens valg.
+		while (valg != 'Q') {
+			switch (valg) {
+			case 'N': lagNyGren(); ; break;
+			case 'E': endreGren();  break;
+			case 'A': skrivUt(); break;
+			case 'S': skrivUtValgt();  break;
+			default:  skrivMenyG();       break;
+			}
+			valg = les();
+	}
+}
+
+void Grener::skrivMenyG()
+{
+	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
+	cout << "\n\tN = Registrer en ny gren";
+	cout << "\n\tE = Endre en gren";
+	cout << "\n\tA = Skriv alle data om alle grener";
+	cout << "\n\tS = Skriv alle data om en gitt gren";
+	cout << "\n\tQ = Forrige meny";
+}

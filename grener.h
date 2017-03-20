@@ -15,6 +15,7 @@ public:
 	void endreGren();
 	void skrivUt();
 	void skrivUtValgt();
-
+	void MenyH();
+	void skrivMenyG();
 };
 #endif

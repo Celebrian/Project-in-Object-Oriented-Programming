@@ -12,6 +12,9 @@ Medaljer medaljeobjekt;
 Poeng poengobjekt;
 
 int main() {
+	deltagerobjekt.LesDeltagereFraFil();
 	Meny();
+
+	deltagerobjekt.skrivDeltagereTilFil();
 	return 0;
 }

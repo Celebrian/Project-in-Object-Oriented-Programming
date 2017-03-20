@@ -9,15 +9,17 @@
 
 class Deltager : public NumElement {
 private:
-	char* navn;
-	char nasjon[LANDSKODE + 1];
-	kjonn gender;
+	char* navn;	
+	char nasjon[LANDSKODE + 1];		// Tre bokstaver
+	kjonn gender;		// enum med gutt/jente
 public:
-	Deltager(int n);
-	void endreNyDeltager();
-	virtual void display();
-	void displayAll();
-	bool sjekkLand(char ch[LANDSKODE]);
+	Deltager(int n);	// kjøres når en ny deltager opprettes
+	Deltager(int n, ifstream & inn);
+	void endreNyDeltager();	// for å endre en deltager besert på nummer innskrevet
+	virtual void display();	// skriver ut data
+	void displayAll();	// skriver ut alle data
+	bool sjekkLand(char ch[LANDSKODE]);	// sjekker om en nasjon finnes
+	void skrivDeltagerTilFil(ofstream & ut);
 };
 
 

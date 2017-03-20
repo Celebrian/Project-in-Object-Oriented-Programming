@@ -12,11 +12,15 @@ private:
 	int sisteDeltager;
 public:
 	Deltagere();
-	void lagNyDeltager();
-	void endreDeltager();
-	void skrivUt();
-	void skrivUtValgt();
-	void loopGjennom(char ch[LANDSKODE+1]);
+	void lagNyDeltager(); // lager ny deltager.
+	void endreDeltager();	// endrer valgte data om en deltager.
+	void skrivUt();	// skriver ut noen data om alle objekter.
+	void skrivUtValgt();	// skriver ut valge data om valgt objekt.
+	void loopGjennom(char ch[LANDSKODE+1]); // sjekker om en nasjon finnes.
+	void MenyD();	// lager en meny.
+	void skrivMenyD();	// skriver menyvalg.
+	void LesDeltagereFraFil(); 
+	void skrivDeltagereTilFil();
 };
 
 #endif
