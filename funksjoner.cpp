@@ -5,6 +5,9 @@
 #include <iostream>
 #include <fstream>
 #include <cctype>
+#include <cstdlib>
+
+using namespace std;
 
 #include "const.h"
 #include "funksjoner.h"
@@ -14,7 +17,6 @@
 #include "grener.h"
 
 
-using namespace std;
 
 extern Deltagere deltagerobjekt;
 extern Grener grenobjekt;
@@ -57,14 +59,14 @@ void lesInnFraFil(char* &s, ifstream & inn)
 
 int lesTelefon()
 {
-	char temp[TELEFONNUMMER + 1];
+	char temp[TELEFONNUMMER + 10];
 	int gyldigNummer;
 
 	do
 	{
-		les("Skriv inn telefonnummer, 10 tegn, landskode først, kun tall", temp, TELEFONNUMMER);
+		les("Skriv inn telefonnummer, ikke landskode, kun tall", temp, TELEFONNUMMER);
 	} while (!kunTall(temp));			//Leser inn nummer til det er bare tall
-	gyldigNummer = (int) temp;			//Caster til int, siden det bare er tall
+	gyldigNummer = atoi(temp);			//Caster til int, siden det bare er tall
 	return gyldigNummer;				//Returnerer gyldig nummer
 }
 

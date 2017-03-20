@@ -19,6 +19,14 @@ Nasjon::Nasjon(char * landskode) : TextElement(landskode)
 	kontaktTelefon = lesTelefon();
 }
 
+Nasjon::Nasjon(ifstream & inn, char* landskode) : TextElement(landskode)
+{
+	lesInnFraFil(navn, inn);
+	inn >> antallDeltagere; inn.ignore();
+	lesInnFraFil(kontaktNavn, inn);
+	inn >> kontaktTelefon; inn.ignore();
+}
+
 void Nasjon::endreNasjon()
 {
 	char ch;
@@ -68,10 +76,11 @@ void Nasjon::endreTelefon()
 
 void Nasjon::display()
 {
-	cout << "\n\n\tLandskode: " << text
+	cout << "\n\tLandskode: " << text
 		<< "\n\tNasjonsnavn: " << navn
 		<< "\n\tKontaktperson: " << kontaktNavn
-		<< "\n\tTelefonkontakt: " << kontaktTelefon;
+		<< "\n\tTelefonkontakt: " << kontaktTelefon
+		<< endl << endl;
 }
 
 void Nasjon::displayAlt()
@@ -81,5 +90,14 @@ void Nasjon::displayAlt()
 		<< "\n\tAntall deltagere: " << antallDeltagere
 		<< "\n\tKontaktperson: " << kontaktNavn
 		<< "\n\tTelefonkontakt: " << kontaktTelefon;
+}
+
+void Nasjon::skrivNasjonTilFil(ofstream & ut)
+{
+	ut << text << endl
+		<< navn << endl
+		<< antallDeltagere << endl
+		<< kontaktNavn << endl
+		<< kontaktTelefon << endl;
 }
 

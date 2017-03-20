@@ -125,3 +125,36 @@ void Nasjoner::skrivEnNasjon()
 	}
 }
 
+void Nasjoner::lesNasjonerFraFil()
+{
+	Nasjon* nyNasjon;
+	char temp[LANDSKODE + 1];
+
+	ifstream inn("gruppe03/NASJONER.DTA");
+	if (inn)
+	{
+		inn.getline(temp, LANDSKODE);
+		while (!inn.eof() && nasjonListe->noOfElements() < MAXNASJONER)
+		{
+			nyNasjon = new Nasjon(inn, temp);
+			nasjonListe->add(nyNasjon);
+			nyNasjon = nullptr;
+			
+			inn.getline(temp, LANDSKODE);
+		}
+	}
+}
+
+void Nasjoner::skrivNasjonerTilFil()
+{
+	Nasjon* tempNasjon;
+	ofstream ut("gruppe03/NASJONER.DTA");
+
+	for (int i = 1; i <= nasjonListe->noOfElements(); i++)
+	{
+		tempNasjon = (Nasjon*)nasjonListe->removeNo(i);
+		tempNasjon->skrivNasjonTilFil(ut);
+		nasjonListe->add(tempNasjon);
+	}
+}
+

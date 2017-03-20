@@ -12,6 +12,8 @@ Medaljer medaljeobjekt;
 Poeng poengobjekt;
 
 int main() {
+	nasjonerObjekt.lesNasjonerFraFil();
 	Meny();
+	nasjonerObjekt.skrivNasjonerTilFil();
 	return 0;
 }
