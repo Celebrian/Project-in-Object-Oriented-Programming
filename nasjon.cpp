@@ -78,6 +78,7 @@ void Nasjon::display()
 {
 	cout << "\n\tLandskode: " << text
 		<< "\n\tNasjonsnavn: " << navn
+		<< "\n\tAntall deltagere i troppen" << antallDeltagere
 		<< "\n\tKontaktperson: " << kontaktNavn
 		<< "\n\tTelefonkontakt: " << kontaktTelefon
 		<< endl << endl;
