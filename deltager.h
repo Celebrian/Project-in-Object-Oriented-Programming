@@ -13,15 +13,15 @@ private:
 	char nasjon[LANDSKODE + 1];		// Tre bokstaver
 	kjonn gender;		// enum med gutt/jente
 public:
-	Deltager(int n);	// kjøres når en ny deltager opprettes
+	Deltager(int n, char chr[]);	// kjøres når en ny deltager opprettes
 	Deltager(int n, ifstream & inn);
 	void endreNyDeltager();	// for å endre en deltager besert på nummer innskrevet
 	virtual void display();	// skriver ut data
 	void displayAll();	// skriver ut alle data
 	bool sjekkLand(char ch[LANDSKODE]);	// sjekker om en nasjon finnes
 	void skrivDeltagerTilFil(ofstream & ut);
-	char lesInnNasjon();
-	void endreDeltagersNasjon();
+	void lesInnNasjon(char ch[]);
+	void endreDeltagersNasjon(char ch[]);
 };
 
 

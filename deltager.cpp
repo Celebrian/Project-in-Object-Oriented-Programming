@@ -1,3 +1,7 @@
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif 
+
 #include <iostream>
 
 using namespace std;
@@ -10,11 +14,10 @@ using namespace std;
 
 extern Nasjoner nasjonerObjekt;
 
-Deltager::Deltager(int n) : NumElement(n)
+Deltager::Deltager(int n, char chr[]) : NumElement(n)
 {
+	strcpy(nasjon, chr);
 	les("\nSkriv inn navn: ", navn); // leser inn navn.
-	nasjon[LANDSKODE] = lesInnNasjon();	// leser inn en forkortelse på tre upper-case bokstaver
-	nasjonerObjekt.plussDeltager(nasjon);
 	char ch;  cout << "\nVelg kjønn G(utt)/J(ente)";	// Setter kjønn i enumen
 	ch = les();
 	gender = (ch == 'G') ? gutt : jente;
@@ -38,7 +41,7 @@ void Deltager::endreNyDeltager()
 		switch (ch)		// Utfører brukerens valg
 		{
 		case 'N': delete[] navn; les("\nLes inn nytt navn", navn); break; // sletter først navn, så leser inn nytt
-		case 'A': endreDeltagersNasjon(); break; // leser inn en ny gyldig nasjon
+		case 'A': endreDeltagersNasjon(nasjon); break; // leser inn en ny gyldig nasjon
 		case 'K': char chr;  cout << "\nVelg kjønn G(utt)/J(ente)"; // bestemmer kjønn på nyt
 			chr = les();
 			gender = (ch == 'M') ? gutt : jente; break;
@@ -75,22 +78,25 @@ void Deltager::skrivDeltagerTilFil(ofstream & ut) // skriver data fra objektet t
 	(gender == jente) ? ut << jente << '\n' : ut << gutt << '\n';
 }
 
-char Deltager::lesInnNasjon()
+void Deltager::lesInnNasjon(char ch[])
 {
 	char temp[LANDSKODE];
-	do
+	lesNasjon("\nLess inn nasjonsforkortelse", temp, LANDSKODE);
+	if (nasjonerObjekt.finnesNasjon(temp)) {
+		strcpy(ch, temp);
+	}
+	else 
 	{
-		lesNasjon("\nLess inn nasjonsforkortelse", temp, LANDSKODE);
-	} while (!nasjonerObjekt.finnesNasjon(temp));
-	return temp[LANDSKODE];
+		cout << "\n\tNasjonen finnes ikke! " << endl;
+	}
 }
 
-void Deltager::endreDeltagersNasjon()
+void Deltager::endreDeltagersNasjon(char ch[])
 {
 	char gammel[LANDSKODE];
 	strcpy(gammel, nasjon);
 	char ny[LANDSKODE];
-	ny[LANDSKODE] = lesInnNasjon();
+	lesInnNasjon(ny);
 	nasjonerObjekt.minusDeltager(gammel);
 	nasjonerObjekt.plussDeltager(ny);
 	strcpy(nasjon, ny);

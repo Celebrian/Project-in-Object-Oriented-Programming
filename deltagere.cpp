@@ -7,6 +7,9 @@ using namespace std;
 #include "funksjoner.h"
 #include "const.h"
 #include "deltager.h"
+#include "nasjoner.h"
+
+extern Nasjoner nasjonObjekt;
 
 Deltagere::Deltagere()
 {
@@ -16,17 +19,32 @@ Deltagere::Deltagere()
 void Deltagere::lagNyDeltager()
 {
 	int temp;
-	do
-	{	// leser inn og sjekker om et deltagernummer er gyldig.
+
+// leser inn og sjekker om et deltagernummer er gyldig.
 		temp = les("\nSkriv inn deltagernummer", MINDELTAGERE, MAXDELTAGERE);
-	} while (deltagerListe->inList(temp));
-		if (deltagerListe->noOfElements() < MAXDELTAGERE)	// hvis lista ikk er full.
-	{
-		Deltager* nyDeltager;	// så lages det et nytt deltagerobjekt
-		nyDeltager = new Deltager(temp);	// og legger det inn i lista
-		deltagerListe->add(nyDeltager);		// baser på innskrevet nummer.
-		sisteDeltager++;	// teller opp variabelen.
-	}
+		if (!deltagerListe->inList(temp))
+		{
+			char temp2[LANDSKODE];
+			lesNasjon("\nLes inn nasjon", temp2, LANDSKODE);
+			if (nasjonObjekt.finnesNasjon(temp2))
+			{
+				if (deltagerListe->noOfElements() < MAXDELTAGERE)	// hvis lista ikk er full.
+				{
+					Deltager* nyDeltager;	// så lages det et nytt deltagerobjekt
+					nyDeltager = new Deltager(temp, temp2);	// og legger det inn i lista
+					deltagerListe->add(nyDeltager);		// baser på innskrevet nummer.
+					sisteDeltager++;	// teller opp variabelen.
+				}
+			}
+			else
+			{
+				cout << "\nNasjon finnes ikke!" << endl;
+			}
+		}
+		else
+		{
+			cout << "\nDeltagernummer finnes allerede!" << endl;
+		}
 }
 
 void Deltagere::endreDeltager()
