@@ -11,7 +11,7 @@ using namespace std;
 #include "funksjoner.h"
 #include "nasjon.h"
 
-Nasjon::Nasjon(char * landskode) : TextElement(landskode)
+Nasjon::Nasjon(char * landskode) : TextElement(landskode)	//Sender landskode opp til text
 {
 	les("Komplett nasjonsnavn", navn);
 	antallDeltagere = les("Antall deltagere i troppen", MINDELTAGERE, MAXDELTAGERE);
@@ -19,7 +19,7 @@ Nasjon::Nasjon(char * landskode) : TextElement(landskode)
 	kontaktTelefon = lesTelefon();
 }
 
-Nasjon::Nasjon(ifstream & inn, char* landskode) : TextElement(landskode)
+Nasjon::Nasjon(ifstream & inn, char* landskode) : TextElement(landskode)	//Sender landskode med til text
 {
 	lesInnFraFil(navn, inn);
 	inn >> antallDeltagere; inn.ignore();

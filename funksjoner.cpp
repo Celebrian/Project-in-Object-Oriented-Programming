@@ -89,8 +89,8 @@ void lesNasjon(const char t[], char s[], const int LEN)
 	char temp[MAXTXT + 1];
 
 	do {
-		cout << '\t' << t << ": ";
-		cin.getline(temp, LEN);
+		cout << '\t' << t << ", 3 tegn: ";
+		cin.getline(temp, MAXTXT);
 	} while (strlen(temp) != 3);			//Leser inn i temp helt til det er 3 tegn
 	for (int i = 0; i < 3; i++)				//Går gjennom tegnene
 	{

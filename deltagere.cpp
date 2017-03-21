@@ -18,7 +18,7 @@ void Deltagere::lagNyDeltager()
 	int temp;
 	do
 	{	// leser inn og sjekker om et deltagernummer er gyldig.
-		temp = les("\nSkriv inn deltagernummer", MINDELTAGER, MAXDELTAGER);
+		temp = les("\nSkriv inn deltagernummer", MINDELTAGERE, MAXDELTAGERE);
 	} while (deltagerListe->inList(temp));
 		if (deltagerListe->noOfElements() < MAXDELTAGERE)	// hvis lista ikk er full.
 	{
@@ -33,7 +33,7 @@ void Deltagere::endreDeltager()
 {
 	Deltager* temppeker;
 	int temp; // leser inn nummer på deltager du vil endre.
-	temp = les("\nSkriv inn deltagernummer", MINDELTAGER, MAXDELTAGER);
+	temp = les("\nSkriv inn deltagernummer", MINDELTAGERE, MAXDELTAGERE);
 		if (deltagerListe->inList(temp)) //sjekker om deltager finnes.
 		{
 			temppeker = (Deltager*)deltagerListe->remove(temp);
@@ -56,7 +56,7 @@ void Deltagere::skrivUtValgt()
 {
 	Deltager* temppeker;
 	int temp; // leser inn nummer på deltager du vil se data om.
-	temp = les("\nSkriv inn deltagernummer", MINDELTAGER, MAXDELTAGER);
+	temp = les("\nSkriv inn deltagernummer", MINDELTAGERE, MAXDELTAGERE);
 	if (deltagerListe->inList(temp))	// sjekker om deltageren finnes.
 	{
 		temppeker = (Deltager*)deltagerListe->remove(temp);
@@ -75,7 +75,7 @@ void Deltagere::loopGjennom(char ch[LANDSKODE+1])
 	int temp = deltagerListe->noOfElements(); // henter antall elementer i lista.
 	for (int i = 1; i < temp; i++) // looper gjennom alle.
 	{
-		temppeker = (Deltager*)deltagerListe->remove(temp);	// tar ut hvert enkelt objekt.
+		temppeker = (Deltager*)deltagerListe->removeNo(i);	// tar ut hvert enkelt objekt.
 		if (temppeker->sjekkLand(ch)) {						// sammenligner dataene.
 			temppeker->display();						// og displayer hvis dataene er like med det brukeren skrev inn.
 		}
@@ -118,7 +118,7 @@ void Deltagere::LesDeltagereFraFil()
 	if (inn) // sjekker om fila finnes.
 	{
 		inn >> temp;
-		while (!inn.eof() && deltagerListe->noOfElements() < MAXDELTAGER) // sjekker om det en slutt på fil, eller lista er for stor.
+		while (!inn.eof() && deltagerListe->noOfElements() < MAXDELTAGERE) // sjekker om det en slutt på fil, eller lista er for stor.
 		{
 			Deltager* nyDeltager;	// så lages det et nytt deltagerobjekt
 			nyDeltager = new Deltager(temp, inn);	// og legger det inn i lista

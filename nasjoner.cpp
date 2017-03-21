@@ -36,7 +36,7 @@ void Nasjoner::MenyN()
 		switch (valg) {
 		case 'N': registrerNasjon();			break;
 		case 'E': endreNasjon();				break;
-		case 'A': nasjonListe->displayList();	break;
+		case 'A': skrivAlleNasjoner();			break;
 		case 'T': skrivNasjonDeltagere();		break;
 		case 'S': skrivEnNasjon();				break;
 		default:  skrivMenyN();					break;
@@ -75,16 +75,35 @@ void Nasjoner::endreNasjon()
 	Nasjon* tempNasjon;
 	char temp[MAXTXT + 1];
 
-	lesNasjon("Skriv inn landskode på nasjon du vil endre på", temp, LANDSKODE);
-	if (nasjonListe->inList(temp))							//Hvis landskoden finnes i lista
+	if (!nasjonListe->isEmpty())								//Skjekker at det finnes minst en nasjon
 	{
-		tempNasjon = (Nasjon*)nasjonListe->remove(temp);	//Ta ut av lista
-		tempNasjon->endreNasjon();							//Kjør objektets endre nasjon
-		nasjonListe->add(tempNasjon);						//Og legg tilbake i lista
+		lesNasjon("Skriv inn landskode på nasjon du vil endre på", temp, LANDSKODE);
+		if (nasjonListe->inList(temp))							//Hvis landskoden finnes i lista
+		{
+			tempNasjon = (Nasjon*)nasjonListe->remove(temp);	//Ta ut av lista
+			tempNasjon->endreNasjon();							//Kjør objektets endre nasjon
+			nasjonListe->add(tempNasjon);						//Og legg tilbake i lista
+		}
+		else
+		{
+			cout << "\n\tIngen nasjoner med denne landskoden!";
+		}
 	}
 	else
 	{
-		cout << "\n\tIngen nasjoner med denne landskoden!";
+		cout << "\n\tDet finnes ingen nasjoner." << endl;
+	}
+}
+
+void Nasjoner::skrivAlleNasjoner()
+{
+	if (!nasjonListe->isEmpty())									//Skjekker at det finnes minst en nasjon
+	{
+		nasjonListe->displayList();								//Kjører alle nasjoners display()
+	}
+	else
+	{
+		cout << "\n\tIngen nasjoner i lista." << endl;
 	}
 }
 
@@ -100,7 +119,7 @@ void Nasjoner::skrivNasjonDeltagere()
 	}
 	else
 	{
-		cout << "\n\tIngen nasjoner med denne landskoden" << endl;
+		cout << "\n\tIngen nasjoner med denne landskoden." << endl;
 	}
 }
 
@@ -111,13 +130,17 @@ void Nasjoner::skrivEnNasjon()
 
 	if (nasjonListe->noOfElements() != 0)						//Skjekker at det finnes minst en nasjon
 	{
-		do
+		lesNasjon("Skriv inn landskode som det skal skrives informasjon om", temp, LANDSKODE);
+		if (nasjonListe->inList(temp))							//Hvis den inleste nasjonen finnes
 		{
-			lesNasjon("Skriv inn landskode som det skal skrives informasjon om", temp, LANDSKODE);
-		} while (!nasjonListe->inList(temp));					//Les til en virkelig landskode
-		tempNasjon = (Nasjon*)nasjonListe->remove(temp);
-		tempNasjon->display();									//Kjør dette landets displayfunksjon
-		nasjonListe->add(tempNasjon);
+			tempNasjon = (Nasjon*)nasjonListe->remove(temp);
+			tempNasjon->display();									//Kjør denne nasjonens displayfunksjon
+			nasjonListe->add(tempNasjon);
+		}
+		else
+		{
+			cout << "\n\tIngen nasjoner med denne landsforkortelsen." << endl;
+		}
 	}
 	else
 	{
@@ -135,26 +158,33 @@ void Nasjoner::lesNasjonerFraFil()
 	{
 		inn.getline(temp, LANDSKODE);
 		while (!inn.eof() && nasjonListe->noOfElements() < MAXNASJONER)
-		{
+		{					//Leser så lenge fila ikke er slutt og det er plass til flere nasjoner
 			nyNasjon = new Nasjon(inn, temp);
 			nasjonListe->add(nyNasjon);
 			nyNasjon = nullptr;
-			
+
 			inn.getline(temp, LANDSKODE);
 		}
+	}
+	else
+	{
+		cout << "\n\n\tFant ikke filen Nasjoner.DTA" << endl;
 	}
 }
 
 void Nasjoner::skrivNasjonerTilFil()
 {
-	Nasjon* tempNasjon;
-	ofstream ut("gruppe03/NASJONER.DTA");
-
-	for (int i = 1; i <= nasjonListe->noOfElements(); i++)
+	if (!nasjonListe->isEmpty())							//Skriver ikke til fil hvis det ikke er noe å skrive
 	{
-		tempNasjon = (Nasjon*)nasjonListe->removeNo(i);
-		tempNasjon->skrivNasjonTilFil(ut);
-		nasjonListe->add(tempNasjon);
+		Nasjon* tempNasjon;
+		ofstream ut("gruppe03/NASJONER.DTA");
+
+		for (int i = 1; i <= nasjonListe->noOfElements(); i++)
+		{
+			tempNasjon = (Nasjon*)nasjonListe->removeNo(i);
+			tempNasjon->skrivNasjonTilFil(ut);
+			nasjonListe->add(tempNasjon);
+		}
 	}
 }
 

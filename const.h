@@ -9,9 +9,9 @@ const int MAXNASJONER = 200;			//Max antall nasjoner
 const int MAXOVELSER = 20;				//Max antall øvelser
 const int MINDELTAGER = 1000;
 const int MAXDELTAGER = 2000;
-const int MINDELTAGERE = 1;
-const int MAXDELTAGERE = 100;
-const int TELEFONNUMMER = 10;			//10 siffer langt telefonnummer, med landskode først
+const int MINDELTAGERE = 100;			//Minste deltagernummer
+const int MAXDELTAGERE = 20000;			//Høyeste deltagernummer
+const int TELEFONNUMMER = 8;			//8 siffer langt telefonnummer, uten landskode
 
 #endif
 

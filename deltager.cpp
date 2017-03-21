@@ -68,5 +68,5 @@ void Deltager::skrivDeltagerTilFil(ofstream & ut) // skriver data fra objektet t
 	ut << number << '\n'; 
 	ut << navn << '\n';
 	ut << nasjon << '\n';
-	(gender == jente) ? ut << jente : ut << gutt << '\n';
+	(gender == jente) ? ut << jente << '\n' : ut << gutt << '\n';
 }
