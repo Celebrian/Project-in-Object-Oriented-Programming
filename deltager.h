@@ -20,6 +20,8 @@ public:
 	void displayAll();	// skriver ut alle data
 	bool sjekkLand(char ch[LANDSKODE]);	// sjekker om en nasjon finnes
 	void skrivDeltagerTilFil(ofstream & ut);
+	char lesInnNasjon();
+	void endreDeltagersNasjon();
 };
 
 

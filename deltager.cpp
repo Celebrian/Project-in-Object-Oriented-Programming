@@ -6,11 +6,15 @@ using namespace std;
 #include "funksjoner.h"
 #include "const.h"
 #include "enum.h"
+#include "nasjoner.h"
+
+extern Nasjoner nasjonerObjekt;
 
 Deltager::Deltager(int n) : NumElement(n)
 {
 	les("\nSkriv inn navn: ", navn); // leser inn navn.
-	lesNasjon("\nSkriv inn nasjonsforkortelse", nasjon, LANDSKODE);	// leser inn en forkortelse på tre upper-case bokstaver
+	nasjon[LANDSKODE] = lesInnNasjon();	// leser inn en forkortelse på tre upper-case bokstaver
+	nasjonerObjekt.plussDeltager(nasjon);
 	char ch;  cout << "\nVelg kjønn G(utt)/J(ente)";	// Setter kjønn i enumen
 	ch = les();
 	gender = (ch == 'G') ? gutt : jente;
@@ -34,7 +38,7 @@ void Deltager::endreNyDeltager()
 		switch (ch)		// Utfører brukerens valg
 		{
 		case 'N': delete[] navn; les("\nLes inn nytt navn", navn); break; // sletter først navn, så leser inn nytt
-		case 'A': les("\nLes inn ny nasjon", nasjon, MAXNASJONER); break; // leser inn en ny gyldig nasjon
+		case 'A': endreDeltagersNasjon(); break; // leser inn en ny gyldig nasjon
 		case 'K': char chr;  cout << "\nVelg kjønn G(utt)/J(ente)"; // bestemmer kjønn på nyt
 			chr = les();
 			gender = (ch == 'M') ? gutt : jente; break;
@@ -60,7 +64,7 @@ void Deltager::displayAll()	// leser ut alle data om objektet
 
 bool Deltager::sjekkLand(char ch[LANDSKODE])	// sjekker at en nasjon faktisk eksisterer.
 {
-	return(nasjon == ch);
+	return(!strcmp(nasjon, ch)); // sjekker om de er like og returnerer !0 hvis de er.
 }
 
 void Deltager::skrivDeltagerTilFil(ofstream & ut) // skriver data fra objektet til fil.
@@ -69,4 +73,25 @@ void Deltager::skrivDeltagerTilFil(ofstream & ut) // skriver data fra objektet t
 	ut << navn << '\n';
 	ut << nasjon << '\n';
 	(gender == jente) ? ut << jente << '\n' : ut << gutt << '\n';
+}
+
+char Deltager::lesInnNasjon()
+{
+	char temp[LANDSKODE];
+	do
+	{
+		lesNasjon("\nLess inn nasjonsforkortelse", temp, LANDSKODE);
+	} while (!nasjonerObjekt.finnesNasjon(temp));
+	return temp[LANDSKODE];
+}
+
+void Deltager::endreDeltagersNasjon()
+{
+	char gammel[LANDSKODE];
+	strcpy(gammel, nasjon);
+	char ny[LANDSKODE];
+	ny[LANDSKODE] = lesInnNasjon();
+	nasjonerObjekt.minusDeltager(gammel);
+	nasjonerObjekt.plussDeltager(ny);
+	strcpy(nasjon, ny);
 }

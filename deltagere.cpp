@@ -48,7 +48,13 @@ void Deltagere::endreDeltager()
 
 void Deltagere::skrivUt()
 {
-	deltagerListe->displayList();
+	if (!deltagerListe->isEmpty()) {
+		deltagerListe->displayList();
+	}
+	else
+	{
+		cout << "\n\tIngen elementer i liste. " << endl;
+	}
 	// bruker en virtuel display funksjon til å skrive ut data om alle objekter.
 }
 
@@ -73,7 +79,7 @@ void Deltagere::loopGjennom(char ch[LANDSKODE+1])
 {
 	Deltager* temppeker;
 	int temp = deltagerListe->noOfElements(); // henter antall elementer i lista.
-	for (int i = 1; i < temp; i++) // looper gjennom alle.
+	for (int i = 1; i <= temp; i++) // looper gjennom alle.
 	{
 		temppeker = (Deltager*)deltagerListe->removeNo(i);	// tar ut hvert enkelt objekt.
 		if (temppeker->sjekkLand(ch)) {						// sammenligner dataene.
@@ -135,19 +141,22 @@ void Deltagere::LesDeltagereFraFil()
 
 void Deltagere::skrivDeltagereTilFil()
 {
-	ofstream ut("gruppe03/DELTAGERE.DTA");
-	if (ut)
+	if (!deltagerListe->isEmpty())
 	{
-		int temp = deltagerListe->noOfElements();
+		ofstream ut("gruppe03/DELTAGERE.DTA");
+		if (ut)
+		{
+			int temp = deltagerListe->noOfElements();
 			for (int i = 1; i <= temp; i++)	// looper gjennom alle leger
 			{
 				Deltager* tempPeker = (Deltager*)deltagerListe->removeNo(i); // tar ut objekt
 				tempPeker->skrivDeltagerTilFil(ut);	// kjorer funskjonen skriv
 				deltagerListe->add(tempPeker);	// legger det inn i lista igjen.
 			}
-	}
-	else
-	{
-		cout << "\nFil ikke tilgjengelig! " << endl;
+		}
+		else
+		{
+			cout << "\nFil ikke tilgjengelig! " << endl;
+		}
 	}
 }
