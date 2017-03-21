@@ -134,7 +134,7 @@ void Nasjoner::skrivEnNasjon()
 		if (nasjonListe->inList(temp))							//Hvis den inleste nasjonen finnes
 		{
 			tempNasjon = (Nasjon*)nasjonListe->remove(temp);
-			tempNasjon->display();									//Kjør denne nasjonens displayfunksjon
+			tempNasjon->displayAlt();									//Kjør denne nasjonens displayfunksjon
 			nasjonListe->add(tempNasjon);
 		}
 		else
