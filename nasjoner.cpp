@@ -99,7 +99,7 @@ void Nasjoner::skrivAlleNasjoner()
 {
 	if (!nasjonListe->isEmpty())									//Skjekker at det finnes minst en nasjon
 	{
-		nasjonListe->displayList();								//Kjører alle nasjoners display()
+		nasjonListe->displayList();									//Kjører alle nasjoners display()
 	}
 	else
 	{
@@ -146,6 +146,29 @@ void Nasjoner::skrivEnNasjon()
 	{
 		cout << "\n\tIngen nasjoner i lista." << endl;
 	}
+}
+
+bool Nasjoner::finnesNasjon(const char t[])
+{
+	return (nasjonListe->inList(t));
+}
+
+void Nasjoner::plussDeltager(const char t[])
+{
+	Nasjon* nasjonptr;
+
+	nasjonptr = (Nasjon*)nasjonListe->remove(t);
+	nasjonptr->pluss();								//Teller opp antall deltagere i troppen
+	nasjonListe->add(nasjonptr);
+}
+
+void Nasjoner::minusDeltager(const char t[])
+{
+	Nasjon* nasjonptr;
+
+	nasjonptr = (Nasjon*)nasjonListe->remove(t);
+	nasjonptr->minus();								//Teller ned antall deltagere i troppen
+	nasjonListe->add(nasjonptr);
 }
 
 void Nasjoner::lesNasjonerFraFil()
