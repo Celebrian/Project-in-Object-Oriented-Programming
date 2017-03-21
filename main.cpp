@@ -15,7 +15,7 @@ int main() {
 	deltagerobjekt.LesDeltagereFraFil();
 	nasjonerObjekt.lesNasjonerFraFil();
 	Meny();
-	nasjonerObjekt.skrivNasjonerTilFil();
 	deltagerobjekt.skrivDeltagereTilFil();
+	nasjonerObjekt.skrivNasjonerTilFil();
 	return 0;
 }

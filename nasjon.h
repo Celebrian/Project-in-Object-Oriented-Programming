@@ -24,6 +24,8 @@ public:
 	void endreTelefon();				//Endre telefon på kontaktperson
 	virtual void display();				//Vise info om nasjon
 	void displayAlt();					//Vise all info om nasjon
+	void pluss();						//Teller opp antall deltagere
+	void minus();						//Teller ned antall deltagere
 	void skrivNasjonTilFil(ofstream & ut);	//Skrive nasjon til fil
 };
 

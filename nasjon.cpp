@@ -14,7 +14,7 @@ using namespace std;
 Nasjon::Nasjon(char * landskode) : TextElement(landskode)	//Sender landskode opp til text
 {
 	les("Komplett nasjonsnavn", navn);
-	antallDeltagere = les("Antall deltagere i troppen", MINDELTAGERE, MAXDELTAGERE);
+	antallDeltagere = 0;
 	les("Skriv navnet på nasjonens kontaktperson", kontaktNavn);
 	kontaktTelefon = lesTelefon();
 }
@@ -90,6 +90,16 @@ void Nasjon::displayAlt()
 		<< "\n\tAntall deltagere: " << antallDeltagere
 		<< "\n\tKontaktperson: " << kontaktNavn
 		<< "\n\tTelefonkontakt: " << kontaktTelefon;
+}
+
+void Nasjon::pluss()
+{
+	antallDeltagere++;
+}
+
+void Nasjon::minus()
+{
+	antallDeltagere--;
 }
 
 void Nasjon::skrivNasjonTilFil(ofstream & ut)
