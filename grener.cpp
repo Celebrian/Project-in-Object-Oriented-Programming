@@ -64,11 +64,11 @@ void Grener::MenyH()
 		valg = les();             //  Leser brukerens valg.
 		while (valg != 'Q') {
 			switch (valg) {
-			case 'N': lagNyGren(); ; break;
-			case 'E': endreGren();  break;
-			case 'A': skrivUt(); break;
-			case 'S': skrivUtValgt();  break;
-			default:  skrivMenyG();       break;
+			case 'N': lagNyGren();			break;
+			case 'E': endreGren();			break;
+			case 'A': skrivUt();			break;
+			case 'S': skrivUtValgt();		break;
+			default:  skrivMenyG();			break;
 			}
 			valg = les();
 	}
