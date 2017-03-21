@@ -28,6 +28,7 @@ Deltager::Deltager(int n, ifstream & inn) : NumElement(n)
 {
 	lesInnFraFil(navn, inn); // leser in navn.
 	inn.getline(nasjon, LANDSKODE); // leser inn nasjonforkortelse.
+	nasjonerObjekt.plussDeltager(nasjon); // teller opp antall deltagere
 	int temp;
 	inn >> temp; inn.ignore();		// leser inn 0 eller 1 fra fil
 	gender = ((temp == 0) ? jente : gutt);	// hvor 0 = jente og 1 = gutt.

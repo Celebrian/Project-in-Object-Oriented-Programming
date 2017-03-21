@@ -12,8 +12,8 @@ Medaljer medaljeobjekt;
 Poeng poengobjekt;
 
 int main() {
-	deltagerobjekt.LesDeltagereFraFil();
 	nasjonerObjekt.lesNasjonerFraFil();
+	deltagerobjekt.LesDeltagereFraFil();
 	Meny();
 	deltagerobjekt.skrivDeltagereTilFil();
 	nasjonerObjekt.skrivNasjonerTilFil();
