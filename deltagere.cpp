@@ -9,7 +9,7 @@ using namespace std;
 #include "deltager.h"
 #include "nasjoner.h"
 
-extern Nasjoner nasjonObjekt;
+extern Nasjoner nasjonerObjekt;
 
 Deltagere::Deltagere()
 {
@@ -26,7 +26,7 @@ void Deltagere::lagNyDeltager()
 		{
 			char temp2[LANDSKODE];
 			lesNasjon("\nLes inn nasjon", temp2, LANDSKODE);
-			if (nasjonObjekt.finnesNasjon(temp2))
+			if (nasjonerObjekt.finnesNasjon(temp2))
 			{
 				if (deltagerListe->noOfElements() < MAXDELTAGERE)	// hvis lista ikk er full.
 				{

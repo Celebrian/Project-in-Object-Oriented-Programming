@@ -22,6 +22,8 @@ public:
 	void skrivDeltagerTilFil(ofstream & ut);
 	void lesInnNasjon(char ch[]);
 	void endreDeltagersNasjon(char ch[]);
+	void endreNavn();
+	void endreKjonn();
 };
 
 

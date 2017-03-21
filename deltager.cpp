@@ -11,6 +11,7 @@ using namespace std;
 #include "const.h"
 #include "enum.h"
 #include "nasjoner.h"
+#include "nasjon.h"
 
 extern Nasjoner nasjonerObjekt;
 
@@ -36,17 +37,16 @@ void Deltager::endreNyDeltager()
 {
 	cout << "\nHva vil du endre på? (N)avn, n(A)sjon eller (K)jonn. Q for å avslutte " << endl;
 	char ch = les();	// leser inn en uppercase tegn
-	while (ch != 'Q');	// sjekker at brukeren ikke vil avslutte
+	while (ch != 'Q')	// sjekker at brukeren ikke vil avslutte
 	{
 		switch (ch)		// Utfører brukerens valg
 		{
-		case 'N': delete[] navn; les("\nLes inn nytt navn", navn); break; // sletter først navn, så leser inn nytt
+		case 'N': endreNavn();					break; // sletter først navn, så leser inn nytt
 		case 'A': endreDeltagersNasjon(nasjon); break; // leser inn en ny gyldig nasjon
-		case 'K': char chr;  cout << "\nVelg kjønn G(utt)/J(ente)"; // bestemmer kjønn på nyt
-			chr = les();
-			gender = (ch == 'M') ? gutt : jente; break;
+		case 'K': endreKjonn();					break;
 		default: break;
 		}
+		ch = les();
 	}
 }
 
@@ -81,9 +81,10 @@ void Deltager::skrivDeltagerTilFil(ofstream & ut) // skriver data fra objektet t
 void Deltager::lesInnNasjon(char ch[])
 {
 	char temp[LANDSKODE];
-	lesNasjon("\nLess inn nasjonsforkortelse", temp, LANDSKODE);
+	lesNasjon("\nLess inn nasjonsforkortelse ", temp, LANDSKODE);
 	if (nasjonerObjekt.finnesNasjon(temp)) {
 		strcpy(ch, temp);
+		cout << ch << endl;
 	}
 	else 
 	{
@@ -94,10 +95,28 @@ void Deltager::lesInnNasjon(char ch[])
 void Deltager::endreDeltagersNasjon(char ch[])
 {
 	char gammel[LANDSKODE];
-	strcpy(gammel, nasjon);
-	char ny[LANDSKODE];
-	lesInnNasjon(ny);
-	nasjonerObjekt.minusDeltager(gammel);
-	nasjonerObjekt.plussDeltager(ny);
-	strcpy(nasjon, ny);
+	strcpy(gammel, ch);
+	char temp[LANDSKODE];
+	lesNasjon("\nLess inn nasjonsforkortelse ", temp, LANDSKODE);
+	if (nasjonerObjekt.finnesNasjon(temp)) {
+		strcpy(ch, temp);
+		nasjonerObjekt.minusDeltager(gammel);
+		nasjonerObjekt.plussDeltager(temp);
+	}
+	else
+	{
+		cout << "\n\tNasjonen finnes ikke! " << endl;
+	}
+}
+
+void Deltager::endreNavn()
+{
+	delete[] navn; les("\nLes inn nytt navn", navn);
+}
+
+void Deltager::endreKjonn()
+{
+	char chr;  cout << "\nVelg kjønn G(utt)/J(ente)";	// bestemmer kjønn på nytt
+	chr = les();
+	gender = (chr == 'M') ? gutt : jente; 
 }
