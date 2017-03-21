@@ -22,17 +22,17 @@ void Deltagere::lagNyDeltager()
 
 // leser inn og sjekker om et deltagernummer er gyldig.
 		temp = les("\nSkriv inn deltagernummer", MINDELTAGERE, MAXDELTAGERE);
-		if (!deltagerListe->inList(temp))
+		if (!deltagerListe->inList(temp)) 
 		{
-			char temp2[LANDSKODE];
-			lesNasjon("\nLes inn nasjon", temp2, LANDSKODE);
-			if (nasjonerObjekt.finnesNasjon(temp2))
+			char temp2[LANDSKODE];	// leser inn en landskode.
+			lesNasjon("\nLes inn nasjon", temp2, LANDSKODE); 
+			if (nasjonerObjekt.finnesNasjon(temp2)) // sjekker om nasjonen finnes.
 			{
 				if (deltagerListe->noOfElements() < MAXDELTAGERE)	// hvis lista ikk er full.
 				{
 					Deltager* nyDeltager;	// så lages det et nytt deltagerobjekt
 					nyDeltager = new Deltager(temp, temp2);	// og legger det inn i lista
-					deltagerListe->add(nyDeltager);		// baser på innskrevet nummer.
+					deltagerListe->add(nyDeltager);		// baser på innskrevet nummer og nasjon.
 					sisteDeltager++;	// teller opp variabelen.
 				}
 			}
@@ -66,8 +66,8 @@ void Deltagere::endreDeltager()
 
 void Deltagere::skrivUt()
 {
-	if (!deltagerListe->isEmpty()) {
-		deltagerListe->displayList();
+	if (!deltagerListe->isEmpty()) {	// sjekker om lista er tom
+		deltagerListe->displayList();	// før den prøver å skrive ut.
 	}
 	else
 	{

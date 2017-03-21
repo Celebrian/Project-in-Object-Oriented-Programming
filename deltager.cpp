@@ -85,6 +85,8 @@ void Deltager::lesInnNasjon(char ch[])
 	if (nasjonerObjekt.finnesNasjon(temp)) {
 		strcpy(ch, temp);
 		cout << ch << endl;
+		// leser inn en nasjonsforkortelse på 3 bokstaver, sjekker om den finnes i nasjoner lista
+		// og returnerer det som en array.
 	}
 	else 
 	{
@@ -94,14 +96,15 @@ void Deltager::lesInnNasjon(char ch[])
 
 void Deltager::endreDeltagersNasjon(char ch[])
 {
-	char gammel[LANDSKODE];
-	strcpy(gammel, ch);
+	char gammel[LANDSKODE]; // tar vare på den gamle nasjonsforkortelsen
+	strcpy(gammel, ch);	// ved å kopiere den inn i en temp array.
 	char temp[LANDSKODE];
 	lesNasjon("\nLess inn nasjonsforkortelse ", temp, LANDSKODE);
 	if (nasjonerObjekt.finnesNasjon(temp)) {
-		strcpy(ch, temp);
-		nasjonerObjekt.minusDeltager(gammel);
-		nasjonerObjekt.plussDeltager(temp);
+		strcpy(ch, temp); // lager en ny temp array hvor det leses inn en ny nasjonsforkortelse
+						  // som må finnes i nasjoner lista for å bli kopiert over i nasjon arrayen.
+		nasjonerObjekt.minusDeltager(gammel);	// teller ned antall deltagere i den nasjonen som deltager ble flyttet fra.
+		nasjonerObjekt.plussDeltager(temp);		// teller opp antall deltagere i den nasjonen deltageren ble flytta til.
 	}
 	else
 	{
@@ -112,6 +115,7 @@ void Deltager::endreDeltagersNasjon(char ch[])
 void Deltager::endreNavn()
 {
 	delete[] navn; les("\nLes inn nytt navn", navn);
+	// sletter først navnet, også leser inn nytt navn.
 }
 
 void Deltager::endreKjonn()
