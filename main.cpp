@@ -15,9 +15,11 @@ int main() {
 	nasjonerObjekt.lesNasjonerFraFil();
 	deltagerobjekt.LesDeltagereFraFil();
 	grenobjekt.LesGrenerFraFil();
+	poengobjekt.lesFraFil();
 	Meny();
 	deltagerobjekt.skrivDeltagereTilFil();
 	nasjonerObjekt.skrivNasjonerTilFil();
 	grenobjekt.SkrivGrenerTilFil();
+	poengobjekt.skrivTilFil();
 	return 0;
 }

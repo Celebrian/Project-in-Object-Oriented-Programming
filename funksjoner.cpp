@@ -311,6 +311,7 @@ bool kunTall(char t[])
 
 void testPoeng() // TESTFUNKSJON, SKAL SLETTES SENERE.
 {
+	poengobjekt.displayPoeng();
 	char temp[LANDSKODE];
 	int tempint;
 	lesNasjon("\nHvilken nasjon skal få poeng?", temp, LANDSKODE);

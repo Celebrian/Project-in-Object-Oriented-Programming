@@ -4,10 +4,12 @@
 
 #include <cstring>
 #include <iostream>
+#include <fstream>
 
 using namespace std; 
 
 #include "poeng.h"
+#include "statestikk.h"
 
 void Poeng::oppdaterPoeng(char ch[LANDSKODE], int antP)
 {
@@ -57,5 +59,27 @@ void Poeng::displayPoeng() // TESTFUNKSJON, SKAL SLETTES SENERE.
 	for (int i = 1; i <= sisteBrukt; i++)
 	{
 		cout << "\nNasjon: " << nasjonForkortelser[i] << " Har : " << poengOversikt[i] << " Poeng." << endl;
+	}
+}
+
+void Poeng::lesFraFil()
+{
+	ifstream inn("gruppe03/POENG.DTA");		// åpner fil
+	inn >> sisteBrukt; inn.ignore();		// leser inn antall nasjoner i siste brukt
+	Statestikk::lesFraFil(inn , sisteBrukt);	// tilkaller baseklassens funksjon
+	for (int i = 1; i <= sisteBrukt; i++)	// looper opp til antall nasjonsforkortelser
+	{
+		inn >> poengOversikt[i]; inn.ignore();	// legger poengene inn i arrayen.
+	}
+}
+
+void Poeng::skrivTilFil()
+{
+	ofstream ut("gruppe03/POENG.DTA");	// åpner fil
+	ut << sisteBrukt << '\n';	// skriver ut antall nasjoner til senere bruk
+	Statestikk::skrivTilFil(ut);	// tilkaller baseklassens funksjon
+	for (int i = 1; i <= sisteBrukt; i++)	// looper gjennom alle nasjoner
+	{
+		ut << poengOversikt[i] << '\n';	// skriver ut poengene til fil.
 	}
 }
