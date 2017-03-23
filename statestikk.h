@@ -7,6 +7,7 @@
 
 class Statestikk {
 private:
+protected:
 	char nasjonForkortelser[MAXNASJONER][LANDSKODE];
 public:
 

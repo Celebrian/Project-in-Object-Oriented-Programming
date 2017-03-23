@@ -8,7 +8,7 @@
 
 class Poeng : public Statestikk {
 private: 
-	List* poengListe;
+
 public:
 
 };

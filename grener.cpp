@@ -31,17 +31,24 @@ void Grener::lagNyGren()
 
 void Grener::endreGren()
 {
-	Gren* temppeker;
-	char*  temp;
-	les("\nSkriv inn navn på gren du vil endre: ", temp);
-	if (grenListe->inList(temp)) // sjekker om grenen finnes i lista
-	{
-		temppeker = (Gren*)grenListe->remove(temp); // tar den ut av lista
-		temppeker->endreNyGren();					// kjører endre funkjson
-		grenListe->add(temppeker);					// og legger den inn igjen.
+	if (!grenListe->isEmpty()) {
+		Gren* temppeker;
+		char*  temp;
+		les("\nSkriv inn navn på gren du vil endre: ", temp);
+			if (grenListe->inList(temp)) // sjekker om grenen finnes i lista
+			{
+				temppeker = (Gren*)grenListe->remove(temp); // tar den ut av lista
+				temppeker->endreNyGren();					// kjører endre funkjson
+				grenListe->add(temppeker);					// og legger den inn igjen.
+			}
+			else 
+			{
+				cout << "\nGren finnes ikke." << endl;
+			}
 	}
-	else {
-		cout << "\nGren finnes ikke." << endl;
+	else
+	{
+		cout << "\nDet finnes ingen grener i lista!" << endl;
 	}
 }
 
