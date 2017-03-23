@@ -42,7 +42,7 @@ void Medaljer::sorterMedaljer()									//Sorterer medaljer
 				{
 					if (medaljeListe[i][bronse] == medaljeListe[j][bronse])	//Hvis I har like mange bronse som J:
 					{
-						if (strcmp(nasjonForkortelser[i], nasjonForkortelser[j]) < 0)	//Sorter på Landskode
+						if (strcmp(nasjonForkortelser[i], nasjonForkortelser[j]) > 0)	//Sorter på Landskode
 						{
 							bytt(i, j);			//Hvis de har like mange gull, sølv og bronse, sorter på landskode
 						}

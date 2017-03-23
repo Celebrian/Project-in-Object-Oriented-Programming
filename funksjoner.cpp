@@ -16,6 +16,7 @@ using namespace std;
 #include "nasjoner.h"
 #include "grener.h"
 #include "medaljer.h"
+#include "poeng.h"
 
 
 
@@ -23,7 +24,7 @@ extern Deltagere deltagerobjekt;
 extern Grener grenobjekt;
 extern Nasjoner nasjonerObjekt;
 extern Medaljer medaljeObjekt;
-
+extern Poeng poengobjekt;
 
 char les() // leser inn et ikke-blankt tegn.
 {
@@ -153,12 +154,12 @@ void Meny()
 	while (kommando != 'X') {
 		switch (kommando) {
 		case 'N': nasjonerObjekt.MenyN();		break;
-		case 'D': deltagerobjekt.MenyD();  break;
-		case 'G': grenobjekt.MenyH(); break;
-		case 'O': MenyO();   break;
-		case 'M': testMedalje();  break;
-		case 'P': cout << "\nPoengoveriskt";    break;
-		default:  skrivMeny();       break;
+		case 'D': deltagerobjekt.MenyD();		break;
+		case 'G': grenobjekt.MenyH();			break;
+		case 'O': MenyO();						break;
+		case 'M': testMedalje();				break;
+		case 'P': testPoeng();;					break;
+		default:  skrivMeny();					break;
 		}
 		kommando = les();
 	}
@@ -310,7 +311,6 @@ bool kunTall(char t[])
 	return true;
 }
 
-
 void testMedalje() {			//SØPPELFuNKSJON DELETE SNAREST
 	char temp[LANDSKODE];
 	int tempint = 0;
@@ -331,4 +331,16 @@ void testMedalje() {			//SØPPELFuNKSJON DELETE SNAREST
 	}
 	medaljeObjekt.nyMedalje(temp, pris);
 	medaljeObjekt.visMedaljer();
+}
+
+void testPoeng() // TESTFUNKSJON, SKAL SLETTES SENERE.
+{
+	poengobjekt.displayPoeng();
+	char temp[LANDSKODE];
+	int tempint;
+	lesNasjon("\nHvilken nasjon skal få poeng?", temp, LANDSKODE);
+	cout << "\nHvor mange poeng" << endl;
+	cin >> tempint;
+	poengobjekt.oppdaterPoeng(temp, tempint);
+	poengobjekt.displayPoeng();
 }
