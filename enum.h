@@ -14,4 +14,9 @@ enum resultatType {
 enum typeTid {					// KANSKJE UBRUKELIG????
 	tidel, hundredel, tusendel
 };
+
+enum medalje {
+	gull, solv, bronse
+};
+
 #endif
