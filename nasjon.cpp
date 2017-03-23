@@ -14,7 +14,6 @@ using namespace std;
 Nasjon::Nasjon(char * landskode) : TextElement(landskode)	//Sender landskode opp til text
 {
 	les("Komplett nasjonsnavn", navn);
-	antallDeltagere = 0;
 	les("Skriv navnet på nasjonens kontaktperson", kontaktNavn);
 	kontaktTelefon = lesTelefon();
 }
@@ -22,7 +21,6 @@ Nasjon::Nasjon(char * landskode) : TextElement(landskode)	//Sender landskode opp
 Nasjon::Nasjon(ifstream & inn, char* landskode) : TextElement(landskode)	//Sender landskode med til text
 {
 	lesInnFraFil(navn, inn);
-	inn >> antallDeltagere; inn.ignore();
 	lesInnFraFil(kontaktNavn, inn);
 	inn >> kontaktTelefon; inn.ignore();
 }
@@ -107,7 +105,6 @@ void Nasjon::skrivNasjonTilFil(ofstream & ut)
 {
 	ut << text << endl
 		<< navn << endl
-		<< antallDeltagere << endl
 		<< kontaktNavn << endl
 		<< kontaktTelefon << endl;
 }

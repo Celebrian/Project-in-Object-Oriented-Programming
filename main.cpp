@@ -14,8 +14,10 @@ Poeng poengobjekt;
 int main() {
 	nasjonerObjekt.lesNasjonerFraFil();
 	deltagerobjekt.LesDeltagereFraFil();
+	grenobjekt.LesGrenerFraFil();
 	Meny();
 	deltagerobjekt.skrivDeltagereTilFil();
 	nasjonerObjekt.skrivNasjonerTilFil();
+	grenobjekt.SkrivGrenerTilFil();
 	return 0;
 }

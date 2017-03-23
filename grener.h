@@ -8,7 +8,7 @@
 class Grener {
 private:
 	List* grenListe;
-	int sisteGren;
+	int sisteGren; // HUSK
 public:
 	Grener();
 	void lagNyGren();
@@ -17,5 +17,7 @@ public:
 	void skrivUtValgt();
 	void MenyH();
 	void skrivMenyG();
+	void LesGrenerFraFil();
+	void SkrivGrenerTilFil();
 };
 #endif

@@ -7,7 +7,7 @@ using namespace std;
 #include "const.h"
 #include "gren.h"
 
-Grener::Grener()
+Grener::Grener() // lager en ny liste med gren objekter
 {
 	grenListe = new List(Sorted);
 }
@@ -15,37 +15,44 @@ Grener::Grener()
 void Grener::lagNyGren()
 {
 	char* temp;
-	do
+	les("\nSkriv inn navn på gren: ", temp);
+	if (!grenListe->inList(temp))  // sjekker om grenene allerede finnes
 	{
-		les("\nSkriv inn navn på gren: ", temp);
-	} while (grenListe->inList(temp));
-	if (grenListe->noOfElements() < MAXDELTAGER)
+			Gren* nyGren;
+			nyGren = new Gren(temp); // lager en ny gren med navnet
+			grenListe->add(nyGren); // og legger den til i lista.
+			sisteGren++;
+	}
+	else
 	{
-		Gren* nyGren;
-		nyGren = new Gren(temp);
-		grenListe->add(nyGren);
-		sisteGren++;
+		cout << "\n\tGrenen finnes allerede!" << endl;
 	}
 }
 
 void Grener::endreGren()
 {
-	Gren* temppeker;
-	char*  temp;
-	les("\nSkriv inn navn på gren du vil endre: ", temp);
-	if (grenListe->inList(temp))
-	{
-		temppeker = (Gren*)grenListe->remove(temp);
-		temppeker->endreNyGren();
-		grenListe->add(temppeker);
-		sisteGren++;
+	if (!grenListe->isEmpty()) {
+		Gren* temppeker;
+		char*  temp;
+		les("\nSkriv inn navn på gren du vil endre: ", temp);
+			if (grenListe->inList(temp)) // sjekker om grenen finnes i lista
+			{
+				temppeker = (Gren*)grenListe->remove(temp); // tar den ut av lista
+				temppeker->endreNyGren();					// kjører endre funkjson
+				grenListe->add(temppeker);					// og legger den inn igjen.
+			}
+			else 
+			{
+				cout << "\nGren finnes ikke." << endl;
+			}
 	}
-	else {
-		cout << "\nDeltager finnes ikke." << endl;
+	else
+	{
+		cout << "\nDet finnes ingen grener i lista!" << endl;
 	}
 }
 
-void Grener::skrivUt()
+void Grener::skrivUt() // skriver ut data om alle objekter i lista
 {
 	grenListe->displayList();
 }
@@ -82,4 +89,48 @@ void Grener::skrivMenyG()
 	cout << "\n\tA = Skriv alle data om alle grener";
 	cout << "\n\tS = Skriv alle data om en gitt gren";
 	cout << "\n\tQ = Forrige meny";
+}
+
+void Grener::LesGrenerFraFil()
+{
+	char temp[MAXTXT+1];
+	ifstream inn("gruppe03/GRENER.DTA"); // åpner filen fra harddisk
+	if (inn) // sjekker om fila finnes.
+	{
+		inn.getline(temp, MAXTXT);
+		while (!inn.eof()) // sjekker om det en slutt på fil, eller lista er for stor.
+		{
+			Gren* nyGren;	// så lages det et nytt deltagerobjekt
+			nyGren = new Gren(temp, inn);	// og legger det inn i lista
+			grenListe->add(nyGren);		// baser på innskrevet nummer.
+			sisteGren++;	// teller opp variabelen.
+			inn.getline(temp, MAXTXT);
+		}
+	}
+	else
+	{
+		cout << "\nFil ikke funnet! " << endl;
+	}
+}
+
+void Grener::SkrivGrenerTilFil()
+{
+	if (!grenListe->isEmpty()) // sjekker om lista er tom.
+	{
+		ofstream ut("gruppe03/GRENER.DTA"); // åpner fil
+		if (ut)
+		{
+			int temp = grenListe->noOfElements();  // henter antall i lista
+			for (int i = 1; i <= temp; i++)	// looper gjennom alle grener
+			{
+				Gren* grenPeker = (Gren*)grenListe->removeNo(i); // tar ut objekt
+				grenPeker->SkrivGrenTilFil(ut);	// kjorer funskjonen skriv
+				grenListe->add(grenPeker);	// legger det inn i lista igjen.
+			}
+		}
+		else
+		{
+			cout << "\nFil ikke tilgjengelig! " << endl;
+		}
+	}
 }
