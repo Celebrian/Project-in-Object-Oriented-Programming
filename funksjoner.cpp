@@ -291,27 +291,6 @@ bool finnesDato(int da, int ma, int aa) {
 	return true;                          // Returnerer at datoen finnes.
 }
 
-// GRENER FUNKSJONER
-void registrerGren()
-{
-	grenobjekt.lagNyGren();
-}
-
-void endreGren()
-{
-	grenobjekt.endreGren();
-}
-
-void hovedGren()
-{
-	grenobjekt.skrivUt();
-}
-
-void gittGren()
-{
-	grenobjekt.skrivUtValgt();
-}
-
 bool kunTall(char t[])
 {
 	bool bareTall = true;
