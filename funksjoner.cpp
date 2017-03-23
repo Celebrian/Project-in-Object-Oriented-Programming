@@ -15,12 +15,14 @@ using namespace std;
 #include "deltagere.h"
 #include "nasjoner.h"
 #include "grener.h"
+#include "poeng.h"
 
 
 
 extern Deltagere deltagerobjekt;
 extern Grener grenobjekt;
 extern Nasjoner nasjonerObjekt;
+extern Poeng poengobjekt;
 
 char les() // leser inn et ikke-blankt tegn.
 {
@@ -154,7 +156,7 @@ void Meny()
 		case 'G': grenobjekt.MenyH(); break;
 		case 'O': MenyO();   break;
 		case 'M': cout << "\nMedaljeoveriskt";  break;
-		case 'P': cout << "\nPoengoveriskt";    break;
+		case 'P': testPoeng();;    break;
 		default:  skrivMeny();       break;
 		}
 		kommando = les();
@@ -305,4 +307,15 @@ bool kunTall(char t[])
 		i++;
 	}
 	return true;
+}
+
+void testPoeng() // TESTFUNKSJON, SKAL SLETTES SENERE.
+{
+	char temp[LANDSKODE];
+	int tempint;
+	lesNasjon("\nHvilken nasjon skal få poeng?", temp, LANDSKODE);
+	cout << "\nHvor mange poeng" << endl;
+	cin >> tempint;
+	poengobjekt.oppdaterPoeng(temp, tempint);
+	poengobjekt.displayPoeng();
 }

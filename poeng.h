@@ -8,9 +8,11 @@
 
 class Poeng : public Statestikk {
 private: 
-
+	int poengOversikt[MAXNASJONER];
 public:
-
+	void oppdaterPoeng(char ch[LANDSKODE], int antP);
+	void sorterPoeng();
+	void displayPoeng();
 };
 
 
