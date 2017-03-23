@@ -15,13 +15,14 @@ private:								//text = nasjonsforkortelse
 	int antallDeltagere;				//Antall Deltagere
 	char* kontaktNavn;					//Navn på kontaktperson
 	int kontaktTelefon;					//Telefon til kontaktperson
+
+	void endreNasjonNavn();				//Endre navn på nasjon
+	void endreKontaktNavn();			//Endre navn på kontaktperson
+	void endreTelefon();				//Endre telefon på kontaktperson
 public:
 	Nasjon(char* landskode);			//Construktor for ny nasjon
 	Nasjon(ifstream & inn, char* landskode);//Construktor for ny nasjon fra fil
 	void endreNasjon();					//Endre data om nasjon
-	void endreNasjonNavn();				//Endre navn på nasjon
-	void endreKontaktNavn();			//Endre navn på kontaktperson
-	void endreTelefon();				//Endre telefon på kontaktperson
 	virtual void display();				//Vise info om nasjon
 	void displayAlt();					//Vise all info om nasjon
 	void pluss();						//Teller opp antall deltagere

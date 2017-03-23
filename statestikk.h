@@ -8,8 +8,8 @@
 class Statestikk {
 private:
 protected:
-	char nasjonForkortelser[MAXNASJONER + 1][LANDSKODE];
-	int sisteBrukt;									//Antall nasjoner lagt inn i lista med minst en medalje
+	char nasjonForkortelser[MAXNASJONER + 1][LANDSKODE];	//Array med landskoder
+	int sisteBrukt;											//Antall nasjoner lagt inn i lista med minst en medalje
 public:
 
 };

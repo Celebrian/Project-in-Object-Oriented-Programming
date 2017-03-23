@@ -10,11 +10,14 @@
 class Medaljer : public Statestikk {
 private:
 	int medaljeListe[MAXNASJONER][3];				//Antall gull, sølv og bronse medaljer
+
+	void bytt(const int i, const int j);			//Flytter Nasjoner i arrayene
 public:
 	void nyMedalje(const char land[LANDSKODE], const medalje pris);
-	void sorterMedaljer();							//Bubblesort medaljer
-	void flytt(const int i, const int j);
-	void visMedaljer();
+	void sorterMedaljer();							//Sorterer medaljer
+	void visMedaljer();						//TEST FUNKSJON
+	void lesMedaljerFraFil();						//Les medaljer fra fil
+	void skrivMedaljerTilFil();						//Skriv medaljer til fil
 };
 
 #endif

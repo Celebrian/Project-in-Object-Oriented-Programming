@@ -311,7 +311,7 @@ bool kunTall(char t[])
 }
 
 
-void testMedalje() {
+void testMedalje() {			//SØPPELFuNKSJON DELETE SNAREST
 	char temp[LANDSKODE];
 	int tempint = 0;
 	medalje pris;
