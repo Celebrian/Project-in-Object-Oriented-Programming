@@ -9,10 +9,12 @@
 
 class Medaljer : public Statestikk {
 private:
-	int medaljeliste[MAXNASJONER][3];				//Antall gull, sølv og bronse medaljer
-	int sisteBrukt;									//
+	int medaljeListe[MAXNASJONER][3];				//Antall gull, sølv og bronse medaljer
 public:
-	void nyMedalje(const char land[], const medalje pris);
+	void nyMedalje(const char land[LANDSKODE], const medalje pris);
+	void sorterMedaljer();							//Bubblesort medaljer
+	void flytt(const int i, const int j);
+	void visMedaljer();
 };
 
 #endif

@@ -45,5 +45,6 @@ void gittGren();
 
 //Andre funksjoner
 bool kunTall(char t[]);				//Skjekker at en text bare inneholder tall
+void testMedalje();
 
 #endif

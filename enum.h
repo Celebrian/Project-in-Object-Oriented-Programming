@@ -3,11 +3,11 @@
 
 //ENUM'er:
 
-enum kjonn {
+enum kjonn {				//Kjønn
 	jente, gutt
 };
 
-enum resultatType {
+enum resultatType {			//Resultat; tid eller poeng
 	poeng, tid
 };
 
@@ -15,7 +15,7 @@ enum typeTid {					// KANSKJE UBRUKELIG????
 	tidel, hundredel, tusendel
 };
 
-enum medalje {
+enum medalje {				//Type medalje; gull, sølv eller bronse
 	gull, solv, bronse
 };
 

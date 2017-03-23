@@ -8,7 +8,7 @@
 Nasjoner nasjonerObjekt;
 Deltagere deltagerobjekt;
 Grener grenobjekt;
-Medaljer medaljeobjekt;
+Medaljer medaljeObjekt;
 Poeng poengobjekt;
 
 int main() {
