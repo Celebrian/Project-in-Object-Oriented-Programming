@@ -27,10 +27,10 @@ Gren::Gren(char ch[], ifstream & inn) : TextElement(ch)
 	int temp; inn >> temp; inn.ignore(); // leser inn 0 eller 1 fra fil
 	typeResultat = ((temp == 0) ? poeng : tid);	// hvor 0 = jente og 1 = gutt.
 	inn >> antallOvelser; inn.ignore(); 
-	for (int i = 1; i <= antallOvelser; i++) // looper gjennom hele arrayen med ovelser
-	{
-		inn >> ovelser[i];	// leser inn ovelsenummeret
-	}
+	//for (int i = 1; i <= antallOvelser; i++) // looper gjennom hele arrayen med ovelser
+	//{
+		//inn >> ovelser[i];	// leser inn ovelsenummeret
+	//}
 }
 
 void Gren::SkrivGrenTilFil(ofstream & ut)
@@ -38,10 +38,10 @@ void Gren::SkrivGrenTilFil(ofstream & ut)
 	ut << navn << '\n';	// skriver ut navn
 	(typeResultat == poeng) ? ut << poeng << '\n' : ut << tid << '\n';	// skriver ut 0 eller 1 for poeng eller tid.
 	ut << antallOvelser << '\n';
-	for (int i = 1; i <= antallOvelser; i++)	// looper hele ovelser arrayen.
-	{
-		ut << " " << ovelser[i];	// skriver ut ovelsenummer.
-	}
+	//for (int i = 1; i <= antallOvelser; i++)	// looper hele ovelser arrayen.
+	//{
+		//ut << " " << ovelser[i];	// skriver ut ovelsenummer.
+	//}
 }
 
 void Gren::endreNyGren()
@@ -72,10 +72,10 @@ void Gren::MenyO()
 	valg = les();             //  Leser brukerens valg.
 	while (valg != 'Q') {
 		switch (valg) {
-		case 'N': cout << "\nRegistrer ny øvelse i " << tempNavn; break;
+		case 'N': nyOvelse(); break;
 		case 'E': cout << "\nEndrer en øvelse i: " << tempNavn;  break;
 		case 'F': cout << "\nFjerner en ævelse i: " << tempNavn;; break;
-		case 'S': cout << "\nSkriver data om alle øvelser i: " << tempNavn;  break;
+		case 'A': cout << "\nSkriver data om alle øvelser";  break;
 		//case 'L': MenyOL(); break;
 		//case 'R': MenyOR(); break;
 		default:  skrivMenyO();       break;
@@ -169,4 +169,32 @@ void Gren::skrivMenyOR()
 void Gren::returnNavn(char t[])
 {
 	strcpy(t, text);
+}
+
+void Gren::nyOvelse()
+{
+	int tempID;
+	tempID = les("\nLes inn unik ID", 1000, 9999);
+
+	for (int i = 0;  i < antallOvelser;  i++)
+	{
+		if (!ovelser[i]->sjekkID(tempID))
+		{
+			char* temp;
+			les("\n\tLes inn navn på ovelse", temp);
+			if (!ovelser[i]->sjekkNavn(temp))
+			{
+				ovelser[++antallOvelser] = new Ovelse(tempID, temp);
+			}
+			else
+			{
+				cout << "\n\tNavn finnes allerede. " << endl;
+			}
+		}
+	
+	}
+	if (antallOvelser > MAXOVELSER)
+	{
+
+	}
 }
