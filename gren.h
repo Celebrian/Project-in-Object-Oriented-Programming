@@ -12,7 +12,7 @@ class Gren : public TextElement {
 	char* navn;
 	resultatType typeResultat;
 	int antallOvelser;
-	int ovelser[MAXOVELSER+1];
+	Ovelse* ovelser[MAXOVELSER+1];
 public:
 	Gren(char* ch);							// leser inn data fra tastatur.
 	Gren(char ch[], ifstream & inn);		// leser inn fra fil.
@@ -26,6 +26,7 @@ public:
 	void skrivMenyOL();
 	void skrivMenyOR();
 	void returnNavn(char t[]);
+	void nyOvelse();
 };
 
 #endif

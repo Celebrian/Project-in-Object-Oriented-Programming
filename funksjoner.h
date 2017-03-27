@@ -31,7 +31,6 @@ bool finnesDato(int da, int ma, int aa);	//     fra OPPG_20 - Endret av PK for o
 int lesKlokkeSlett();
 
 //Andre funksjoner
-bool kunTall(char t[]);				//Skjekker at en text bare inneholder tall
-void testPoeng();
-
+bool kunTall(char t[]);				//Skjekker at en text bare inneholder tal
+void gjorStor(char s[]);
 #endif

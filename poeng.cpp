@@ -56,9 +56,15 @@ void Poeng::sorterPoeng()
 
 void Poeng::displayPoeng() // TESTFUNKSJON, SKAL SLETTES SENERE.
 {
-	for (int i = 1; i <= sisteBrukt; i++)
+	if (strlen(nasjonForkortelser[1]) != 0) {
+		for (int i = 1; i <= sisteBrukt; i++)
+		{
+			cout << "\nNasjon: " << nasjonForkortelser[i] << " Har : " << poengOversikt[i] << " Poeng." << endl;
+		}
+	}
+	else
 	{
-		cout << "\nNasjon: " << nasjonForkortelser[i] << " Har : " << poengOversikt[i] << " Poeng." << endl;
+		cout << "\n\tIngen poeng å vise!" << endl;
 	}
 }
 

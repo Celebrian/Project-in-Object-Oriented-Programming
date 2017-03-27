@@ -6,6 +6,8 @@
 #include <fstream>
 #include <cctype>
 #include <cstdlib>
+#include <ctype.h>
+#include <stdio.h>
 
 using namespace std;
 
@@ -125,10 +127,10 @@ void Meny()
 		switch (kommando) {
 		case 'N': nasjonerObjekt.MenyN();		break;
 		case 'D': deltagerobjekt.MenyD();		break;
+		case 'P': poengobjekt.displayPoeng();	break;
 		case 'G': grenobjekt.MenyG();			break;
 		case 'O': grenobjekt.finnGren();		break;
 		case 'M': medaljeObjekt.visMedaljer();	break;
-		case 'P': testPoeng();;					break;
 		default:  skrivMeny();					break;
 		}
 		kommando = les();
@@ -199,14 +201,21 @@ bool kunTall(char t[])
 	return true;
 }
 
-void testPoeng() // TESTFUNKSJON, SKAL SLETTES SENERE.
+void gjorStor(char s[])
 {
-	poengobjekt.displayPoeng();
-	char temp[LANDSKODE];
-	int tempint;
-	lesNasjon("\nHvilken nasjon skal få poeng?", temp, LANDSKODE);
-	cout << "\nHvor mange poeng" << endl;
-	cin >> tempint;
-	poengobjekt.oppdaterPoeng(temp, tempint);
-	poengobjekt.displayPoeng();
+	bool erBokstav = true;
+	int temp = strlen(s);
+	for (int i = 1; i <= temp; i++)
+	{
+		if (!isalpha(s[i])) 
+		{
+			erBokstav = false;
+		}
+	}
+	if (erBokstav) {
+		for (int i = 1; i <= temp; i++)
+		{
+			s[i] = toupper(s[i]);
+		}
+	}
 }

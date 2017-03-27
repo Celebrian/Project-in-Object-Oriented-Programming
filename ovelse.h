@@ -15,7 +15,9 @@ private:
 	int deltagerListe[MAXDELTAGER][4];		//PROBABLY NOT FINAL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	int resultatListe[MAXDELTAGER][4];		//SAME AS THE ONE ABOVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public:
-
+	Ovelse(int i, char chr[]);
+	bool sjekkNavn(char c[]);
+	bool sjekkID(int i);
 
 };
 
