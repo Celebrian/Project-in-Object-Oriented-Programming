@@ -7,17 +7,11 @@
 
 using namespace std;
 
-//Skriv meny funksjoner
+//Skriv meny funksjon
 void skrivMeny();
-void skrivMenyO();
-void skrivMenyOL();
-void skrivMenyOR();
 
-//Meny funksjoner
+//Meny funksjon
 void Meny();
-void MenyO();
-void MenyOL();
-void MenyOR();
 
 //Les funksjoner
 char les();									//Leser, returnerer og upcaser en enkel char
@@ -37,6 +31,6 @@ bool finnesDato(int da, int ma, int aa);	//     fra OPPG_20 - Endret av PK for o
 int lesKlokkeSlett();
 
 //Andre funksjoner
-bool kunTall(char t[]);				//Skjekker at en text bare inneholder tall
-void testMedalje();					//SØPPELFUNKSJON DELETE SNAREST - TESTFUNKSJON
+bool kunTall(char t[]);				//Skjekker at en text bare inneholder tal
+void gjorStor(char s[]);
 #endif
