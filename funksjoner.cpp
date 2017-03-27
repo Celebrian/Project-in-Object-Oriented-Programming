@@ -63,14 +63,14 @@ void lesInnFraFil(char* &s, ifstream & inn)
 
 int lesTelefon()
 {
-	char temp[TELEFONNUMMER + 10];
+	char temp[MAXTXT + 1];
 	int gyldigNummer;
 
 	do
 	{
 		les("Skriv inn telefonnummer, ikke landskode, kun tall", temp, TELEFONNUMMER);
 	} while (!kunTall(temp));			//Leser inn nummer til det er bare tall
-	gyldigNummer = atoi(temp);			//Caster til int, siden det bare er tall
+	gyldigNummer = atoi(temp);			//Konverterer til int, siden det bare er tall
 	return gyldigNummer;				//Returnerer gyldig nummer
 }
 

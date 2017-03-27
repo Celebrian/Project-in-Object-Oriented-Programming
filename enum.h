@@ -11,8 +11,8 @@ enum resultatType {			//Resultat; tid eller poeng
 	poeng, tid
 };
 
-enum typeTid {					// KANSKJE UBRUKELIG????
-	tidel, hundredel, tusendel
+enum presReg {					// KANSKJE UBRUKELIG????
+	tidel, hundredel, tusendel, poengx, poengxx
 };
 
 enum medalje {				//Type medalje; gull, sølv eller bronse
