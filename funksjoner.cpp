@@ -115,36 +115,6 @@ void skrivMeny()
 	cout << "\n\tX = eXit";
 }
 
-void skrivMenyO()
-{
-	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
-	cout << "\n\tN = Registrer en ny øvelse";
-	cout << "\n\tE = Endre en øvelse";
-	cout << "\n\tA = Skriv alle data om alle øvelser";
-	cout << "\n\tL = Startliste undermeny";
-	cout << "\n\tR = Resultatliste undermeny";
-	cout << "\n\tQ = Forrige meny";
-}
-
-void skrivMenyOL()
-{
-	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
-	cout << "\n\tS = Skriv deltakerliste";
-	cout << "\n\tN = Ny deltakerliste";
-	cout << "\n\tE = Endre deltakerliste";
-	cout << "\n\tF = Fjerne deltakerliste";
-	cout << "\n\tQ = Forrige meny";
-}
-
-void skrivMenyOR()
-{
-	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
-	cout << "\n\tS = Skriv resultatliste";
-	cout << "\n\tE = Ny resultatliste";
-	cout << "\n\tF = Fjerne resultatliste";
-	cout << "\n\tQ = Forrige meny";
-}
-
 void Meny()
 {
 	char kommando;                //  Brukerens valg.
@@ -155,95 +125,13 @@ void Meny()
 		switch (kommando) {
 		case 'N': nasjonerObjekt.MenyN();		break;
 		case 'D': deltagerobjekt.MenyD();		break;
-		case 'G': grenobjekt.MenyH();			break;
-		case 'O': MenyO();						break;
-		case 'M': testMedalje();				break;
+		case 'G': grenobjekt.MenyG();			break;
+		case 'O': grenobjekt.finnOvelse();		break;
+		case 'M': medaljeObjekt.visMedaljer();	break;
 		case 'P': testPoeng();;					break;
 		default:  skrivMeny();					break;
 		}
 		kommando = les();
-	}
-}
-
-void MenyO()
-{
-	char* tempNavn;
-	les("\nLes inn navn", tempNavn);
-	
-	
-	
-	// FIKS DETTE SENERE (sjekk navn)
-
-
-
-
-
-	char valg;                //  Brukerens valg.
-	skrivMenyO();                  //  skriver ut meny med valg.
-
-	valg = les();             //  Leser brukerens valg.
-	while (valg != 'Q') {
-		switch (valg) {
-		case 'N': cout << "\nRegistrer ny øvelse i " << tempNavn; break;
-		case 'E': cout << "\nEndrer en øvelse i: " << tempNavn;  break;
-		case 'F': cout << "\nFjerner en ævelse i: " << tempNavn;; break;
-		case 'S': cout << "\nSkriver data om alle øvelser i: " << tempNavn;  break;
-		case 'L': MenyOL(); break;
-		case 'R': MenyOR(); break;
-		default:  skrivMenyO();       break;
-		}
-		valg = les();
-	}
-}
-
-void MenyOL()
-{
-	int temp;
-	temp = les("\nSkriv inn nummer", MINDELTAGER, MAXDELTAGER);
-
-
-	// FIKS SENERE (SJEKKE NUMMER).
-
-
-
-	char valg;                //  Brukerens valg.
-	skrivMenyOL();                  //  skriver ut meny med valg.
-
-	valg = les();             //  Leser brukerens valg.
-	while (valg != 'Q') {
-		switch (valg) {
-		case 'S': cout << "\nSkriver deltagerliste om: " << temp; break;
-		case 'N': cout << "\nNy deltagerliste i øvelse: " << temp;  break;
-		case 'E': cout << "\nEndrer liste om " << temp; break;
-		case 'F': cout << "\nSletter deltagerliste i: " << temp;   break;
-		default:  skrivMenyOL();       break;
-		}
-		valg = les();
-	}
-}
-
-void MenyOR()
-{
-	int temp;
-	temp = les("\nSkriv inn nummer", MINDELTAGER, MAXDELTAGER);
-
-
-	// FIKS SENERE (SJEKKE NUMMER).
-
-
-
-	char valg;                //  Brukerens valg.
-	skrivMenyOR();                  //  skriver ut meny med valg.
-
-	valg = les();             //  Leser brukerens valg.
-	while (valg != 'Q') {
-		switch (valg) {
-		case 'S': cout << "\nSkriver resultatliste om: " << temp; break;
-		case 'N': cout << "\nNy deltagerliste i øvelse: " << temp;  break;
-		case 'F': cout << "\nSletter resultatliste i: " << temp;   break;
-		default:  skrivMenyOR();       break;
-		}
-		valg = les();
 	}
 }
 
@@ -309,28 +197,6 @@ bool kunTall(char t[])
 		i++;
 	}
 	return true;
-}
-
-void testMedalje() {			//SØPPELFuNKSJON DELETE SNAREST
-	char temp[LANDSKODE];
-	int tempint = 0;
-	medalje pris;
-	lesNasjon("Landskode", temp, LANDSKODE);
-	tempint = les("0 for gull, 1 for sølv, 2 for bronse", tempint, 2);
-	if (tempint == 0)
-	{
-		pris = gull;
-	}
-	else if (tempint == 1)
-	{
-		pris = solv;
-	}
-	else
-	{
-		pris = bronse;
-	}
-	medaljeObjekt.nyMedalje(temp, pris);
-	medaljeObjekt.visMedaljer();
 }
 
 void testPoeng() // TESTFUNKSJON, SKAL SLETTES SENERE.

@@ -7,17 +7,11 @@
 
 using namespace std;
 
-//Skriv meny funksjoner
+//Skriv meny funksjon
 void skrivMeny();
-void skrivMenyO();
-void skrivMenyOL();
-void skrivMenyOR();
 
-//Meny funksjoner
+//Meny funksjon
 void Meny();
-void MenyO();
-void MenyOL();
-void MenyOR();
 
 //Les funksjoner
 char les();									//Leser, returnerer og upcaser en enkel char
@@ -38,7 +32,6 @@ int lesKlokkeSlett();
 
 //Andre funksjoner
 bool kunTall(char t[]);				//Skjekker at en text bare inneholder tall
-void testMedalje();					//SØPPELFUNKSJON DELETE SNAREST - TESTFUNKSJON
 void testPoeng();
 
 #endif
