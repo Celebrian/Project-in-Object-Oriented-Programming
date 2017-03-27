@@ -62,3 +62,111 @@ void Gren::display()	// skriver ut data om gren til skjerm.
 		((typeResultat == poeng) ? "poeng" : "tid")
 		<< "\n\tAntall øvelser i gren: " << antallOvelser << endl;
 }
+
+void Gren::MenyO()
+{
+	char tempNavn[MAXTXT];
+	char valg;                //  Brukerens valg.
+	skrivMenyO();                  //  skriver ut meny med valg.
+
+	valg = les();             //  Leser brukerens valg.
+	while (valg != 'Q') {
+		switch (valg) {
+		case 'N': cout << "\nRegistrer ny øvelse i " << tempNavn; break;
+		case 'E': cout << "\nEndrer en øvelse i: " << tempNavn;  break;
+		case 'F': cout << "\nFjerner en ævelse i: " << tempNavn;; break;
+		case 'S': cout << "\nSkriver data om alle øvelser i: " << tempNavn;  break;
+		//case 'L': MenyOL(); break;
+		//case 'R': MenyOR(); break;
+		default:  skrivMenyO();       break;
+		}
+		valg = les();
+	}
+}
+/*
+void Gren::MenyOL()
+{
+int temp;
+temp = les("\nSkriv inn nummer", MINDELTAGER, MAXDELTAGER);
+
+
+// FIKS SENERE (SJEKKE NUMMER).
+
+
+
+char valg;                //  Brukerens valg.
+skrivMenyOL();                  //  skriver ut meny med valg.
+
+valg = les();             //  Leser brukerens valg.
+while (valg != 'Q') {
+switch (valg) {
+case 'S': cout << "\nSkriver deltagerliste om: " << temp; break;
+case 'N': cout << "\nNy deltagerliste i øvelse: " << temp;  break;
+case 'E': cout << "\nEndrer liste om " << temp; break;
+case 'F': cout << "\nSletter deltagerliste i: " << temp;   break;
+default:  skrivMenyOL();       break;
+}
+valg = les();
+}
+}
+
+void Gren::MenyOR()
+{
+int temp;
+temp = les("\nSkriv inn nummer", MINDELTAGER, MAXDELTAGER);
+
+
+// FIKS SENERE (SJEKKE NUMMER).
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
+
+char valg;                //  Brukerens valg.
+skrivMenyOR();                  //  skriver ut meny med valg.
+
+valg = les();             //  Leser brukerens valg.
+while (valg != 'Q') {
+switch (valg) {
+case 'S': cout << "\nSkriver resultatliste om: " << temp; break;
+case 'N': cout << "\nNy deltagerliste i øvelse: " << temp;  break;
+case 'F': cout << "\nSletter resultatliste i: " << temp;   break;
+default:  skrivMenyOR();       break;
+}
+valg = les();
+}
+}*/
+
+void Gren::skrivMenyO()
+{
+	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
+	cout << "\n\tN = Registrer en ny øvelse";
+	cout << "\n\tE = Endre en øvelse";
+	cout << "\n\tA = Skriv alle data om alle øvelser";
+	cout << "\n\tL = Startliste undermeny";
+	cout << "\n\tR = Resultatliste undermeny";
+	cout << "\n\tQ = Forrige meny";
+}
+
+void Gren::skrivMenyOL()
+{
+	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
+	cout << "\n\tS = Skriv deltakerliste";
+	cout << "\n\tN = Ny deltakerliste";
+	cout << "\n\tE = Endre deltakerliste";
+	cout << "\n\tF = Fjerne deltakerliste";
+	cout << "\n\tQ = Forrige meny";
+}
+
+void Gren::skrivMenyOR()
+{
+	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
+	cout << "\n\tS = Skriv resultatliste";
+	cout << "\n\tE = Ny resultatliste";
+	cout << "\n\tF = Fjerne resultatliste";
+	cout << "\n\tQ = Forrige meny";
+}
+
+void Gren::returnNavn(char t[])
+{
+	strcpy(t, text);
+}
