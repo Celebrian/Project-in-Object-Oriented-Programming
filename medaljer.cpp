@@ -89,10 +89,17 @@ void Medaljer::bytt(const int i, const int j)
 
 void Medaljer::visMedaljer()
 {
-	for (int i = 1; i <= sisteBrukt; i++)
+	if (strlen(nasjonForkortelser[1]) != 0)
 	{
-		cout << "\n\tNasjon: " << nasjonForkortelser[i] << " har Gull: " << medaljeListe[i][gull] 
-			<< " Sølv: " << medaljeListe[i][solv] << " Bronse: " << medaljeListe[i][bronse] << endl;
+		for (int i = 1; i <= sisteBrukt; i++)
+		{
+			cout << "\n\tNasjon: " << nasjonForkortelser[i] << " har Gull: " << medaljeListe[i][gull]
+				<< " Sølv: " << medaljeListe[i][solv] << " Bronse: " << medaljeListe[i][bronse] << endl;
+		}
+	}
+	else
+	{
+		cout << "\n\tIngen medaljer finnes." << endl;
 	}
 }
 

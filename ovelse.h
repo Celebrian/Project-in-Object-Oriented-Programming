@@ -7,12 +7,16 @@
 #include "ListTool2B.h"
 
 class Ovelse : public NumElement {		
+private:
 	char* navn;
 	int klokkeStart;
 	int dato;
 	int antallDeltagere;
 	int deltagerListe[MAXDELTAGER][4];		//PROBABLY NOT FINAL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	int resultatListe[MAXDELTAGER][4];		//SAME AS THE ONE ABOVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+public:
+
+
 };
 
 #endif

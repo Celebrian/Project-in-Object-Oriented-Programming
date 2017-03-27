@@ -128,8 +128,8 @@ void Meny()
 		case 'N': nasjonerObjekt.MenyN();		break;
 		case 'D': deltagerobjekt.MenyD();		break;
 		case 'P': poengobjekt.displayPoeng();	break;
-	//	case 'G': grenobjekt.MenyG();			break;
-	//	case 'O': grenobjekt.finnOvelse();		break;
+		case 'G': grenobjekt.MenyG();			break;
+		case 'O': grenobjekt.finnGren();		break;
 		case 'M': medaljeObjekt.visMedaljer();	break;
 		default:  skrivMeny();					break;
 		}

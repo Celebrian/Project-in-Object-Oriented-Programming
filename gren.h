@@ -19,6 +19,13 @@ public:
 	void endreNyGren();						// Endrer gren
 	virtual void display();					// skriver ut data
 	void SkrivGrenTilFil(ofstream & ut);	// skriver grener til fil
+	void MenyO();
+	//void MenyOL();
+	//void MenyOR();
+	void skrivMenyO();
+	void skrivMenyOL();
+	void skrivMenyOR();
+	void returnNavn(char t[]);
 };
 
 #endif

@@ -62,7 +62,7 @@ void Grener::skrivUtValgt()
 	// GJØR DETTE ETTER O ER FERDIG.
 }
 
-void Grener::MenyH()
+void Grener::MenyG()
 {
 	
 		char valg;                //  Brukerens valg.
@@ -89,6 +89,34 @@ void Grener::skrivMenyG()
 	cout << "\n\tA = Skriv alle data om alle grener";
 	cout << "\n\tS = Skriv alle data om en gitt gren";
 	cout << "\n\tQ = Forrige meny";
+}
+
+void Grener::finnGren()
+{
+	Gren* tempptr;
+	char temp[MAXTXT], temp2[MAXTXT];
+
+	if (!grenListe->isEmpty())
+	{
+		les("Skriv inn navn på gren", temp, MAXTXT);
+		//gjorStor(temp);
+
+		for (int i = 1; i <= grenListe->noOfElements(); i++)
+		{
+			tempptr = (Gren*)grenListe->removeNo(i);
+			tempptr->returnNavn(temp2);
+			//gjorStor(temp2);
+			if (!strcmp(temp, temp2))
+			{
+				tempptr->MenyO();
+			}
+			grenListe->add(tempptr);
+		}
+	}
+	else
+	{
+		cout << "\n\tDet finnes ingen grener." << endl;
+	}
 }
 
 void Grener::LesGrenerFraFil()

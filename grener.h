@@ -15,8 +15,9 @@ public:
 	void endreGren();
 	void skrivUt();
 	void skrivUtValgt();
-	void MenyH();
+	void MenyG();
 	void skrivMenyG();
+	void finnGren();
 	void LesGrenerFraFil();
 	void SkrivGrenerTilFil();
 };
