@@ -158,7 +158,7 @@ void Meny()
 		case 'G': grenobjekt.MenyH();			break;
 		case 'O': MenyO();						break;
 		case 'M': testMedalje();				break;
-		case 'P': testPoeng();;					break;
+		case 'P': poengobjekt.displayPoeng();	break;
 		default:  skrivMeny();					break;
 		}
 		kommando = les();
@@ -331,16 +331,4 @@ void testMedalje() {			//SØPPELFuNKSJON DELETE SNAREST
 	}
 	medaljeObjekt.nyMedalje(temp, pris);
 	medaljeObjekt.visMedaljer();
-}
-
-void testPoeng() // TESTFUNKSJON, SKAL SLETTES SENERE.
-{
-	poengobjekt.displayPoeng();
-	char temp[LANDSKODE];
-	int tempint;
-	lesNasjon("\nHvilken nasjon skal få poeng?", temp, LANDSKODE);
-	cout << "\nHvor mange poeng" << endl;
-	cin >> tempint;
-	poengobjekt.oppdaterPoeng(temp, tempint);
-	poengobjekt.displayPoeng();
 }

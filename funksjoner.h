@@ -39,6 +39,4 @@ int lesKlokkeSlett();
 //Andre funksjoner
 bool kunTall(char t[]);				//Skjekker at en text bare inneholder tall
 void testMedalje();					//SØPPELFUNKSJON DELETE SNAREST - TESTFUNKSJON
-void testPoeng();
-
 #endif
