@@ -34,6 +34,7 @@ void Deltagere::lagNyDeltager()
 					nyDeltager = new Deltager(temp, temp2);	// og legger det inn i lista
 					deltagerListe->add(nyDeltager);		// baser på innskrevet nummer og nasjon.
 					sisteDeltager++;	// teller opp variabelen.
+					cout << "\n\tDeltager lagt til" << endl;
 				}
 			}
 			else

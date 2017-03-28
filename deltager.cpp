@@ -36,7 +36,11 @@ Deltager::Deltager(int n, ifstream & inn) : NumElement(n)
 
 void Deltager::endreNyDeltager()
 {
-	cout << "\nHva vil du endre på? (N)avn, n(A)sjon eller (K)jonn. Q for å avslutte " << endl;
+	cout << "\n\tHva vil du endre for deltager " << number
+		<< "\n\tN - Deltagerens fulle navn"
+		<< "\n\tA - Deltagerens Nasjon"
+		<< "\n\tK - Deltagerens kjønn"
+		<< "\n\tQ - Ingenting, gå opp en meny";	
 	char ch = les();	// leser inn en uppercase tegn
 	while (ch != 'Q')	// sjekker at brukeren ikke vil avslutte
 	{
@@ -45,7 +49,11 @@ void Deltager::endreNyDeltager()
 		case 'N': endreNavn();					break; // sletter først navn, så leser inn nytt
 		case 'A': endreDeltagersNasjon(nasjon); break; // leser inn en ny gyldig nasjon
 		case 'K': endreKjonn();					break;
-		default: break;
+		default:  cout << "\n\tHva vil du endre for deltager " << number
+			<< "\n\tN - Deltagerens fulle navn"
+			<< "\n\tA - Deltagerens Nasjon"
+			<< "\n\tK - Deltagerens kjønn"
+			<< "\n\tQ - Ingenting, gå opp en meny";	break;
 		}
 		ch = les();
 	}
@@ -82,7 +90,7 @@ void Deltager::skrivDeltagerTilFil(ofstream & ut) // skriver data fra objektet t
 void Deltager::lesInnNasjon(char ch[])
 {
 	char temp[LANDSKODE];
-	lesNasjon("\nLess inn nasjonsforkortelse ", temp, LANDSKODE);
+	lesNasjon("\nLes inn nasjonsforkortelse ", temp, LANDSKODE);
 	if (nasjonerObjekt.finnesNasjon(temp)) {
 		strcpy(ch, temp);
 		cout << ch << endl;
@@ -100,12 +108,13 @@ void Deltager::endreDeltagersNasjon(char ch[])
 	char gammel[LANDSKODE]; // tar vare på den gamle nasjonsforkortelsen
 	strcpy(gammel, ch);	// ved å kopiere den inn i en temp array.
 	char temp[LANDSKODE];
-	lesNasjon("\nLess inn nasjonsforkortelse ", temp, LANDSKODE);
+	lesNasjon("\nLe	s inn nasjonsforkortelse ", temp, LANDSKODE);
 	if (nasjonerObjekt.finnesNasjon(temp)) {
 		strcpy(ch, temp); // lager en ny temp array hvor det leses inn en ny nasjonsforkortelse
 						  // som må finnes i nasjoner lista for å bli kopiert over i nasjon arrayen.
 		nasjonerObjekt.minusDeltager(gammel);	// teller ned antall deltagere i den nasjonen som deltager ble flyttet fra.
 		nasjonerObjekt.plussDeltager(temp);		// teller opp antall deltagere i den nasjonen deltageren ble flytta til.
+		cout << "\n\tDeltagers nasjon endret." << endl;
 	}
 	else
 	{
@@ -117,6 +126,7 @@ void Deltager::endreNavn()
 {
 	delete[] navn; les("\nLes inn nytt navn", navn);
 	// sletter først navnet, også leser inn nytt navn.
+	cout << "\n\tDeltagers navn endret" << endl;
 }
 
 void Deltager::endreKjonn()
@@ -124,4 +134,5 @@ void Deltager::endreKjonn()
 	char chr;  cout << "\nVelg kjønn G(utt)/J(ente)";	// bestemmer kjønn på nytt
 	chr = les();
 	gender = (chr == 'M') ? gutt : jente; 
+	cout << "\n\tDeltagers kjønn endret" << endl;
 }
