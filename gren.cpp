@@ -173,28 +173,42 @@ void Gren::returnNavn(char t[])
 
 void Gren::nyOvelse()
 {
-	int tempID;
-	tempID = les("\nLes inn unik ID", 1000, 9999);
-
-	for (int i = 0;  i < antallOvelser;  i++)
+	if (antallOvelser < MAXOVELSER)
 	{
-		if (!ovelser[i]->sjekkID(tempID))
+		int tempID;
+		tempID = les("\nLes inn unik ID", 1000, 9999);
+		if(antallOvelser > 0)
+		{
+			for (int i = 1; i <= antallOvelser; i++)
+			{
+				if (!ovelser[i]->sjekkID(tempID))
+				{
+					char* temp;
+					les("\n\tLes inn navn på ovelse", temp);
+					if (!ovelser[i]->sjekkNavn(temp))
+					{
+						ovelser[++antallOvelser] = new Ovelse(tempID, temp);
+					}
+					else
+					{
+						cout << "\n\tNavn finnes allerede. " << endl;
+					}
+				}
+				else
+				{
+					cout << "\n\tID finnes allerede." << endl;
+				}
+			}
+		}
+		else
 		{
 			char* temp;
 			les("\n\tLes inn navn på ovelse", temp);
-			if (!ovelser[i]->sjekkNavn(temp))
-			{
-				ovelser[++antallOvelser] = new Ovelse(tempID, temp);
-			}
-			else
-			{
-				cout << "\n\tNavn finnes allerede. " << endl;
-			}
+			ovelser[++antallOvelser] = new Ovelse(tempID, temp);
 		}
-	
 	}
-	if (antallOvelser > MAXOVELSER)
+	else
 	{
-
+		cout << "\n\tOvelser er allerede fullt." << endl;
 	}
 }

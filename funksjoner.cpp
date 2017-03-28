@@ -139,30 +139,39 @@ void Meny()
 
 int lesKlokkeSlett()
 {
-	int klokka;
+	bool sant = true;
+	char klokka[MAXTXT+1];
+	int gyldigKlokka;
 	do
 	{
-		cout << "\nLes inn klokkeslett (TTMM)" << endl;
-		cin >> klokka;
-	} while (!isdigit(klokka) || (klokka < 0)
-		|| ((klokka / 100) > 23) || ((klokka % 100) > 59));
-	return klokka;
+		les("\n\tLes inn klokkeslett (TTMM)", klokka, MAXTXT+1);
+		if (kunTall(klokka)) 
+		{
+			gyldigKlokka = atoi(klokka);
+			sant = false;
+		}
+	} while (sant || (gyldigKlokka < 0)
+		|| ((gyldigKlokka / 100) > 23) || ((gyldigKlokka % 100) > 59));
+	return gyldigKlokka;
 }
 	
 int lesDato()						//LESE LOVELIG DATO
 {
+	bool sant = true;
+	char tempdato[MAXTXT + 1];
 	int dato, aaaa, mm, dd;			//Variabler for dato, dag, måned og år
 	do
 	{
-		cout << "\tSkriv inn gyldig dato fra "	//Ber om gyldig dato
-			<< 0 << " - " << 3000				//Mellom årstall
-			<< " (p† formen: ††††mmdd) ";		//På formen aaaammdd
-		cin >> dato; cin.ignore();				//Leser inn og forkaster \n
-		aaaa = dato / 10000;					//Henter bare året fra dato
-		mm = (dato / 100) % 100;				//Henter måneden fra dato
-		dd = dato % 100;						//Henter dagen fra dato
-
-	} while ((!isdigit(dato)) || !finnesDato(dd, mm, aaaa));		//Så lenge datoen ikke fins
+		les("Skriv inn gyldig dato (p† formen: ††††mmdd) " , tempdato, MAXTXT); //Ber om gyldig dato
+		if (kunTall(tempdato))												//På formen aaaammdd
+		{
+			dato = atoi(tempdato);
+			aaaa = dato / 10000;					//Henter bare året fra dato
+			mm = (dato / 100) % 100;				//Henter måneden fra dato
+			dd = dato % 100;						//Henter dagen fra dato
+			sant = false;
+		}
+	} while ( sant || (!finnesDato(dd, mm, aaaa)));		//Så lenge datoen ikke fins
 	return dato;							//Returnerer gyldig dato
 }
 

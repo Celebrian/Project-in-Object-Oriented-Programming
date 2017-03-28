@@ -11,7 +11,8 @@ using namespace std;
 
 Ovelse::Ovelse(int i, char chr[]) : NumElement(i)
 {
-	strcpy(navn, chr);
+	navn = new char[strlen(chr) + 1];			
+	strcpy(navn, chr);	
 	klokkeStart = lesKlokkeSlett();
 	dato = lesDato();
 	antallDeltagere = 0;
