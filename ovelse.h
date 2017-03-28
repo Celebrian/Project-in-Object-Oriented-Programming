@@ -1,6 +1,7 @@
 #if !defined(__OVELSE_H)
 #define  __OVELSE_H
 
+#include <cstring>
 //Ovelse klasse deklarasjon
 
 #include "const.h"
@@ -8,7 +9,7 @@
 
 class Ovelse : public NumElement {		
 private:
-	char* navn;
+	char* ovelseNavn;
 	int klokkeStart;
 	int dato;
 	int antallDeltagere;
@@ -23,7 +24,8 @@ public:
 	void skrivAlt();
 	bool sjekkNavn(char c[]);
 	bool sjekkID(int i);
-
+	void skrivTilFil(ofstream &ut);
+	Ovelse(ifstream & inn, int i);
 };
 
 #endif

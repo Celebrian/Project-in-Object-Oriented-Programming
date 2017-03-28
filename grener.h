@@ -20,5 +20,7 @@ public:
 	void finnGren();
 	void LesGrenerFraFil();
 	void SkrivGrenerTilFil();
+	void skrivOvelserTilFil();
+	void lesOvelserFraFil();
 };
 #endif

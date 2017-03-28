@@ -11,8 +11,8 @@ using namespace std;
 
 Ovelse::Ovelse(int i, char chr[]) : NumElement(i)
 {
-	navn = new char[strlen(chr) + 1];			
-	strcpy(navn, chr);	
+	ovelseNavn = new char[strlen(chr) + 1];			
+	strcpy(ovelseNavn, chr);	
 	klokkeStart = lesKlokkeSlett();
 	dato = lesDato();
 	antallDeltagere = 0;
@@ -37,7 +37,7 @@ void Ovelse::endreOvelsen()
 
 void Ovelse::endreNavn()
 {
-	delete[] navn; les("\n\tLes inn nytt navn", navn);
+	delete[] ovelseNavn; les("\n\tLes inn nytt navn", ovelseNavn);
 }
 
 void Ovelse::endreOvelseDato()
@@ -53,7 +53,7 @@ void Ovelse::endreKlokkeslett()
 void Ovelse::skrivAlt()
 {
 	cout << "\n\tNummer: " << number 
-		<< "\n\tNavn: " << navn 
+		<< "\n\tNavn: " << ovelseNavn 
 		<< "\n\tDato: " << dato 
 		<< "\n\tKlokkeslett: " << klokkeStart 
 		<< "\n\tAntall Deltagere: " << antallDeltagere << endl;
@@ -61,10 +61,22 @@ void Ovelse::skrivAlt()
 
 bool Ovelse::sjekkNavn(char c[])
 {
-	return(!strcmp(c, navn));
+	return(!strcmp(c, ovelseNavn));
 }
 
 bool Ovelse::sjekkID(int i)
 {
 	return(i == number);
+}
+
+void Ovelse::skrivTilFil(ofstream &ut)
+{
+	ut << number << '\n' << ovelseNavn << '\n'
+		<< klokkeStart << " " << dato << " " << antallDeltagere << endl;
+}
+
+Ovelse::Ovelse(ifstream & inn, int i) : NumElement (i)
+{
+	lesInnFraFil(ovelseNavn, inn);
+	inn >> klokkeStart >> dato >> antallDeltagere; inn.ignore();
 }

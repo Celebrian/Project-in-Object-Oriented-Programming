@@ -174,3 +174,43 @@ void Grener::SkrivGrenerTilFil()
 		}
 	}
 }
+
+void Grener::skrivOvelserTilFil()
+{
+	if (!grenListe->isEmpty()) 
+	{
+		ofstream utfil("gruppe03/OVELSER.DTA");
+		if (utfil) 
+		{
+			int temp = grenListe->noOfElements();  // henter antall i lista
+			for (int i = 1; i <= temp; i++)	// looper gjennom alle grener
+			{
+				Gren* grenPeker = (Gren*)grenListe->removeNo(i); // tar ut objekt
+				utfil << i << endl;
+				grenPeker->skrivOvelseTilFil(utfil);	// kjorer funskjonen skriv
+				grenListe->add(grenPeker);	// legger det inn i lista igjen.
+			}
+		}
+
+	}
+}
+
+void Grener::lesOvelserFraFil()
+{
+	int temp;
+	ifstream innfil("gruppe03/OVELSER.DTA"); // åpner filen fra harddisk
+	if (innfil) // sjekker om fila finnes.
+	{
+		innfil >> temp; innfil.ignore();
+		while (!innfil.eof()) // sjekker om det en slutt på fil, eller lista er for stor.
+		{
+			Gren* grenPeker = (Gren*)grenListe->removeNo(temp); // tar ut objekt
+			grenPeker->lesOvelseFraFil(innfil);	// kjorer funskjonen les
+			grenListe->add(grenPeker);	// legger det inn i lista igjen.
+		}
+	}
+	else
+	{
+		cout << "\nFil ikke funnet! " << endl;
+	}
+}

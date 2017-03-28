@@ -249,8 +249,34 @@ void Gren::endreOvelse()
 
 void Gren::skrivAlle()
 {
+	if (antallOvelser > 0) {
+		for (int i = 1; i <= antallOvelser; i++)
+		{
+			ovelser[i]->skrivAlt();
+		}
+	}
+	else
+	{
+		cout << "\n\tIngen ovelser. " << endl;
+	}
+}
+
+void Gren::skrivOvelseTilFil(ofstream & ut)
+{
+	ut << antallOvelser << endl;
 	for (int i = 1; i <= antallOvelser; i++)
 	{
-		ovelser[i]->skrivAlt();
+		ovelser[i]->skrivTilFil(ut);
+	}
+}
+
+void Gren::lesOvelseFraFil(ifstream & inn)
+{
+	int temp, temp2;
+	inn >> temp; 
+	for (int i = 1; i <= temp; i++)
+	{
+		inn >> temp2; inn.ignore();
+		ovelser[i] = new Ovelse(inn, temp2);
 	}
 }

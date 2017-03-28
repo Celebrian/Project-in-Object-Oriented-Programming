@@ -30,6 +30,8 @@ public:
 	void nyOvelse();
 	void endreOvelse();
 	void skrivAlle();
+	void skrivOvelseTilFil(ofstream &ut);
+	void lesOvelseFraFil(ifstream &inn);
 };
 
 #endif

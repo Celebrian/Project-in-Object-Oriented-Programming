@@ -15,6 +15,7 @@ int main() {
 	nasjonerObjekt.lesNasjonerFraFil();
 	deltagerobjekt.LesDeltagereFraFil();
 	grenobjekt.LesGrenerFraFil();
+	grenobjekt.lesOvelserFraFil();
 	medaljeObjekt.lesMedaljerFraFil();
 	poengobjekt.lesFraFil();
 	Meny();
@@ -23,5 +24,6 @@ int main() {
 	grenobjekt.SkrivGrenerTilFil();
 	medaljeObjekt.skrivMedaljerTilFil();
 	poengobjekt.skrivTilFil();
+	grenobjekt.skrivOvelserTilFil();
 	return 0;
 }
