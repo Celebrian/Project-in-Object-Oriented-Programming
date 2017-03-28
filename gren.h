@@ -18,6 +18,7 @@ public:
 	Gren(char ch[], ifstream & inn);		// leser inn fra fil.
 	void endreNyGren();						// Endrer gren
 	virtual void display();					// skriver ut data
+	void displayValgt();
 	void SkrivGrenTilFil(ofstream & ut);	// skriver grener til fil
 	void MenyO();
 	//void MenyOL();
@@ -27,6 +28,8 @@ public:
 	void skrivMenyOR();
 	void returnNavn(char t[]);
 	void nyOvelse();
+	void endreOvelse();
+	void skrivAlle();
 };
 
 #endif

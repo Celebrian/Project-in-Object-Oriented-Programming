@@ -59,7 +59,19 @@ void Grener::skrivUt() // skriver ut data om alle objekter i lista
 
 void Grener::skrivUtValgt()
 {
-	// GJØR DETTE ETTER O ER FERDIG.
+	Gren* temppeker;
+	char* temp; // leser inn navn på gren du vil se data om.
+	les("\nSkriv inn grennavn", temp);
+	if (grenListe->inList(temp))	// sjekker om grenen finnes.
+	{
+		temppeker = (Gren*)grenListe->remove(temp);
+		temppeker->displayValgt();
+		grenListe->add(temppeker);
+		// tar gren ut av lista, displayer den, og setter den inn igjen.
+	}
+	else {
+		cout << "\n\tGren finnes ikke." << endl;
+	}
 }
 
 void Grener::MenyG()

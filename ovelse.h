@@ -16,6 +16,11 @@ private:
 	int resultatListe[MAXDELTAGER][4];		//SAME AS THE ONE ABOVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public:
 	Ovelse(int i, char chr[]);
+	void endreOvelsen();
+	void endreNavn();
+	void endreOvelseDato();
+	void endreKlokkeslett();
+	void skrivAlt();
 	bool sjekkNavn(char c[]);
 	bool sjekkID(int i);
 

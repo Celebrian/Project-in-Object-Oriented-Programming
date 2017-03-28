@@ -63,6 +63,16 @@ void Gren::display()	// skriver ut data om gren til skjerm.
 		<< "\n\tAntall øvelser i gren: " << antallOvelser << endl;
 }
 
+void Gren::displayValgt()
+{
+	display();
+	for (int i = 1; i <= antallOvelser; i++)
+	{
+		ovelser[i]->skrivAlt();
+	}
+}
+
+
 void Gren::MenyO()
 {
 	char tempNavn[MAXTXT];
@@ -73,9 +83,9 @@ void Gren::MenyO()
 	while (valg != 'Q') {
 		switch (valg) {
 		case 'N': nyOvelse(); break;
-		case 'E': cout << "\nEndrer en øvelse i: " << tempNavn;  break;
+		case 'E': endreOvelse();  break;
 		case 'F': cout << "\nFjerner en ævelse i: " << tempNavn;; break;
-		case 'A': cout << "\nSkriver data om alle øvelser";  break;
+		case 'A': skrivAlle();  break;
 		//case 'L': MenyOL(); break;
 		//case 'R': MenyOR(); break;
 		default:  skrivMenyO();       break;
@@ -210,5 +220,37 @@ void Gren::nyOvelse()
 	else
 	{
 		cout << "\n\tOvelser er allerede fullt." << endl;
+	}
+}
+
+void Gren::endreOvelse()
+{
+	if (antallOvelser > 0)
+	{
+		int tempID;
+		tempID = les("\nLes inn ID på øvelse du vil endre", 1000, 9999);
+		for (int i = 1; i <= antallOvelser; i++)
+		{
+			if (ovelser[i]->sjekkID(tempID))
+			{
+				ovelser[i]->endreOvelsen();
+			}
+			else
+			{
+				cout << "\n\tOvelsen med dette nummeret finnes ikke." << endl;
+			}
+		}
+	}
+	else
+	{
+		cout << "\n\tDet finnes ingen ovelser for øyeblikket" << endl;
+	}
+}
+
+void Gren::skrivAlle()
+{
+	for (int i = 1; i <= antallOvelser; i++)
+	{
+		ovelser[i]->skrivAlt();
 	}
 }

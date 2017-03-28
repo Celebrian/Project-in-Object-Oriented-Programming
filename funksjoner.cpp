@@ -162,7 +162,10 @@ int lesDato()						//LESE LOVELIG DATO
 	int dato, aaaa, mm, dd;			//Variabler for dato, dag, måned og år
 	do
 	{
-		les("Skriv inn gyldig dato (p† formen: ††††mmdd) " , tempdato, MAXTXT); //Ber om gyldig dato
+		do
+		{
+			les("Skriv inn gyldig dato (p† formen: ††††mmdd) ", tempdato, MAXTXT); //Ber om gyldig dato
+		} while (strlen(tempdato) > 9);
 		if (kunTall(tempdato))												//På formen aaaammdd
 		{
 			dato = atoi(tempdato);
