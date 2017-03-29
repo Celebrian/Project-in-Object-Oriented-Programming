@@ -11,7 +11,7 @@ using namespace std;
 
 Ovelse::Ovelse(int i, char chr[]) : NumElement(i)
 {
-	ovelseNavn = new char[strlen(chr) + 1];			
+	ovelseNavn = new char[strlen(chr) + 1];
 	strcpy(ovelseNavn, chr);	
 	klokkeStart = lesKlokkeSlett();
 	dato = lesDato();
@@ -27,8 +27,8 @@ void Ovelse::endreOvelsen()
 		switch (ch)		// Utfører brukerens valg
 		{
 		case 'N': endreNavn();					break; // sletter først navn, så leser inn nytt
-		case 'D': endreOvelseDato(); break; 
-		case 'K': endreKlokkeslett();					break;
+		case 'D': endreOvelseDato();		    break; 
+		case 'K': endreKlokkeslett();			break;
 		default: break;
 		}
 		ch = les();
