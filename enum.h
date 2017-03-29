@@ -19,4 +19,8 @@ enum medalje {				//Type medalje; gull, sølv eller bronse
 	gull, solv, bronse
 };
 
+enum filtype {				// hvilken type filnavn som skal lages.
+	startliste, resultatliste
+};
+
 #endif

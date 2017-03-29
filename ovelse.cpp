@@ -3,11 +3,14 @@
 #endif 
 
 #include <iostream>
+#include <cstring>
+#include <stdlib.h>
 
 using namespace std;
 
 #include "funksjoner.h"
 #include "ovelse.h"
+#include "enum.h"
 
 Ovelse::Ovelse(int i, char chr[]) : NumElement(i)
 {
@@ -84,4 +87,64 @@ Ovelse::Ovelse(ifstream & inn, int i) : NumElement (i)
 {
 	lesInnFraFil(ovelseNavn, inn);
 	inn >> klokkeStart >> dato >> antallDeltagere; inn.ignore();
+}
+
+void Ovelse::lagFilNavn(int id, char ch[], filtype ft)
+{
+	char temp[MAXTXT + 1] = "OV";
+	char temp2[MAXTXT + 1];
+	_itoa(id, temp2, 10);
+	
+	//char temp[MAXTXT + 1] = (ft == startliste) ?  ".STA" : ".RES";	// TIL SENERE INSPEKSJON, HJELP BLIR SATT PRIS PÅ *HINT HINT*
+
+	if (ft == startliste)
+	{
+		char temp3[MAXTXT + 1] = ".STA";
+		strcat(ch, temp);
+		strcat(ch, temp2);
+		strcat(ch, temp3);
+	}
+	else
+	{ 
+		char temp3[MAXTXT + 1] = ".RES"; 
+		strcat(ch, temp);
+		strcat(ch, temp2);
+		strcat(ch, temp3);
+	}
+}
+
+void Ovelse::MenyOR(int id)
+{
+	char valg;                //  Brukerens valg.
+	skrivMenyOR();                  //  skriver ut meny med valg.
+
+	valg = les();             //  Leser brukerens valg.
+	while (valg != 'Q') {
+		switch (valg) {
+		case 'S': skrivResultatListe(id); break;
+		case 'N': cout << "\nNy deltagerliste i øvelse: ";  break;
+		case 'F': cout << "\nSletter resultatliste i: ";  break;
+		default:  skrivMenyOR();       break;
+		}
+		valg = les();
+	}
+}
+
+void Ovelse::skrivMenyOR()
+{
+	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
+	cout << "\n\tS = Skriv resultatliste";
+	cout << "\n\tE = Ny resultatliste";
+	cout << "\n\tF = Fjerne resultatliste";
+	cout << "\n\tQ = Forrige meny";
+}
+
+void Ovelse::skrivResultatListe(int id)
+{
+	filtype ft = resultatliste;
+	char filnavn[MAXTXT + 1] = "gruppe03/";
+	lagFilNavn(id, filnavn, ft);
+	
+	ofstream ut(filnavn);
+	ut << "testfil" << endl;
 }

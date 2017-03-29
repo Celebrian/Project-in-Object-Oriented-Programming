@@ -6,6 +6,7 @@
 
 #include "const.h"
 #include "ListTool2B.h"
+#include "enum.h"
 
 class Ovelse : public NumElement {		
 private:
@@ -27,6 +28,10 @@ public:
 	void skrivDeltagerListe(const int id);
 	void skrivTilFil(ofstream &ut);
 	Ovelse(ifstream & inn, int i);
+	void lagFilNavn(int id, char ch[], filtype ft);
+	void MenyOR(int id);
+	void skrivMenyOR();
+	void skrivResultatListe(int id);
 };
 
 #endif

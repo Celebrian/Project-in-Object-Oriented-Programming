@@ -217,7 +217,7 @@ void gjorStor(char s[])
 {
 	bool erBokstav = true;
 	int temp = strlen(s);
-	for (int i = 1; i <= temp; i++)
+	for (int i = 0; i < temp; i++)
 	{
 		if (!isalpha(s[i])) 
 		{
@@ -225,7 +225,7 @@ void gjorStor(char s[])
 		}
 	}
 	if (erBokstav) {
-		for (int i = 1; i <= temp; i++)
+		for (int i = 0; i < temp; i++)
 		{
 			s[i] = toupper(s[i]);
 		}

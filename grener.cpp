@@ -111,13 +111,13 @@ void Grener::finnGren()
 	if (!grenListe->isEmpty())
 	{
 		les("Skriv inn navn på gren", temp, MAXTXT);
-		//gjorStor(temp);
+		gjorStor(temp);
 
 		for (int i = 1; i <= grenListe->noOfElements(); i++)
 		{
 			tempptr = (Gren*)grenListe->removeNo(i);
 			tempptr->returnNavn(temp2);
-			//gjorStor(temp2);
+			gjorStor(temp2);
 			if (!strcmp(temp, temp2))
 			{
 				tempptr->MenyO();
