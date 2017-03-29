@@ -93,33 +93,38 @@ void Gren::MenyO()
 		valg = les();
 	}
 }
-/*
+
 void Gren::MenyOL()
 {
-int temp;
-temp = les("\nSkriv inn nummer", MINDELTAGER, MAXDELTAGER);
+	int temp;
+	char valg;                //  Brukerens valg.
 
-
-// FIKS SENERE (SJEKKE NUMMER).
-
-
-
-char valg;                //  Brukerens valg.
-skrivMenyOL();                  //  skriver ut meny med valg.
-
-valg = les();             //  Leser brukerens valg.
-while (valg != 'Q') {
-switch (valg) {
-case 'S': cout << "\nSkriver deltagerliste om: " << temp; break;
-case 'N': cout << "\nNy deltagerliste i øvelse: " << temp;  break;
-case 'E': cout << "\nEndrer liste om " << temp; break;
-case 'F': cout << "\nSletter deltagerliste i: " << temp;   break;
-default:  skrivMenyOL();       break;
+	temp = les("\nSkriv inn Øvelsenummer", 1000, 9999);
+	for (int i = 1; i <= antallOvelser; i++)
+	{
+		if (ovelser[i]->sjekkID(temp))
+		{
+			skrivMenyOL();                  //  skriver ut meny med valg.
+	
+			valg = les();             //  Leser brukerens valg.
+			while (valg != 'Q') {
+				switch (valg) {
+				case 'S': ovelser[i]->skrivDeltagerListe(temp);					break;
+				case 'N': cout << "\n\tNy deltagerliste";					break;
+				case 'E': cout << "\n\tEndre deltagerliste";				break;
+				case 'F': cout << "\n\tFjern deltagerliste";				break;
+				default:  skrivMenyOL();									break;
+				}
+				valg = les();
+			}
+		}
+		else
+		{
+			cout << "\n\tIngen øvelser med denne ID" << endl;
+		}
+	}
 }
-valg = les();
-}
-}
-
+/*
 void Gren::MenyOR()
 {
 int temp;

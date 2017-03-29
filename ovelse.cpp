@@ -69,6 +69,11 @@ bool Ovelse::sjekkID(int i)
 	return(i == number);
 }
 
+void Ovelse::skrivDeltagerListe(const int id)
+{
+
+}
+
 void Ovelse::skrivTilFil(ofstream &ut)
 {
 	ut << number << '\n' << ovelseNavn << '\n'

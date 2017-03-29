@@ -21,7 +21,7 @@ public:
 	void displayValgt();
 	void SkrivGrenTilFil(ofstream & ut);	// skriver grener til fil
 	void MenyO();
-	//void MenyOL();
+	void MenyOL();
 	//void MenyOR();
 	void skrivMenyO();
 	void skrivMenyOL();

@@ -24,6 +24,7 @@ public:
 	void skrivAlt();
 	bool sjekkNavn(char c[]);
 	bool sjekkID(int i);
+	void skrivDeltagerListe(const int id);
 	void skrivTilFil(ofstream &ut);
 	Ovelse(ifstream & inn, int i);
 };

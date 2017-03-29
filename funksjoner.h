@@ -33,4 +33,7 @@ int lesKlokkeSlett();
 //Andre funksjoner
 bool kunTall(char t[]);				//Skjekker at en text bare inneholder tal
 void gjorStor(char s[]);
+bool erLik(const char t[], const char s[]);
+
+
 #endif

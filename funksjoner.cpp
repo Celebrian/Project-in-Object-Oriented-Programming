@@ -165,7 +165,7 @@ int lesDato()						//LESE LOVELIG DATO
 		do
 		{
 			les("Skriv inn gyldig dato (p† formen: ††††mmdd) ", tempdato, MAXTXT); //Ber om gyldig dato
-		} while (strlen(tempdato) > 9);
+		} while (strlen(tempdato) == 8);
 		if (kunTall(tempdato))												//På formen aaaammdd
 		{
 			dato = atoi(tempdato);
@@ -230,4 +230,18 @@ void gjorStor(char s[])
 			s[i] = toupper(s[i]);
 		}
 	}
+}
+
+bool erLik(const char t[], const char s[])
+{
+	char temp[MAXTXT + 1], temp2[MAXTXT + 1];
+	for (int i = 0; i <= strlen(t); i++)
+	{
+		temp[i] = toupper(t[i]);
+	}
+	for (int j = 0; j <= strlen(s); j++)
+	{
+		temp2[j] = toupper(s[j]);
+	}
+	return strcmp(temp, temp2);
 }
