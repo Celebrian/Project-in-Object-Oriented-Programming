@@ -87,7 +87,7 @@ void Gren::MenyO()
 		case 'F': cout << "\nFjerner en ævelse i: " << tempNavn;; break;
 		case 'A': skrivAlle();  break;
 		//case 'L': MenyOL(); break;
-		//case 'R': MenyOR(); break;
+		case 'R': resultatListeMeny(); break;
 		default:  skrivMenyO();       break;
 		}
 		valg = les();
@@ -119,32 +119,7 @@ default:  skrivMenyOL();       break;
 valg = les();
 }
 }
-
-void Gren::MenyOR()
-{
-int temp;
-temp = les("\nSkriv inn nummer", MINDELTAGER, MAXDELTAGER);
-
-
-// FIKS SENERE (SJEKKE NUMMER).
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-
-
-
-char valg;                //  Brukerens valg.
-skrivMenyOR();                  //  skriver ut meny med valg.
-
-valg = les();             //  Leser brukerens valg.
-while (valg != 'Q') {
-switch (valg) {
-case 'S': cout << "\nSkriver resultatliste om: " << temp; break;
-case 'N': cout << "\nNy deltagerliste i øvelse: " << temp;  break;
-case 'F': cout << "\nSletter resultatliste i: " << temp;   break;
-default:  skrivMenyOR();       break;
-}
-valg = les();
-}
-}*/
+*/
 
 void Gren::skrivMenyO()
 {
@@ -167,15 +142,6 @@ void Gren::skrivMenyOL()
 	cout << "\n\tQ = Forrige meny";
 }
 
-void Gren::skrivMenyOR()
-{
-	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
-	cout << "\n\tS = Skriv resultatliste";
-	cout << "\n\tE = Ny resultatliste";
-	cout << "\n\tF = Fjerne resultatliste";
-	cout << "\n\tQ = Forrige meny";
-}
-
 void Gren::returnNavn(char t[])
 {
 	strcpy(t, text);
@@ -186,7 +152,7 @@ void Gren::nyOvelse()
 	if (antallOvelser < MAXOVELSER)
 	{
 		int tempID;
-		tempID = les("\nLes inn unik ID", 1000, 9999);
+		tempID = les("\nLes inn unik ID", MINOVNR, MAXOVNR);
 		if(antallOvelser > 0)
 		{
 			for (int i = 1; i <= antallOvelser; i++)
@@ -228,7 +194,7 @@ void Gren::endreOvelse()
 	if (antallOvelser > 0)
 	{
 		int tempID;
-		tempID = les("\nLes inn ID på øvelse du vil endre", 1000, 9999);
+		tempID = les("\nLes inn ID på øvelse du vil endre", MINOVNR, MAXOVNR);
 		for (int i = 1; i <= antallOvelser; i++)
 		{
 			if (ovelser[i]->sjekkID(tempID))
@@ -278,5 +244,22 @@ void Gren::lesOvelseFraFil(ifstream & inn)
 	{
 		inn >> temp2; inn.ignore();
 		ovelser[i] = new Ovelse(inn, temp2);
+	}
+}
+
+void Gren::resultatListeMeny()
+{
+	int temp;
+	temp = les("\nSkriv inn nummer", MINDELTAGER, MAXDELTAGER);
+	for (int i = 1; i <= antallOvelser; i++)
+	{
+		if (ovelser[i]->sjekkID(temp)) 
+		{
+			ovelser[i]->MenyOR(temp);
+		}
+		else
+		{
+			cout << "\n\tØvelsen finnes ikke!" << endl;
+		}
 	}
 }

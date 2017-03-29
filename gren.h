@@ -22,16 +22,15 @@ public:
 	void SkrivGrenTilFil(ofstream & ut);	// skriver grener til fil
 	void MenyO();
 	//void MenyOL();
-	//void MenyOR();
 	void skrivMenyO();
 	void skrivMenyOL();
-	void skrivMenyOR();
 	void returnNavn(char t[]);
 	void nyOvelse();
 	void endreOvelse();
 	void skrivAlle();
 	void skrivOvelseTilFil(ofstream &ut);
 	void lesOvelseFraFil(ifstream &inn);
+	void resultatListeMeny();
 };
 
 #endif

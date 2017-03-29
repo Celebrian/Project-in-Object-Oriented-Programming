@@ -12,6 +12,8 @@ const int MAXDELTAGER = 2000;
 const int MINDELTAGERE = 100;			//Minste deltagernummer
 const int MAXDELTAGERE = 20000;			//Høyeste deltagernummer
 const int TELEFONNUMMER = 8;			//8 siffer langt telefonnummer, uten landskode
+const int MINOVNR = 1000;
+const int MAXOVNR = 9999;
 
 #endif
 
