@@ -32,6 +32,7 @@ public:
 	void MenyOR(int id);
 	void skrivMenyOR();
 	void skrivResultatListe(int id);
+	void nyResultatliste(int id);
 };
 
 #endif

@@ -145,6 +145,32 @@ void Ovelse::skrivResultatListe(int id)
 	char filnavn[MAXTXT + 1] = "gruppe03/";
 	lagFilNavn(id, filnavn, ft);
 	
-	ofstream ut(filnavn);
-	ut << "testfil" << endl;
+	ifstream inn(filnavn);
+	if (inn)
+	{
+		char* temp;
+		lesInnFraFil(temp, inn);
+		cout << temp;
+	}
+	else
+	{
+		cout << "\n\tResultatliste finnes ikke." << endl;
+	}
+}
+
+void Ovelse::nyResultatliste(int id)
+{
+	filtype ft = resultatliste;
+	char filnavn[MAXTXT + 1] = "gruppe03/";
+	lagFilNavn(id, filnavn, ft);
+	
+	ifstream inn(filnavn);
+	if (!inn)
+	{
+		
+	}
+	else
+	{
+		inn.close();
+	}
 }
