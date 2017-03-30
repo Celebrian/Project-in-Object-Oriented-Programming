@@ -33,6 +33,7 @@ public:
 	void endreStartliste();
 	void minusStartlisteDeltager();
 	void plussStartlisteDeltager();
+	void byttStartlisteDeltager();
 	void skrivTilFil(ofstream &ut);
 	Ovelse(ifstream & inn, int i);
 	void lagFilNavn(char ch[], filtype ft);

@@ -175,8 +175,8 @@ void Ovelse::endreStartliste()
 	while (valg != 'Q') {
 		switch (valg) {
 		case 'S': minusStartlisteDeltager();	break;
-		case 'N': plussStartlisteDeltager();				break;
-		case 'F': 	break;
+		case 'N': plussStartlisteDeltager();	break;
+		case 'F': byttStartlisteDeltager();		break;
 		default:  skrivMenyOLE();				break;
 		}
 		valg = les();
@@ -187,12 +187,14 @@ void Ovelse::minusStartlisteDeltager()
 {
 	bool fantDeltager = false;
 	int deltagerTemp, i = 1;
-	deltagerTemp = les("\n\tDeltagernummeret du vil fjerne fra startlisten", MINDELTAGERE, MAXDELTAGERE);
-	while(!fantDeltager || i <= antallDeltagere)
+	deltagerTemp = les("Deltagernummeret du vil fjerne fra startlisten", MINDELTAGERE, MAXDELTAGERE);
+	while(!fantDeltager && i <= antallDeltagere)
 	{
 		if (startListe[i][1] == deltagerTemp)
 		{
 			flyttStartliste(antallDeltagere, i);
+			antallDeltagere--;
+			nyttDynamiskArray();
 			fantDeltager = true;
 		}
 		i++;
@@ -203,9 +205,45 @@ void Ovelse::minusStartlisteDeltager()
 	}
 }
 
-void plussStartlisteDeltager()
+void Ovelse::plussStartlisteDeltager()
 {
+	int deltagerTemp;
+	deltagerTemp = les("Deltagernummeret du vil legge til startlisten", MINDELTAGERE, MAXDELTAGERE);
+	if (deltagerobjekt.finnesID(deltagerTemp))
+	{
+		antallDeltagere++;
+		nyttDynamiskArray();
+		startListe[antallDeltagere][0] = antallDeltagere;
+		startListe[antallDeltagere][1] = deltagerTemp;
+	}
+}
 
+void Ovelse::byttStartlisteDeltager()
+{
+	bool fantDeltager = false;
+	int deltagerTemp, nyDeltagerTemp, i = 1;
+	deltagerTemp = les("Deltagernummeret du vil bytte ut av startlisten", MINDELTAGERE, MAXDELTAGERE);
+	while (!fantDeltager && i <= antallDeltagere)
+	{
+		if (startListe[i][1] == deltagerTemp)
+		{
+			nyDeltagerTemp = les("Deltagernummer du vil erstatte inn i startlisten", MINDELTAGERE, MAXDELTAGERE);
+			if (deltagerobjekt.finnesID(nyDeltagerTemp))
+			{
+				startListe[i][1] = nyDeltagerTemp;
+				fantDeltager = true;
+			}
+			else
+			{
+				cout << "\n\tIngen deltagere med dette deltagernummeret." << endl;
+			}
+		}
+		i++;
+	}
+	if (!fantDeltager)
+	{
+		cout << "\n\tFant ingen deltagere med dette nummeret" << endl;
+	}
 }
 
 void Ovelse::skrivTilFil(ofstream &ut)
@@ -252,7 +290,7 @@ void Ovelse::MenyOR()
 	valg = les();             //  Leser brukerens valg.
 	while (valg != 'Q') {
 		switch (valg) {
-		case 'S': skrivResultatListe();	break;
+		case 'S': break;
 		case 'N': 			break;
 		case 'E':  		break;
 		case 'F':	break;
