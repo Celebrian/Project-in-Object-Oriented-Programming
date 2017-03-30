@@ -14,10 +14,27 @@ using namespace std;
 Gren::Gren(char * ch) : TextElement(ch)
 {
 	navn = ch;
-	char chr;  cout << "\nVelg resultat type: P(oeng)/T(id)";
+	char chr; 
+	skrivShit();
 	chr = les();
-	typeResultat = (chr == 'P') ? poeng : tid;
+	switch (chr){
+	case 'T': typeResultat = tidel; break;
+	case 'H': typeResultat = hundredel; break;
+	case 'D': typeResultat = tusendel; break;
+	case 'P': typeResultat = poengx; break;
+	case 'X': typeResultat = poengxx; break;
+	default: skrivShit(); break; 
+	}
 	antallOvelser = 0;
+}
+
+void Gren::skrivShit()
+{
+	cout << "\n\tT for tidel" 
+		<< "\n\tH for hundredel" 
+		<< "\n\tD for tusendel" 
+		<< "\n\tP for poengX" 
+		<< "\n\tX for poengXX" << endl;
 }
 
 Gren::Gren(char ch[], ifstream & inn) : TextElement(ch)
@@ -25,7 +42,14 @@ Gren::Gren(char ch[], ifstream & inn) : TextElement(ch)
 	navn = new char[strlen(ch) + 1]; // lager array med spesifik storrelse
 	strcpy(navn, ch); // kopierer over i arrayen ch
 	int temp; inn >> temp; inn.ignore(); // leser inn 0 eller 1 fra fil
-	typeResultat = ((temp == 0) ? poeng : tid);	// hvor 0 = jente og 1 = gutt.
+	switch (temp) {
+	case 0: typeResultat = tidel; break;
+	case 1: typeResultat = hundredel; break;
+	case 2: typeResultat = tusendel; break;
+	case 3: typeResultat = poengx; break;
+	case 4: typeResultat = poengxx; break;
+	default: break; 
+	}
 	inn >> antallOvelser; inn.ignore(); 
 	//for (int i = 1; i <= antallOvelser; i++) // looper gjennom hele arrayen med ovelser
 	//{
@@ -36,7 +60,14 @@ Gren::Gren(char ch[], ifstream & inn) : TextElement(ch)
 void Gren::SkrivGrenTilFil(ofstream & ut)
 {
 	ut << navn << '\n';	// skriver ut navn
-	(typeResultat == poeng) ? ut << poeng << '\n' : ut << tid << '\n';	// skriver ut 0 eller 1 for poeng eller tid.
+	switch (typeResultat) {
+	case tidel: ut << tidel << '\n'; break;
+	case hundredel: ut << hundredel << '\n'; break;
+	case tusendel: ut << tusendel << '\n'; break;
+	case poengx: ut << poengx << '\n'; break;
+	case poengxx: ut << poengxx << '\n'; break;
+	default: break; 
+	}	// skriver ut 0 eller 1 for poeng eller tid.
 	ut << antallOvelser << '\n';
 	//for (int i = 1; i <= antallOvelser; i++)	// looper hele ovelser arrayen.
 	//{
@@ -58,9 +89,16 @@ void Gren::endreNyGren()
 void Gren::display()	// skriver ut data om gren til skjerm.
 {
 	cout << "\n\tNavn: " << navn
-		<< "\n\tRegistrering av prestasjon: " <<
-		((typeResultat == poeng) ? "poeng" : "tid")
-		<< "\n\tAntall øvelser i gren: " << antallOvelser << endl;
+		<< "\n\tRegistrering av prestasjon: ";
+	switch (typeResultat) {
+	case tidel: cout << "tidel" << '\n'; break;
+	case hundredel: cout << "hundredel" << '\n'; break;
+	case tusendel: cout << "tusendel" << '\n'; break;
+	case poengx: cout << "poengx" << '\n'; break;
+	case poengxx: cout << "poengxx" << '\n'; break;
+	default: break;
+	}
+		cout << "\n\tAntall øvelser i gren: " << antallOvelser << endl;
 }
 
 void Gren::displayValgt()
@@ -167,7 +205,7 @@ void Gren::nyOvelse()
 					les("\n\tLes inn navn på ovelse", temp);
 					if (!ovelser[i]->sjekkNavn(temp))
 					{
-						ovelser[++antallOvelser] = new Ovelse(tempID, temp);
+						ovelser[++antallOvelser] = new Ovelse(tempID, temp, typeResultat);
 					}
 					else
 					{
@@ -184,7 +222,7 @@ void Gren::nyOvelse()
 		{
 			char* temp;
 			les("\n\tLes inn navn på ovelse", temp);
-			ovelser[++antallOvelser] = new Ovelse(tempID, temp);
+			ovelser[++antallOvelser] = new Ovelse(tempID, temp, typeResultat);
 		}
 	}
 	else
@@ -247,7 +285,7 @@ void Gren::lesOvelseFraFil(ifstream & inn)
 	for (int i = 1; i <= temp; i++)
 	{
 		inn >> temp2; inn.ignore();
-		ovelser[i] = new Ovelse(inn, temp2);
+		ovelser[i] = new Ovelse(inn, temp2,typeResultat);
 	}
 }
 

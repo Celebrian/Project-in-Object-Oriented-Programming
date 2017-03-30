@@ -179,3 +179,17 @@ void Deltagere::skrivDeltagereTilFil()
 		}
 	}
 }
+
+void Deltagere::skrivDeltagerStart(int n)
+{
+	Deltager* tempPeker = (Deltager*)deltagerListe->remove(n);
+	tempPeker->startSkriv();
+	deltagerListe->add(tempPeker);	
+}
+
+void Deltagere::hentNasjon(char chr[LANDSKODE], int n)
+{
+	Deltager* tempPeker = (Deltager*)deltagerListe->remove(n);
+	tempPeker->hentNasjon(chr);
+	deltagerListe->add(tempPeker);
+}

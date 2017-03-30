@@ -21,6 +21,8 @@ public:
 	void skrivMenyD();	// skriver menyvalg.
 	void LesDeltagereFraFil(); 
 	void skrivDeltagereTilFil();
+	void skrivDeltagerStart(int n);
+	void hentNasjon(char chr[LANDSKODE], int n);
 };
 
 #endif
