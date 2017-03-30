@@ -280,16 +280,6 @@ void Ovelse::skrivMenyOLE()
 		<< "\n\tQ = Forrige meny";
 }
 
-void Ovelse::skrivResultatListe()
-{
-	filtype ft = resultatliste;
-	char filnavn[MAXTXT + 1] = "gruppe03/";
-	lagFilNavn(filnavn, ft);
-	
-	ofstream ut(filnavn);
-	ut << "testfil" << endl;
-}
-
 void Ovelse::lesStartlisteFraFil(ifstream & inn)
 {
 	for (int i = 1; i <= antallDeltagere; i++)

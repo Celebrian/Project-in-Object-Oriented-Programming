@@ -40,6 +40,7 @@ public:
 	void skrivMenyOR();
 	void skrivMenyOLE();
 	void skrivResultatListe();
+	void nyResultatliste(int id);
 	void lesStartlisteFraFil(ifstream & inn);
 	void skrivStartlisteTilFil();
 };
