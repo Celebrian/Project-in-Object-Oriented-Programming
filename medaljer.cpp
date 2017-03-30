@@ -11,15 +11,25 @@ using namespace std;
 #include "enum.h"
 #include "medaljer.h"
 
-void Medaljer::nyMedalje(const char land[LANDSKODE], const medalje pris)
+void Medaljer::endreMedalje(const char land[LANDSKODE], const medalje pris, const plusminus increment)
 {
 	bool finnes = false;										//Antar att landet ikke finnes
 	for (int i = 1; i <= sisteBrukt; i++)
 	{
 		if (!strcmp(land, nasjonForkortelser[i]))				//Sammenlikner med land
 		{
-			medaljeListe[i][pris]++;							//Teller opp medalje
-			finnes = true;										//Fant land
+			if (medaljeListe[i][pris] > 0)						//Skjekker at nasjonen har minst en av gjeldende medalje
+			{
+				if (increment)									//Hvis parameter plusminus er 0 (minus)
+				{
+					medaljeListe[i][pris]--;					//Trekk fra en medalje
+				}
+				else											//Hvis parameter plusminus er 1 (pluss)
+				{
+					medaljeListe[i][pris]++;					//Teller opp medalje
+				}
+				finnes = true;									//Fant land
+			}
 		}
 	}
 	if (!finnes)												//Hvis land ikke ble funnet

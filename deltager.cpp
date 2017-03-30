@@ -74,6 +74,11 @@ void Deltager::displayAll()	// leser ut alle data om objektet
 		<< ((gender == jente) ? "jente" : "gutt") << endl;
 }
 
+void Deltager::skrivDeltagerID()
+{
+	cout << number << " " << navn << " " << nasjon << endl;
+}
+
 bool Deltager::sjekkLand(char ch[LANDSKODE])	// sjekker at en nasjon faktisk eksisterer.
 {
 	return(!strcmp(nasjon, ch)); // sjekker om de er like og returnerer !0 hvis de er.

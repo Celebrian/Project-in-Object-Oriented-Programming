@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <fstream>
 #include <stdlib.h>
 
 using namespace std;
@@ -11,6 +12,29 @@ using namespace std;
 #include "funksjoner.h"
 #include "ovelse.h"
 #include "enum.h"
+#include "deltagere.h"
+
+extern Deltagere deltagerobjekt;
+
+void Ovelse::flyttStartliste(const int i, const int j)
+{
+	startListe[i][0] = startListe[j][0];
+	startListe[i][1] = startListe[j][1];
+}
+
+void Ovelse::nyttDynamiskArray()
+{
+	int (*endretStartliste)[2] = new int[antallDeltagere + 1][2];
+
+	for (int i = 1; i <= antallDeltagere; i++)
+	{
+		endretStartliste[i][0] = startListe[i][0];
+		endretStartliste[i][1] = startListe[i][1];
+	}
+	delete[] startListe;
+	startListe = endretStartliste;
+	delete[] endretStartliste;
+}
 
 Ovelse::Ovelse(int i, char chr[]) : NumElement(i)
 {
@@ -72,7 +96,114 @@ bool Ovelse::sjekkID(int i)
 	return(i == number);
 }
 
-void Ovelse::skrivDeltagerListe(const int id)
+void Ovelse::skrivStartliste()
+{
+	char temp[MAXTXT + 1] = "gruppe03/";
+	char ch;
+	filtype ft = startliste;
+
+	lagFilNavn(temp, ft);
+
+	ifstream inn(temp);
+	if (inn)
+	{
+		inn >> ch >> antallDeltagere; inn.ignore();
+		startListe = new int[antallDeltagere + 1][2];
+		lesStartlisteFraFil(inn);
+		for (int i = 1; i <= antallDeltagere; i++)
+		{
+			cout << "Startnummer: " << i << " ";
+			deltagerobjekt.skrivID(startListe[i][1]);
+		}
+	}
+	else
+	{
+		cout << "\n\tIngen startliste funnet." << endl;
+	}
+}
+
+void Ovelse::nyStartliste()
+{
+	char temp[MAXTXT + 1] = "gruppe03/";
+	int deltagerTemp;
+	filtype ft = startliste;
+
+	lagFilNavn(temp, ft);
+
+	ifstream inn(temp);
+	if (!inn)
+	{
+		antallDeltagere = les("Antall deltagere i denne øvelsen", MINDELTAGER, MAXDELTAGER);
+		if (antallDeltagere <= deltagerobjekt.antallDeltagere())
+		{
+			startListe = new int[antallDeltagere + 1][2];
+			for (int i = 1; i <= antallDeltagere; i++)
+			{
+				deltagerTemp = les("Deltagernummer", MINDELTAGERE, MAXDELTAGERE);
+				if (deltagerobjekt.finnesID(deltagerTemp))
+				{
+					startListe[i][0] = i;
+					startListe[i][1] = deltagerTemp;
+					cout << "\n\tDeltager lagt til startlisten." << endl;
+				}
+				else
+				{
+					cout << "Ingen deltagere med dette nummeret." << endl;
+					i--;
+				}
+			}
+			skrivStartlisteTilFil();
+		}
+		else
+		{
+			cout << "\n\tIkke nok deltagere til å fylle en liste med så mange deltagere." << endl;
+		}
+	}
+	else
+	{
+		cout << "\n\tStartliste finnes allerede." << endl;
+	}
+
+}
+
+void Ovelse::endreStartliste()
+{
+	char valg;                //  Brukerens valg.
+	skrivMenyOLE();                  //  skriver ut meny med valg.
+
+	valg = les();             //  Leser brukerens valg.
+	while (valg != 'Q') {
+		switch (valg) {
+		case 'S': minusStartlisteDeltager();	break;
+		case 'N': plussStartlisteDeltager();				break;
+		case 'F': 	break;
+		default:  skrivMenyOLE();				break;
+		}
+		valg = les();
+	}
+}
+
+void Ovelse::minusStartlisteDeltager()
+{
+	bool fantDeltager = false;
+	int deltagerTemp, i = 1;
+	deltagerTemp = les("\n\tDeltagernummeret du vil fjerne fra startlisten", MINDELTAGERE, MAXDELTAGERE);
+	while(!fantDeltager || i <= antallDeltagere)
+	{
+		if (startListe[i][1] == deltagerTemp)
+		{
+			flyttStartliste(antallDeltagere, i);
+			fantDeltager = true;
+		}
+		i++;
+	}
+	if (!fantDeltager)
+	{
+		cout << "\n\tFant ingen deltagere med dette nummeret" << endl;
+	}
+}
+
+void plussStartlisteDeltager()
 {
 
 }
@@ -89,11 +220,11 @@ Ovelse::Ovelse(ifstream & inn, int i) : NumElement (i)
 	inn >> klokkeStart >> dato >> antallDeltagere; inn.ignore();
 }
 
-void Ovelse::lagFilNavn(int id, char ch[], filtype ft)
+void Ovelse::lagFilNavn(char ch[], filtype ft)
 {
 	char temp[MAXTXT + 1] = "OV";
 	char temp2[MAXTXT + 1];
-	_itoa(id, temp2, 10);
+	_itoa(number, temp2, 10);
 	
 	//char temp[MAXTXT + 1] = (ft == startliste) ?  ".STA" : ".RES";	// TIL SENERE INSPEKSJON, HJELP BLIR SATT PRIS PÅ *HINT HINT*
 
@@ -113,7 +244,7 @@ void Ovelse::lagFilNavn(int id, char ch[], filtype ft)
 	}
 }
 
-void Ovelse::MenyOR(int id)
+void Ovelse::MenyOR()
 {
 	char valg;                //  Brukerens valg.
 	skrivMenyOR();                  //  skriver ut meny med valg.
@@ -121,9 +252,10 @@ void Ovelse::MenyOR(int id)
 	valg = les();             //  Leser brukerens valg.
 	while (valg != 'Q') {
 		switch (valg) {
-		case 'S': skrivResultatListe(id); break;
-		case 'N': cout << "\nNy deltagerliste i øvelse: ";  break;
-		case 'F': cout << "\nSletter resultatliste i: ";  break;
+		case 'S': skrivResultatListe();	break;
+		case 'N': 			break;
+		case 'E':  		break;
+		case 'F':	break;
 		default:  skrivMenyOR();       break;
 		}
 		valg = les();
@@ -132,19 +264,51 @@ void Ovelse::MenyOR(int id)
 
 void Ovelse::skrivMenyOR()
 {
-	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
-	cout << "\n\tS = Skriv resultatliste";
-	cout << "\n\tE = Ny resultatliste";
-	cout << "\n\tF = Fjerne resultatliste";
-	cout << "\n\tQ = Forrige meny";
+	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:"
+		<< "\n\tS = Skriv resultatliste"
+		<< "\n\tN = Ny resultatliste" 
+		<< "\n\tF = Fjerne resultatliste"
+		<< "\n\tQ = Forrige meny";
 }
 
-void Ovelse::skrivResultatListe(int id)
+void Ovelse::skrivMenyOLE()
+{
+	cout << "\n\tFØLGENDE KOMMANDOER ER TILGJENGLIGE:"
+		<< "\n\tN = Legge til ny deltager"
+		<< "\n\tS = Slette en deltager"
+		<< "\n\tB = Bytte en deltager med en annen"
+		<< "\n\tQ = Forrige meny";
+}
+
+void Ovelse::skrivResultatListe()
 {
 	filtype ft = resultatliste;
 	char filnavn[MAXTXT + 1] = "gruppe03/";
-	lagFilNavn(id, filnavn, ft);
+	lagFilNavn(filnavn, ft);
 	
 	ofstream ut(filnavn);
 	ut << "testfil" << endl;
+}
+
+void Ovelse::lesStartlisteFraFil(ifstream & inn)
+{
+	for (int i = 1; i <= antallDeltagere; i++)
+	{
+		inn >> startListe[i][0] >> startListe[i][1];
+		inn.ignore();
+	}
+}
+
+void Ovelse::skrivStartlisteTilFil()
+{
+	filtype ft = startliste;
+	char filnavn[MAXTXT + 1] = "gruppe03/";
+	lagFilNavn(filnavn, ft);
+
+	ofstream ut(filnavn);
+	ut << 'I ' << antallDeltagere << endl;
+	for (int i = 1; i <= antallDeltagere; i++)
+	{
+		ut << startListe[i][0] << " " << startListe[i][1] << endl;
+	}
 }

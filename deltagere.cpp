@@ -136,6 +136,25 @@ void Deltagere::skrivMenyD() // skriver ut valgene på skjermen.
 	cout << "\n\tQ = Forrige meny";
 }
 
+void Deltagere::skrivID(const int id)
+{
+	Deltager* tempptr;
+
+	tempptr = (Deltager*)deltagerListe->remove(id);
+	tempptr->skrivDeltagerID();
+	deltagerListe->add(tempptr);
+}
+
+bool Deltagere::finnesID(const int id)
+{
+	return deltagerListe->inList(id);
+}
+
+int Deltagere::antallDeltagere()
+{
+	return deltagerListe->noOfElements();
+}
+
 void Deltagere::LesDeltagereFraFil()
 {
 	int temp;

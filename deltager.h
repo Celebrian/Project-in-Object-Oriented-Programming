@@ -18,6 +18,7 @@ public:
 	void endreNyDeltager();	// for å endre en deltager besert på nummer innskrevet
 	virtual void display();	// skriver ut data
 	void displayAll();	// skriver ut alle data
+	void skrivDeltagerID();
 	bool sjekkLand(char ch[LANDSKODE]);	// sjekker om en nasjon finnes
 	void skrivDeltagerTilFil(ofstream & ut);
 	void lesInnNasjon(char ch[]); // sjekker at en nasjon finnes før den faktisk oppdateres

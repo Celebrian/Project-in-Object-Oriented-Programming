@@ -12,10 +12,10 @@ private:
 	int medaljeListe[MAXNASJONER][3];				//Antall gull, sølv og bronse medaljer
 
 	void bytt(const int i, const int j);			//Flytter Nasjoner i arrayene
-public:
-	void nyMedalje(const char land[LANDSKODE], const medalje pris);
 	void sorterMedaljer();							//Sorterer medaljer
-	void visMedaljer();						//TEST FUNKSJON
+public:
+	void endreMedalje(const char land[LANDSKODE], const medalje pris, const plusminus increment);
+	void visMedaljer();								//Skriver medaljer til skjerm
 	void lesMedaljerFraFil();						//Les medaljer fra fil
 	void skrivMedaljerTilFil();						//Skriv medaljer til fil
 };

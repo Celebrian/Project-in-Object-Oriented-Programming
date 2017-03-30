@@ -14,8 +14,11 @@ private:
 	int klokkeStart;
 	int dato;
 	int antallDeltagere;
-	int deltagerListe[MAXDELTAGER][4];		//PROBABLY NOT FINAL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	int resultatListe[MAXDELTAGER][4];		//SAME AS THE ONE ABOVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	int (*startListe)[2];				//http://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new
+	int* resultatListe;
+
+	void flyttStartliste(const int i, const int j);
+	void nyttDynamiskArray();
 public:
 	Ovelse(int i, char chr[]);
 	void endreOvelsen();
@@ -25,13 +28,20 @@ public:
 	void skrivAlt();
 	bool sjekkNavn(char c[]);
 	bool sjekkID(int i);
-	void skrivDeltagerListe(const int id);
+	void skrivStartliste();
+	void nyStartliste();
+	void endreStartliste();
+	void minusStartlisteDeltager();
+	void plussStartlisteDeltager();
 	void skrivTilFil(ofstream &ut);
 	Ovelse(ifstream & inn, int i);
-	void lagFilNavn(int id, char ch[], filtype ft);
-	void MenyOR(int id);
+	void lagFilNavn(char ch[], filtype ft);
+	void MenyOR();
 	void skrivMenyOR();
-	void skrivResultatListe(int id);
+	void skrivMenyOLE();
+	void skrivResultatListe();
+	void lesStartlisteFraFil(ifstream & inn);
+	void skrivStartlisteTilFil();
 };
 
 #endif
