@@ -86,7 +86,7 @@ void Gren::MenyO()
 		case 'E': endreOvelse();  break;
 		case 'F': cout << "\nFjerner en ævelse i: " << tempNavn;; break;
 		case 'A': skrivAlle();  break;
-		//case 'L': MenyOL(); break;
+		case 'L': MenyOL(); break;
 		case 'R': resultatListeMeny(); break;
 		default:  skrivMenyO();       break;
 		}
@@ -109,11 +109,11 @@ void Gren::MenyOL()
 			valg = les();             //  Leser brukerens valg.
 			while (valg != 'Q') {
 				switch (valg) {
-				case 'S': ovelser[i]->skrivStartliste();				break;
-				case 'N': ovelser[i]->nyStartliste();						break;
-				case 'E': ovelser[i]->endreStartliste();				break;
-				case 'F': cout << "\n\tFjern deltagerliste";				break;
-				default:  skrivMenyOL();									break;
+				case 'S': ovelser[i]->skrivStartliste();	break;
+				case 'N': ovelser[i]->nyStartliste();		break;
+				case 'E': ovelser[i]->endreStartliste();	break;
+				case 'F': ovelser[i]->fjernDeltagerliste();	break;
+				default:  skrivMenyOL();					break;
 				}
 				valg = les();
 			}

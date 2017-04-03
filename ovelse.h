@@ -10,40 +10,41 @@
 
 class Ovelse : public NumElement {		
 private:
-	char* ovelseNavn;
-	int klokkeStart;
-	int dato;
-	int antallDeltagere;
+	char* ovelseNavn;					//Øvelsens fulle navn
+	int klokkeStart;					//Klokkeslett for starttiden til øvelsen
+	int dato;							//Dato øvelsen foregår
+	int antallDeltagere;				//Antall deltagere i øvelsen
 	int (*startListe)[2];				//http://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new
 	int* resultatListe;
 
-	void flyttStartliste(const int i, const int j);
-	void nyttDynamiskArray();
+	void flyttStartliste(const int i, const int j);//Flytter "skuff" j over "skuff" i
+	void nyttDynamiskArray();			//Lager nytt dynamisk array som er akkurat så langt som det trenger å være
 public:
-	Ovelse(int i, char chr[]);
-	void endreOvelsen();
-	void endreNavn();
-	void endreOvelseDato();
-	void endreKlokkeslett();
-	void skrivAlt();
-	bool sjekkNavn(char c[]);
-	bool sjekkID(int i);
-	void skrivStartliste();
-	void nyStartliste();
-	void endreStartliste();
-	void minusStartlisteDeltager();
-	void plussStartlisteDeltager();
-	void byttStartlisteDeltager();
-	void skrivTilFil(ofstream &ut);
-	Ovelse(ifstream & inn, int i);
-	void lagFilNavn(char ch[], filtype ft);
-	void MenyOR();
-	void skrivMenyOR();
-	void skrivMenyOLE();
-	void skrivResultatListe();
-	void nyResultatliste(int id);
-	void lesStartlisteFraFil(ifstream & inn);
-	void skrivStartlisteTilFil();
+	Ovelse(int i, char chr[]);			//Constructor leser inn data for ny øvelse
+	void endreOvelsen();				//Endre øvelsemeny
+	void endreNavn();					//Endre navn på øvelsen
+	void endreOvelseDato();				//Endre dato for øvelsen
+	void endreKlokkeslett();			//Endre klokkeslett for øvelsen
+	void skrivAlt();					//Skriver alt om øvelsen på skjerm
+	bool sjekkNavn(char c[]);			//Returnerer true hvis navnet på øvelsen matcher parameter
+	bool sjekkID(int i);				//Returnerer true hvis number matcher parameter
+	void skrivStartliste();				//Skriver startliste på skjerm
+	void nyStartliste();				//Lager ny startliste
+	void endreStartliste();				//Viser endre startlistemeny
+	void minusStartlisteDeltager();		//Fjerner en deltager fra startlisten
+	void plussStartlisteDeltager();		//Legger til en ny deltager på startlisten
+	void byttStartlisteDeltager();		//Bytter en person på startlisten med en annen
+	void fjernDeltagerliste();			//Fjerner startlisten fra disk
+	void skrivTilFil(ofstream &ut);		//Skriver øvelse til fil
+	Ovelse(ifstream & inn, int i);		//Constructor for å lese øvelse fra fil
+	void lagFilNavn(char ch[], filtype ft);//Lager filnavn for start- og resultat- liste for øvelse
+	void MenyOR();						//Skriver menyOR
+	void skrivMenyOR();					//Skriver valgmuligheter for menyOR
+	void skrivMenyOLE();				//Skriver valgmuligheter for menyOLE
+	void skrivResultatListe();			//Skriver resultatliste på skjerm
+	void nyResultatliste(int id);		//Lager ny resultatliste
+	void lesStartlisteFraFil(ifstream & inn);//Leser startliste fra fil
+	void skrivStartlisteTilFil();		//Skriver startliste fra fil
 };
 
 #endif

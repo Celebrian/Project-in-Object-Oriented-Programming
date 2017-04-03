@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
-#include <stdlib.h>
+#include <cstdio>
 
 using namespace std;
 
@@ -33,7 +33,6 @@ void Ovelse::nyttDynamiskArray()
 	}
 	delete[] startListe;
 	startListe = endretStartliste;
-	delete[] endretStartliste;
 }
 
 Ovelse::Ovelse(int i, char chr[]) : NumElement(i)
@@ -124,6 +123,7 @@ void Ovelse::skrivStartliste()
 
 void Ovelse::nyStartliste()
 {
+	bool finnesAllerede = false;
 	char temp[MAXTXT + 1] = "gruppe03/";
 	int deltagerTemp;
 	filtype ft = startliste;
@@ -142,9 +142,23 @@ void Ovelse::nyStartliste()
 				deltagerTemp = les("Deltagernummer", MINDELTAGERE, MAXDELTAGERE);
 				if (deltagerobjekt.finnesID(deltagerTemp))
 				{
-					startListe[i][0] = i;
-					startListe[i][1] = deltagerTemp;
-					cout << "\n\tDeltager lagt til startlisten." << endl;
+					for (int j = 1; j <= i; j++)
+					{
+						if (startListe[j][1] == deltagerTemp)
+						{
+							finnesAllerede = true;
+						}
+					}
+					if (!finnesAllerede)
+					{
+						startListe[i][0] = i;
+						startListe[i][1] = deltagerTemp;
+						cout << "\n\tDeltager lagt til startlisten." << endl << endl;
+					}
+					else
+					{
+						cout << "\n\tDenne deltageren finnes allerede i denne startlisten" << endl;
+					}
 				}
 				else
 				{
@@ -168,18 +182,42 @@ void Ovelse::nyStartliste()
 
 void Ovelse::endreStartliste()
 {
-	char valg;                //  Brukerens valg.
-	skrivMenyOLE();                  //  skriver ut meny med valg.
+	char ressInn[MAXTXT + 1] = "gruppe03/";
+	char staInn[MAXTXT + 1] = "gruppe03/";
 
-	valg = les();             //  Leser brukerens valg.
-	while (valg != 'Q') {
-		switch (valg) {
-		case 'S': minusStartlisteDeltager();	break;
-		case 'N': plussStartlisteDeltager();	break;
-		case 'F': byttStartlisteDeltager();		break;
-		default:  skrivMenyOLE();				break;
+	filtype ft = resultatliste;
+	filtype startinn = startliste;
+	lagFilNavn(ressInn, ft);
+	lagFilNavn(staInn, startinn);
+	ifstream resInn(ressInn);
+	ifstream startInn(staInn);
+
+	if (!resInn)
+	{
+		if (startInn)
+		{
+			char valg;                //  Brukerens valg.
+			skrivMenyOLE();                  //  skriver ut meny med valg.
+
+			valg = les();             //  Leser brukerens valg.
+			while (valg != 'Q') {
+				switch (valg) {
+				case 'S': minusStartlisteDeltager();	break;
+				case 'N': plussStartlisteDeltager();	break;
+				case 'F': byttStartlisteDeltager();		break;
+				default:  skrivMenyOLE();				break;
+				}
+				valg = les();
+			}
 		}
-		valg = les();
+		else
+		{
+			cout << "\n\tStartliste finnes ikke." << endl;
+		}
+	}
+	else
+	{
+		cout << "\n\tResultatliste finnes." << endl;
 	}
 }
 
@@ -196,6 +234,7 @@ void Ovelse::minusStartlisteDeltager()
 			antallDeltagere--;
 			nyttDynamiskArray();
 			fantDeltager = true;
+			cout << "Deltager fjernet fra startliste." << endl << endl;
 		}
 		i++;
 	}
@@ -203,46 +242,122 @@ void Ovelse::minusStartlisteDeltager()
 	{
 		cout << "\n\tFant ingen deltagere med dette nummeret" << endl;
 	}
+	skrivStartlisteTilFil();
 }
 
 void Ovelse::plussStartlisteDeltager()
 {
+	bool finnesAllerede = false;
 	int deltagerTemp;
 	deltagerTemp = les("Deltagernummeret du vil legge til startlisten", MINDELTAGERE, MAXDELTAGERE);
 	if (deltagerobjekt.finnesID(deltagerTemp))
 	{
-		antallDeltagere++;
-		nyttDynamiskArray();
-		startListe[antallDeltagere][0] = antallDeltagere;
-		startListe[antallDeltagere][1] = deltagerTemp;
+		for (int i = 1; i <= antallDeltagere; i++)
+		{
+			if (startListe[i][1] == deltagerTemp)
+			{
+				finnesAllerede = true;
+			}
+		}
+		if (!finnesAllerede)
+		{
+			antallDeltagere++;
+			nyttDynamiskArray();
+			startListe[antallDeltagere][0] = antallDeltagere;
+			startListe[antallDeltagere][1] = deltagerTemp;
+			cout << "\n\tDeltager lagt til i startliste" << endl << endl;
+		}
+		else
+		{
+			cout << "\n\tDen nye deltageren er allerede i startlista." << endl;
+		}
 	}
+	else
+	{
+		cout << "\n\tDet finnes ikke noen deltagere med dette nummeret." << endl;
+	}
+	skrivStartlisteTilFil();
 }
 
 void Ovelse::byttStartlisteDeltager()
 {
-	bool fantDeltager = false;
-	int deltagerTemp, nyDeltagerTemp, i = 1;
+	bool finnesNyDeltager = false;
+	int finnesIStartliste = 0, deltagerTemp, nyDeltagerTemp, i;
+
 	deltagerTemp = les("Deltagernummeret du vil bytte ut av startlisten", MINDELTAGERE, MAXDELTAGERE);
-	while (!fantDeltager && i <= antallDeltagere)
+	for (i = 1; i <= antallDeltagere; i++)
 	{
 		if (startListe[i][1] == deltagerTemp)
 		{
-			nyDeltagerTemp = les("Deltagernummer du vil erstatte inn i startlisten", MINDELTAGERE, MAXDELTAGERE);
-			if (deltagerobjekt.finnesID(nyDeltagerTemp))
+			finnesIStartliste = i;
+		}
+	}
+	if (finnesIStartliste)
+	{
+		nyDeltagerTemp = les("Deltagernummer du vil erstatte inn i startlisten", MINDELTAGERE, MAXDELTAGERE);
+		if (deltagerobjekt.finnesID(nyDeltagerTemp))
+		{
+			for (i = 1; i <= antallDeltagere; i++)
 			{
-				startListe[i][1] = nyDeltagerTemp;
-				fantDeltager = true;
-			}
-			else
-			{
-				cout << "\n\tIngen deltagere med dette deltagernummeret." << endl;
+				if (startListe[i][1] == nyDeltagerTemp)
+				{
+					finnesNyDeltager = true;
+				}
 			}
 		}
-		i++;
+
 	}
-	if (!fantDeltager)
+	else
 	{
-		cout << "\n\tFant ingen deltagere med dette nummeret" << endl;
+		cout << "\n\tFant ingen brukere med dette dalagernummeret i startlisten." << endl;
+	}
+	if (finnesIStartliste && !finnesNyDeltager)
+	{
+		startListe[finnesIStartliste][1] = nyDeltagerTemp;
+		cout << "\n\tDeltager erstattet i startliste" << endl << endl;
+	}
+	skrivStartlisteTilFil();
+}
+
+void Ovelse::fjernDeltagerliste()
+{
+	char ressInn[MAXTXT + 1] = "gruppe03/";
+	char staInn[MAXTXT + 1] = "";
+
+	filtype ft = resultatliste;
+	filtype startinn = startliste;
+	lagFilNavn(ressInn, ft);
+	lagFilNavn(staInn, startinn);
+	ifstream resInn(ressInn);
+	ifstream startInn(staInn);
+
+	if (startInn)
+	{
+		if (!resInn)
+		{
+			cout << "\n\tEr du sikker på at du vil slette startlisten for denne øvelsen? (Y/n)";
+			char ch = les();
+			if (ch == 'Y')
+			{
+				cout << strcmp(staInn, "OV1000.STA") << endl;
+				if (remove("OV1000.STA") == 0)
+				{
+					cout << "\n\tStartliste fjernet." << endl;
+				}
+				else
+				{
+					cout << "Klarte ikke å slette listen." << endl;
+				}
+			}
+		}
+		else
+		{
+			cout << "\n\tResultatliste allerede laget." << endl;
+		}
+	}
+	else
+	{
+		cout << "\n\tFant ingen startliste." << endl;
 	}
 }
 
@@ -334,7 +449,7 @@ void Ovelse::skrivStartlisteTilFil()
 	lagFilNavn(filnavn, ft);
 
 	ofstream ut(filnavn);
-	ut << 'I ' << antallDeltagere << endl;
+	ut << "I " << antallDeltagere << endl;
 	for (int i = 1; i <= antallDeltagere; i++)
 	{
 		ut << startListe[i][0] << " " << startListe[i][1] << endl;
