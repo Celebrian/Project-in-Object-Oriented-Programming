@@ -19,4 +19,8 @@ enum filtype {				// hvilken type filnavn som skal lages.
 	startliste, resultatliste
 };
 
+enum plusminus {
+	minus, pluss
+};
+
 #endif

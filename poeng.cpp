@@ -10,8 +10,9 @@ using namespace std;
 
 #include "poeng.h"
 #include "statestikk.h"
+#include "enum.h"
 
-void Poeng::oppdaterPoeng(char ch[LANDSKODE], int antP)
+void Poeng::oppdaterPoeng(char ch[LANDSKODE], int antP, plusminus oppened)
 {
 	bool b = false;   // For å sjekke om nasjon finnes
 	int temp;
@@ -20,8 +21,18 @@ void Poeng::oppdaterPoeng(char ch[LANDSKODE], int antP)
 		if (!strcmp(nasjonForkortelser[i], ch))	// Sjekker om den finner nasjonen brukeren skrev in
 		{
 			temp = i;
-			poengOversikt[temp] += antP;	// legger poeng inn på samme sted i poengarray som nasjon ligger i statistikk sin array
-			b = true;		// Nasjonen fines
+			if (poengOversikt[temp] > 0)
+			{
+				if (oppened) 
+				{
+					poengOversikt[temp] += antP;	// legger poeng inn på samme sted i poengarray som nasjon ligger i statistikk sin array
+				}
+				else
+				{
+					poengOversikt[temp] -= antP;	// trekker fra poeng til relevant nasjon.
+				}
+				b = true;		// Nasjonen fines
+			}
 		}
 	}
 	if (!b)		// hvis nasjon ikke finnes  statistikk array

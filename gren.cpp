@@ -124,7 +124,7 @@ void Gren::MenyO()
 		case 'E': endreOvelse();  break;
 		case 'F': cout << "\nFjerner en ævelse i: " << tempNavn;; break;
 		case 'A': skrivAlle();  break;
-		//case 'L': MenyOL(); break;
+		case 'L': MenyOL(); break;
 		case 'R': resultatListeMeny(); break;
 		default:  skrivMenyO();       break;
 		}
@@ -147,11 +147,11 @@ void Gren::MenyOL()
 			valg = les();             //  Leser brukerens valg.
 			while (valg != 'Q') {
 				switch (valg) {
-				case 'S': ovelser[i]->skrivDeltagerListe(temp);					break;
-				case 'N': cout << "\n\tNy deltagerliste";					break;
-				case 'E': cout << "\n\tEndre deltagerliste";				break;
-				case 'F': cout << "\n\tFjern deltagerliste";				break;
-				default:  skrivMenyOL();									break;
+				case 'S': ovelser[i]->skrivStartliste();	break;
+				case 'N': ovelser[i]->nyStartliste();		break;
+				case 'E': ovelser[i]->endreStartliste();	break;
+				case 'F': ovelser[i]->fjernDeltagerliste();	break;
+				default:  skrivMenyOL();					break;
 				}
 				valg = les();
 			}
@@ -298,17 +298,20 @@ void Gren::lesOvelseFraFil(ifstream & inn)
 
 void Gren::resultatListeMeny()
 {
+	bool fantOvelse = false;
 	int temp;
-	temp = les("\nSkriv inn nummer", MINDELTAGER, MAXDELTAGER);
+	temp = les("\nSkriv inn nummer", MINOVNR, MAXOVNR);
 	for (int i = 1; i <= antallOvelser; i++)
 	{
 		if (ovelser[i]->sjekkID(temp)) 
 		{
-			ovelser[i]->MenyOR(temp);
+			ovelser[i]->MenyOR();
+			fantOvelse = true;
 		}
-		else
-		{
-			cout << "\n\tØvelsen finnes ikke!" << endl;
-		}
+	}
+
+	if (!fantOvelse)
+	{
+		cout << "\n\tØvelsen finnes ikke!" << endl;
 	}
 }

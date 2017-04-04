@@ -165,7 +165,7 @@ int lesDato()						//LESE LOVELIG DATO
 		do
 		{
 			les("Skriv inn gyldig dato (p† formen: ††††mmdd) ", tempdato, MAXTXT); //Ber om gyldig dato
-		} while (strlen(tempdato) == 8);
+		} while (strlen(tempdato) != 8);
 		if (kunTall(tempdato))												//På formen aaaammdd
 		{
 			dato = atoi(tempdato);
@@ -188,7 +188,7 @@ bool finnesDato(int da, int ma, int aa) {
 	//  Setter opp antall dager i månedene.
 	//   Verdien for februar settes senere.
 	int dagerPrMaaned[12] = { 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	if (aa < 0 || aa > 3000) return false;    //  Ulovlig år.
+	if (aa < 1000 || aa > 3000) return false;    //  Ulovlig år.
 	if (ma < 1 || ma > 12)   return false;    //  Ulovlig måned.
 											  //Ut fra om året er skuddår eller ei
 	dagerPrMaaned[1] = (skuddaar(aa)) ? 29 : 28;//så settes februar verdien

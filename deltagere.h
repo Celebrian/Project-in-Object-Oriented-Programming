@@ -19,6 +19,9 @@ public:
 	void loopGjennom(char ch[LANDSKODE+1]); // sjekker om en nasjon finnes.
 	void MenyD();	// lager en meny.
 	void skrivMenyD();	// skriver menyvalg.
+	void skrivID(const int id);
+	bool finnesID(const int id);
+	int antallDeltagere();
 	void LesDeltagereFraFil(); 
 	void skrivDeltagereTilFil();
 	void skrivDeltagerStart(int n);
