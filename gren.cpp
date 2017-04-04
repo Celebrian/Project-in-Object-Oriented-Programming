@@ -113,7 +113,6 @@ void Gren::displayValgt()
 
 void Gren::MenyO()
 {
-	char tempNavn[MAXTXT];
 	char valg;                //  Brukerens valg.
 	skrivMenyO();                  //  skriver ut meny med valg.
 
@@ -197,7 +196,7 @@ void Gren::nyOvelse()
 	{
 		int tempID;
 		tempID = les("\nLes inn unik ID", MINOVNR, MAXOVNR);
-		if(antallOvelser > 0)
+		if(antallOvelser >= 0)
 		{
 			for (int i = 1; i <= antallOvelser; i++)
 			{
