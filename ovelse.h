@@ -35,6 +35,8 @@ public:
 	void skrivResultatListe(int id);
 	void nyResultatliste(int id);
 	void lagResultat(ifstream & inn);
+	void skrivTid(int in);
+	void skrivPoeng(int t);
 	void lesTid(int i, const int c);
 	void lesPoeng(int i, int x);
 	void sorterResultater(char hva);

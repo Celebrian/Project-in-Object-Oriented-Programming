@@ -20,7 +20,7 @@ void Poeng::oppdaterPoeng(char ch[LANDSKODE], int antP)
 		if (!strcmp(nasjonForkortelser[i], ch))	// Sjekker om den finner nasjonen brukeren skrev in
 		{
 			temp = i;
-			poengOversikt[temp] = antP;	// legger poeng inn på samme sted i poengarray som nasjon ligger i statistikk sin array
+			poengOversikt[temp] += antP;	// legger poeng inn på samme sted i poengarray som nasjon ligger i statistikk sin array
 			b = true;		// Nasjonen fines
 		}
 	}
@@ -28,7 +28,7 @@ void Poeng::oppdaterPoeng(char ch[LANDSKODE], int antP)
 	{
 		strcpy(nasjonForkortelser[++sisteBrukt], ch);	// legger nasjonen inn i statistikkarray
 		temp = sisteBrukt;
-		poengOversikt[temp] = antP; // legger poeng inn i poengarray.
+		poengOversikt[temp] += antP; // legger poeng inn i poengarray.
 	}
 	sorterPoeng();
 }

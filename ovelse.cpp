@@ -180,7 +180,7 @@ void Ovelse::nyResultatliste(int id)
 		inn.close();
 		filtype ft = startliste;
 		char filnavn2[MAXTXT + 1] = "gruppe03/";
-		lagFilNavn(id, filnavn, ft);
+		lagFilNavn(id, filnavn2, ft);
 		ifstream innfil(filnavn2);
 		if (innfil)
 		{
@@ -204,7 +204,7 @@ void Ovelse::nyResultatliste(int id)
 
 void Ovelse::lagResultat(ifstream & inn)
 {
-	for (int i = 1; i < antallDeltagere; i++)
+	for (int i = 1; i <= antallDeltagere; i++)
 	{
 		inn >> resultatListe[i][0] >> resultatListe[i][1];
 		inn.ignore();
@@ -217,8 +217,8 @@ void Ovelse::lagResultat(ifstream & inn)
 		case 0: lesTid(i, MMSST);   break;
 		case 1: lesTid(i, MMSSHH);	break;
 		case 2: lesTid(i, MMSSTTT);	break;
-		case 3: lesPoeng(i, 10);    break;
-		case 4: lesPoeng(i, 100);   break;
+		case 3: lesPoeng(i, POENGX);    break;
+		case 4: lesPoeng(i, POENGXX);   break;
 		default:
 			break;
 		}
@@ -233,30 +233,71 @@ void Ovelse::lagResultat(ifstream & inn)
 	default:
 		break;
 	}
+
+	
+	switch (resultatMetode)
+	{
+	case 0: skrivTid(MMSST);		break;
+	case 1: skrivTid(MMSSHH);		break;
+	case 2: skrivTid(MMSSTTT);	break;
+	case 3: skrivPoeng(POENGX);	break;
+	case 4: skrivPoeng(POENGXX);	break;
+	default:
+		break;
+	}
+
 	ajourfor();
 
 	filtype ft = resultatliste;
 	char filnavn[MAXTXT + 1] = "gruppe03/";
 	lagFilNavn(number, filnavn, ft);
 	ofstream utfil(filnavn);
+	for (int m = 1; m <= antallDeltagere; m++)
+	{
+		utfil << resultatListe[m][0] << " " << resultatListe[m][1] << " " << resultatListe[m][2] << endl;
+	}
 
 }
 
-void Ovelse::lesTid(int i, const int c)
+void Ovelse::skrivTid(int in)
 {
+	cout << "\n\n\tResultatliste for: " << ovelseNavn << endl;
+	for (int m = 1; m <= antallDeltagere; m++)
+	{
+		cout << "\n\tNummer: " << m << " \tDeltager: " << resultatListe[m][1]
+			<< " \tStartnummer: " << resultatListe[m][0]
+			<< " \tTid: " << int(resultatListe[m][2]/ (in*100)) << ":" << (int(resultatListe[m][2]/in) % 100) << ":" << (int(resultatListe[m][2]) % in) << endl;
+	}
+}
+
+void Ovelse::skrivPoeng(int t)
+{
+	cout << "\n\n\tResultatliste for: " << ovelseNavn << endl;
+	for (int m = 1; m <= antallDeltagere; m++)
+	{
+		cout << "\n\tNummer: " << m << " \tDeltager: " << resultatListe[m][1]
+			<< " \tStartnummer: " << resultatListe[m][0]
+			<< " \tPoeng: " << int(resultatListe[m][2] / t) << "." << (int(resultatListe[m][2]) % t) << endl;
+	}
+}
+
+
+
+void Ovelse::lesTid(int i, const int c)
+{	
 	bool sant = true;
 	char temp[MAXTXT + 1];
 	int temp2;
 	do
 	{
-		les("\n\tLes inn tid (MMSST):", temp, MMSST);
+		les("\n\tLes inn tid (MMSST)", temp, MAXTXT);
 		if (kunTall(temp))
 		{
 			temp2 = atoi(temp);
 			sant = false;
 		}
-	} while (sant || (temp2 / 1000 > 59) 
-		|| (( (temp2/ 10) % 100) > 59) || (temp2 % 10000) > 9 );
+	} while (sant || ((temp2 / (c*100)) > 59) 
+		|| (( (temp2/ c) % 100) > 59) || (temp2 % c) > int(c*0.999) );
 	resultatListe[i][2] = temp2;
 }
 
@@ -327,12 +368,12 @@ void Ovelse::ajourfor()
 	{
 		switch (i)
 		{
-		case 1:ajourfor1(i);
-		case 2:ajourfor2(i);
-		case 3:ajourfor3(i);
-		case 4:ajourfor4(i);
-		case 5:ajourfor5(i);
-		case 6:ajourfor6(i);
+		case 1:ajourfor1(i); break;
+		case 2:ajourfor2(i); break;
+		case 3:ajourfor3(i); break;
+		case 4:ajourfor4(i); break;
+		case 5:ajourfor5(i); break;
+		case 6:ajourfor6(i); break;
 
 		default:
 			break;
