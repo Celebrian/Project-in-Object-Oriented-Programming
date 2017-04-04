@@ -20,7 +20,7 @@ enum filtype {				// hvilken type filnavn som skal lages.
 };
 
 enum plusminus {
-	minus, pluss
+	minusssssssss, pluss		// i speak parseltounge.
 };
 
 #endif

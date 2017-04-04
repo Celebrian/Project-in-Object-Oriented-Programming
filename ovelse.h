@@ -30,7 +30,7 @@ public:
 	void lesPoeng(int i, int x);
 	void sorterResultater(char hva);
 	void sorteringsProsess(int i, int j);
-	void ajourfor();
+	void ajourfor(plusminus oppned);
 	void ajourfor1(int i, plusminus oppned);
 	void ajourfor2(int i, plusminus oppned);
 	void ajourfor3(int i, plusminus oppned);
@@ -61,6 +61,9 @@ public:
 	void skrivStartlisteTilFil();		//Skriver startliste fra fil
 	void slettResultatListe();
 	void slettStatistikk(ifstream & inn, char ch);
+	void skrivResultatliste();
+	void lagStatistikk(ifstream & inn, char ch);
+	void skrivSortertResultatListe();
 };
 
 #endif

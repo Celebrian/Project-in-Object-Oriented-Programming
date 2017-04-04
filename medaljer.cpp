@@ -22,11 +22,11 @@ void Medaljer::endreMedalje(const char land[LANDSKODE], const medalje pris, cons
 			{
 				if (increment)									//Hvis parameter plusminus er 0 (minus)
 				{
-					medaljeListe[i][pris]--;					//Trekk fra en medalje
+					medaljeListe[i][pris]++;					//Trekk fra en medalje
 				}
 				else											//Hvis parameter plusminus er 1 (pluss)
 				{
-					medaljeListe[i][pris]++;					//Teller opp medalje
+					medaljeListe[i][pris]--;					//Teller opp medalje
 				}
 				finnes = true;									//Fant land
 			}

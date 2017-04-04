@@ -158,7 +158,7 @@ void Nasjoner::plussDeltager(const char t[])
 	Nasjon* nasjonptr;
 
 	nasjonptr = (Nasjon*)nasjonListe->remove(t);
-	nasjonptr->pluss();								//Teller opp antall deltagere i troppen
+	nasjonptr->plussDeltager();								//Teller opp antall deltagere i troppen
 	nasjonListe->add(nasjonptr);
 }
 
@@ -167,7 +167,7 @@ void Nasjoner::minusDeltager(const char t[])
 	Nasjon* nasjonptr;
 
 	nasjonptr = (Nasjon*)nasjonListe->remove(t);
-	nasjonptr->minus();								//Teller ned antall deltagere i troppen
+	nasjonptr->minusDeltager();								//Teller ned antall deltagere i troppen
 	nasjonListe->add(nasjonptr);
 }
 

@@ -25,8 +25,8 @@ public:
 	void endreNasjon();					//Endre data om nasjon
 	virtual void display();				//Vise info om nasjon
 	void displayAlt();					//Vise all info om nasjon
-	void pluss();						//Teller opp antall deltagere
-	void minus();						//Teller ned antall deltagere
+	void plussDeltager();						//Teller opp antall deltagere
+	void minusDeltager();						//Teller ned antall deltagere
 	void skrivNasjonTilFil(ofstream & ut);	//Skrive nasjon til fil
 };
 

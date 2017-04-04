@@ -412,9 +412,9 @@ void Ovelse::MenyOR()
 	valg = les();             //  Leser brukerens valg.
 	while (valg != 'Q') {
 		switch (valg) {
-		case 'S': ; break;
+		case 'S': skrivResultatliste(); break;
 		case 'N': nyResultatliste();  break;
-		case 'F': cout << "\nSletter resultatliste i: ";  break;
+		case 'F': slettResultatListe();  break;
 		default:  skrivMenyOR();       break;
 		}
 		valg = les();
@@ -540,19 +540,8 @@ void Ovelse::lagResultat(ifstream & inn)
 	default:
 		break;
 	}
-
-	ajourfor();
-
-	filtype ft = resultatliste;
-	char filnavn[MAXTXT + 1] = "gruppe03/";
-	lagFilNavn(filnavn, ft);
-	ofstream utfil(filnavn);
-	utfil << "S" << " " << antallDeltagere << endl;
-	for (int m = 1; m <= antallDeltagere; m++)
-	{
-		utfil << resultatListe[m][0] << " " << resultatListe[m][1] << " " << resultatListe[m][2] << endl;
-	}
-
+	ajourfor(pluss);
+	skrivSortertResultatListe();
 }
 
 void Ovelse::skrivTid(int in)
@@ -658,18 +647,18 @@ void Ovelse::sorteringsProsess(int i, int j)
 	resultatListe[j][0] = temp0;
 }
 
-void Ovelse::ajourfor()
+void Ovelse::ajourfor(plusminus oppned)
 {
 	for (int i = 1; i <= antallDeltagere; i++)
 	{
 		switch (i)
 		{
-		case 1:ajourfor1(i, pluss); break;
-		case 2:ajourfor2(i, pluss); break;
-		case 3:ajourfor3(i, pluss); break;
-		case 4:ajourfor4(i, pluss); break;
-		case 5:ajourfor5(i, pluss); break;
-		case 6:ajourfor6(i, pluss); break;
+		case 1:ajourfor1(i, oppned); break;
+		case 2:ajourfor2(i, oppned); break;
+		case 3:ajourfor3(i, oppned); break;
+		case 4:ajourfor4(i, oppned); break;
+		case 5:ajourfor5(i, oppned); break;
+		case 6:ajourfor6(i, oppned); break;
 
 		default:
 			break;
@@ -735,6 +724,10 @@ void Ovelse::slettResultatListe()
 		inn >> antallDeltagere; inn.ignore();
 		resultatListe = new float[antallDeltagere + 1][3];
 		slettStatistikk(inn, sortertemp);
+		inn.close();
+		if (remove(filnavn) == 0) {
+			cout << "\n\tResultatliste slettet!" << endl;
+		}
 	}
 	else
 	{
@@ -746,6 +739,88 @@ void Ovelse::slettStatistikk(ifstream & inn, char ch)
 {
 	for (int  i = 1; i <= antallDeltagere; i++)
 	{
+		inn >> resultatListe[i][0] >> resultatListe[i][1] >> resultatListe[i][2]; inn.ignore();
+	}
+	if (ch == 'I') 
+	{
+		switch (resultatMetode)
+		{
+		case 0: sorterResultater('t');  break;
+		case 1: sorterResultater('t');  break;
+		case 2: sorterResultater('t');	break;
+		case 3: sorterResultater('p');	break;
+		case 4:  sorterResultater('p');	break;
+		default:
+			break;
+		}
+	}
+	ajourfor(minusssssssss);
+}
 
+void Ovelse::skrivResultatliste()
+{
+	filtype ft = resultatliste;
+	char filnavn[MAXTXT + 1] = "gruppe03/";
+	lagFilNavn(filnavn, ft);
+	ifstream inn(filnavn);
+	if (inn)
+	{
+		char sortertemp;
+		inn >> sortertemp;
+		inn >> antallDeltagere; inn.ignore();
+		resultatListe = new float[antallDeltagere + 1][3];
+		lagStatistikk(inn, sortertemp);
+		inn.close();
+		remove(filnavn);
+		skrivSortertResultatListe();
+	}
+}
+
+void Ovelse::lagStatistikk(ifstream & inn, char ch)
+{
+	for (int i = 1; i <= antallDeltagere; i++)
+	{
+		inn >> resultatListe[i][0] >> resultatListe[i][1] >> resultatListe[i][2]; inn.ignore();
+	}
+
+	if (ch == 'I')
+	{
+		switch (resultatMetode)
+		{
+		case 0: sorterResultater('t');  break;
+		case 1: sorterResultater('t');  break;
+		case 2: sorterResultater('t');	break;
+		case 3: sorterResultater('p');	break;
+		case 4:  sorterResultater('p');	break;
+		default:
+			break;
+		}
+	}
+
+	switch (resultatMetode)
+	{
+	case 0: skrivTid(MMSST);		break;
+	case 1: skrivTid(MMSSHH);		break;
+	case 2: skrivTid(MMSSTTT);	break;
+	case 3: skrivPoeng(POENGX);	break;
+	case 4: skrivPoeng(POENGXX);	break;
+	default:
+		break;
+	}
+
+	ajourfor(pluss);
+
+}
+
+void Ovelse::skrivSortertResultatListe()
+{
+	filtype ft = resultatliste;
+	char filnavn[MAXTXT + 1] = "gruppe03/";
+	lagFilNavn(filnavn, ft);
+	ofstream utfil(filnavn);
+	utfil << "S" << " " << antallDeltagere << endl;
+	for (int m = 1; m <= antallDeltagere; m++)
+	{
+		utfil << resultatListe[m][0] << " " << resultatListe[m][1] << " " << resultatListe[m][2] << endl;
 	}
 }

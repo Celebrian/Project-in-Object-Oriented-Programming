@@ -91,12 +91,12 @@ void Nasjon::displayAlt()
 		<< "\n\tTelefonkontakt: " << kontaktTelefon;
 }
 
-void Nasjon::pluss()
+void Nasjon::plussDeltager()
 {
 	antallDeltagere++;
 }
 
-void Nasjon::minus()
+void Nasjon::minusDeltager()
 {
 	antallDeltagere--;
 }
