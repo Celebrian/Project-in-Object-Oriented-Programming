@@ -144,7 +144,7 @@ int lesKlokkeSlett()
 	int gyldigKlokka;
 	do
 	{
-		les("\n\tLes inn klokkeslett (TTMM)", klokka, MAXTXT+1);
+		les("\n\tLes inn klokkeslett (TTMM)", klokka, MAXTXT + 1);
 		if (kunTall(klokka)) 
 		{
 			gyldigKlokka = atoi(klokka);
@@ -199,14 +199,32 @@ bool finnesDato(int da, int ma, int aa) {
 
 bool kunTall(char t[])
 {
-	bool bareTall = true;
 	int i = 0;
 
-	while (i < strlen(t) || bareTall)
+	while (i < strlen(t))
 	{
 		if (!isdigit(t[i]))
 		{
-			bareTall = false;
+			return false;
+		}
+		i++;
+	}
+	return true;
+}
+
+bool kunTallFloat(char t[])
+{
+	int i = 0;
+
+	while (i < strlen(t))
+	{
+		if (t[i] = ',') 
+		{
+			t[i] = '.';
+		}
+		if (!isdigit(t[i]) || t[i] != '.' )
+		{
+			return false;
 		}
 		i++;
 	}

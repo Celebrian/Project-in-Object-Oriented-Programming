@@ -25,6 +25,8 @@ public:
 	void endreDeltagersNasjon(char ch[]);
 	void endreNavn();
 	void endreKjonn();
+	void startSkriv();
+	void hentNasjon(char chr[]);
 };
 
 

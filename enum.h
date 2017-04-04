@@ -8,10 +8,6 @@ enum kjonn {				//Kjønn
 };
 
 enum resultatType {			//Resultat; tid eller poeng
-	poeng, tid
-};
-
-enum presReg {					// KANSKJE UBRUKELIG????
 	tidel, hundredel, tusendel, poengx, poengxx
 };
 

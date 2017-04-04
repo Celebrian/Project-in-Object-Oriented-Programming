@@ -14,13 +14,29 @@ private:
 	int klokkeStart;					//Klokkeslett for starttiden til øvelsen
 	int dato;							//Dato øvelsen foregår
 	int antallDeltagere;				//Antall deltagere i øvelsen
-	int (*startListe)[2];				//http://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new
-	int* resultatListe;
-
+	int resultatMetode;
+	int(*startListe)[2];				//http://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new
+	float (*resultatListe)[3];		
 	void flyttStartliste(const int i, const int j);//Flytter "skuff" j over "skuff" i
 	void nyttDynamiskArray();			//Lager nytt dynamisk array som er akkurat så langt som det trenger å være
+
 public:
-	Ovelse(int i, char chr[]);			//Constructor leser inn data for ny øvelse
+	Ovelse(int i, char chr[], resultatType rt);
+	Ovelse(ifstream & inn, int i, resultatType rs);	//Constructor for å lese øvelse fra fil
+	void lagResultat(ifstream & inn);
+	void skrivTid(int in);
+	void skrivPoeng(int t);
+	void lesTid(int i, const int c);
+	void lesPoeng(int i, int x);
+	void sorterResultater(char hva);
+	void sorteringsProsess(int i, int j);
+	void ajourfor();
+	void ajourfor1(int i, plusminus oppned);
+	void ajourfor2(int i, plusminus oppned);
+	void ajourfor3(int i, plusminus oppned);
+	void ajourfor4(int i, plusminus oppned);
+	void ajourfor5(int i, plusminus oppned);
+	void ajourfor6(int i, plusminus oppned);
 	void endreOvelsen();				//Endre øvelsemeny
 	void endreNavn();					//Endre navn på øvelsen
 	void endreOvelseDato();				//Endre dato for øvelsen
@@ -36,15 +52,15 @@ public:
 	void byttStartlisteDeltager();		//Bytter en person på startlisten med en annen
 	void fjernDeltagerliste();			//Fjerner startlisten fra disk
 	void skrivTilFil(ofstream &ut);		//Skriver øvelse til fil
-	Ovelse(ifstream & inn, int i);		//Constructor for å lese øvelse fra fil
 	void lagFilNavn(char ch[], filtype ft);//Lager filnavn for start- og resultat- liste for øvelse
 	void MenyOR();						//Skriver menyOR
 	void skrivMenyOR();					//Skriver valgmuligheter for menyOR
 	void skrivMenyOLE();				//Skriver valgmuligheter for menyOLE
-	void skrivResultatListe();			//Skriver resultatliste på skjerm
-	void nyResultatliste(int id);		//Lager ny resultatliste
+	void nyResultatliste();				//Lager ny resultatliste
 	void lesStartlisteFraFil(ifstream & inn);//Leser startliste fra fil
 	void skrivStartlisteTilFil();		//Skriver startliste fra fil
+	void slettResultatListe();
+	void slettStatistikk(ifstream & inn, char ch);
 };
 
 #endif

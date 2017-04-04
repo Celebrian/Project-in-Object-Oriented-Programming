@@ -141,3 +141,13 @@ void Deltager::endreKjonn()
 	gender = (chr == 'M') ? gutt : jente; 
 	cout << "\n\tDeltagers kjønn endret" << endl;
 }
+
+void Deltager::startSkriv()
+{
+	cout << '\t' << number << '\t' << navn << '\t' << nasjon << endl;
+}
+
+void Deltager::hentNasjon(char chr[])
+{
+	strcpy(chr, nasjon);
+}
