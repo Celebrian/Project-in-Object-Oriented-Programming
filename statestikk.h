@@ -14,8 +14,8 @@ protected:
 	char nasjonForkortelser[MAXNASJONER + 1][LANDSKODE];	//Array med landskoder
 	int sisteBrukt;											//Antall nasjoner lagt inn i lista med minst en medalje
 public:
-	virtual void lesFraFil(ifstream & inn, int t);
-	virtual void skrivTilFil(ofstream & ut);
+	virtual void lesFraFil(ifstream & inn, int t);			//Leser statestikk fra fil
+	virtual void skrivTilFil(ofstream & ut);				//Skriver statestikk til fil
 
 };
 

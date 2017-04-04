@@ -1,4 +1,4 @@
-#if !defined(__OVELSE_H)
+#if !defined(__OVELSE_H) 
 #define  __OVELSE_H
 
 #include <cstring>
@@ -16,7 +16,7 @@ private:
 	int antallDeltagere;				//Antall deltagere i øvelsen
 	int resultatMetode;
 	int(*startListe)[2];				//http://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new
-	float (*resultatListe)[3];		
+	float (*resultatListe)[3];			//Todimensjonal array laget på formen i tråden over.
 	void flyttStartliste(const int i, const int j);//Flytter "skuff" j over "skuff" i
 	void nyttDynamiskArray();			//Lager nytt dynamisk array som er akkurat så langt som det trenger å være
 

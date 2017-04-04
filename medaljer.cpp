@@ -97,15 +97,15 @@ void Medaljer::bytt(const int i, const int j)
 	medaljeListe[j][bronse] = antMedaljer;
 }
 
-void Medaljer::visMedaljer()
+void Medaljer::visMedaljer()									//Viser medaljer på skjerm
 {
-	if (strlen(nasjonForkortelser[1]) != 0)
+	if (strlen(nasjonForkortelser[1]) != 0)						//Hvis det finnes minst et land med medaljer
 	{
-		for (int i = 1; i <= sisteBrukt; i++)
+		for (int i = 1; i <= sisteBrukt; i++)					//Loop gjennom alle nasjoner med medaljer
 		{
 			cout << "\n\tNasjon: " << nasjonForkortelser[i] << " har Gull: " << medaljeListe[i][gull]
 				<< " Sølv: " << medaljeListe[i][solv] << " Bronse: " << medaljeListe[i][bronse] << endl;
-		}
+		}														//Skriv de til skjerm
 	}
 	else
 	{
@@ -113,7 +113,7 @@ void Medaljer::visMedaljer()
 	}
 }
 
-void Medaljer::lesMedaljerFraFil()
+void Medaljer::lesMedaljerFraFil()								//
 {
 	ifstream inn("gruppe03/MEDALJER.DTA");
 	if (inn)

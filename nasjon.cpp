@@ -56,20 +56,20 @@ void Nasjon::endreNasjonNavn()
 {
 	delete[] navn;									//Frigjør navn array i minnet
 	les("Skriv inn nytt nasjonsnavn: ", navn);		//Leser inn nytt navn
-	cout << "\n\tNasjonsnavn endret." << endl;
+	cout << "\n\tNasjonsnavn endret." << endl << endl;
 }
 
 void Nasjon::endreKontaktNavn()
 {
 	delete[] kontaktNavn;							//Frigjør kontaktnavn i minnet
 	les("Skriv inn nytt navn på kontakt person: ", kontaktNavn);
-	cout << "\n\tNavnet på kontaktperson endret." << endl;
+	cout << "\n\tNavnet på kontaktperson endret." << endl << endl;
 }
 
 void Nasjon::endreTelefon()
 {
 	kontaktTelefon = lesTelefon();
-	cout << "\n\tTelefonnummer til kontaktperson endret." << endl;
+	cout << "\n\tTelefonnummer til kontaktperson endret." << endl << endl;
 }
 
 void Nasjon::display()
@@ -88,7 +88,8 @@ void Nasjon::displayAlt()
 		<< "\n\tNasjonsnavn: " << navn
 		<< "\n\tAntall deltagere: " << antallDeltagere
 		<< "\n\tKontaktperson: " << kontaktNavn
-		<< "\n\tTelefonkontakt: " << kontaktTelefon;
+		<< "\n\tTelefonkontakt: " << kontaktTelefon
+		<< endl << endl;
 }
 
 void Nasjon::plussDeltager()
