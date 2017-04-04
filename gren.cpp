@@ -138,9 +138,9 @@ void Gren::MenyOL()
 	char valg;                //  Brukerens valg.
 
 	temp = les("\nSkriv inn Øvelsenummer", 1000, 9999);
-	for (int i = 1; i <= antallOvelser; i++)
+	for (int i = 1; i <= antallOvelser; i++)			//Looper gjennom alle øvelsene
 	{
-		if (ovelser[i]->sjekkID(temp))
+		if (ovelser[i]->sjekkID(temp))					//Skjekker om id matcher
 		{
 			skrivMenyOL();                  //  skriver ut meny med valg.
 	

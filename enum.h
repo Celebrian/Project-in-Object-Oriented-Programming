@@ -19,7 +19,7 @@ enum filtype {				// hvilken type filnavn som skal lages.
 	startliste, resultatliste
 };
 
-enum plusminus {
+enum plusminus {			//Om det skal legges til eller trekkes fra
 	minus, pluss
 };
 
