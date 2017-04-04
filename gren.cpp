@@ -133,6 +133,7 @@ void Gren::MenyO()
 
 void Gren::MenyOL()
 {
+	bool finnesOvelse = false;
 	int temp;
 	char valg;                //  Brukerens valg.
 
@@ -141,6 +142,7 @@ void Gren::MenyOL()
 	{
 		if (ovelser[i]->sjekkID(temp))					//Skjekker om id matcher
 		{
+			finnesOvelse = true;
 			skrivMenyOL();                  //  skriver ut meny med valg.
 	
 			valg = les();             //  Leser brukerens valg.
@@ -155,10 +157,10 @@ void Gren::MenyOL()
 				valg = les();
 			}
 		}
-		else
-		{
-			cout << "\n\tIngen øvelser med denne ID" << endl;
-		}
+	}
+	if (!finnesOvelse)
+	{
+		cout << "\n\tIngen øvelser med denne ID" << endl;
 	}
 }
 
