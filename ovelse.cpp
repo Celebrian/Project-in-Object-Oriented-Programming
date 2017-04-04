@@ -322,7 +322,7 @@ void Ovelse::byttStartlisteDeltager()
 void Ovelse::fjernDeltagerliste()
 {
 	char ressInn[MAXTXT + 1] = "gruppe03/";
-	char staInn[MAXTXT + 1] = "";
+	char staInn[MAXTXT + 1] = "gruppe03/";
 
 	filtype ft = resultatliste;
 	filtype startinn = startliste;
@@ -339,8 +339,8 @@ void Ovelse::fjernDeltagerliste()
 			char ch = les();
 			if (ch == 'Y')
 			{
-				cout << strcmp(staInn, "OV1000.STA") << endl;
-				if (remove("OV1000.STA") == 0)
+				startInn.close();
+				if (remove(staInn) == 0)
 				{
 					cout << "\n\tStartliste fjernet." << endl;
 				}
