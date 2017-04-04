@@ -1,4 +1,4 @@
-#if !defined(__OVELSE_H)
+#if !defined(__OVELSE_H) 
 #define  __OVELSE_H
 
 #include <cstring>
