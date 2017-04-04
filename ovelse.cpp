@@ -2,6 +2,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif 
 
+#pragma warning( disable : 4244 )
+
 #include <iostream>
 #include <cstring>
 #include <fstream>
@@ -607,7 +609,7 @@ void Ovelse::lesPoeng(int i, int x)
 	do
 	{
 		les("\n\tLes inn poeng", temp, MAXTXT);
-		if (kunTallFloat)
+		if (kunTallFloat(temp))
 		{
 			temp2 = atof(temp);
 			temp2 = (temp2 * x);
