@@ -122,7 +122,7 @@ void Gren::MenyO()
 		switch (valg) {
 		case 'N': nyOvelse(); break;
 		case 'E': endreOvelse();  break;
-		case 'F': cout << "\nFjerner en ævelse i: " << tempNavn;; break;
+		case 'F': fjernOvelse(); break;
 		case 'A': skrivAlle();  break;
 		case 'L': MenyOL(); break;
 		case 'R': resultatListeMeny(); break;
@@ -240,6 +240,7 @@ void Gren::nyOvelse()
 
 void Gren::endreOvelse()
 {
+	bool ovelseFinnes = false;
 	if (antallOvelser > 0)
 	{
 		int tempID;
@@ -248,12 +249,17 @@ void Gren::endreOvelse()
 		{
 			if (ovelser[i]->sjekkID(tempID))
 			{
-				ovelser[i]->endreOvelsen();
+				ovelseFinnes = true;
+				tempID = i;
 			}
-			else
-			{
-				cout << "\n\tOvelsen med dette nummeret finnes ikke." << endl;
-			}
+		}
+		if (ovelseFinnes)
+		{
+			ovelser[tempID]->endreOvelsen();
+		}	
+		else
+		{
+		cout << "\n\tOvelsen med dette nummeret finnes ikke." << endl;
 		}
 	}
 	else
@@ -313,5 +319,41 @@ void Gren::resultatListeMeny()
 	if (!fantOvelse)
 	{
 		cout << "\n\tØvelsen finnes ikke!" << endl;
+	}
+}
+
+void Gren::fjernOvelse()
+{
+	bool ovelseFinnes = false;
+	if (antallOvelser > 0)
+	{
+		int tempID;
+		tempID = les("\nLes inn ID på øvelse du vil slette", MINOVNR, MAXOVNR);
+		for (int i = 1; i <= antallOvelser; i++)
+		{
+			if (ovelser[i]->sjekkID(tempID))
+			{
+				ovelseFinnes = true;
+				tempID = i;
+			}
+		}
+		if (ovelseFinnes)
+		{
+			ovelser[tempID]->fjernOvelse();
+			delete ovelser[tempID];
+			for (int j = tempID; j <= antallOvelser - 1; j++)
+			{
+				ovelser[tempID] = ovelser[tempID + 1];
+			}
+		}
+		else
+		{
+			cout << "\n\tOvelsen med dette nummeret finnes ikke." << endl;
+		}
+		antallOvelser--;
+	}
+	else
+	{
+		cout << "\n\tDet finnes ingen ovelser for øyeblikket" << endl;
 	}
 }

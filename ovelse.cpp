@@ -59,9 +59,9 @@ void Ovelse::endreOvelsen()
 		switch (ch)		// Utfører brukerens valg
 		{
 		case 'N': endreNavn();					break; // sletter først navn, så leser inn nytt
-		case 'D': endreOvelseDato();		    break; 
-		case 'K': endreKlokkeslett();			break;
-		default: break;
+		case 'D': endreOvelseDato();		    break; // endrer på dato i øvelse.
+		case 'K': endreKlokkeslett();			break; // leser inn nytt klokkeslett via egen funksjon.
+		default: cout << "\nHva vil du endre på? (N)avn, (D)ato eller (K)lokkeslett. Q for å avslutte " << endl; break;
 		}
 		ch = les();
 	}
@@ -380,6 +380,15 @@ Ovelse::Ovelse(ifstream & inn, int i, resultatType rs) : NumElement (i)
 	resultatMetode = rs;
 }
 
+void Ovelse::fjernOvelse()
+{
+	delete[] ovelseNavn;
+	fjernDeltagerliste();
+	slettResultatListe();
+	delete[] resultatListe;
+	delete[] startListe;
+}
+
 void Ovelse::lagFilNavn(char ch[], filtype ft)
 {
 	char temp[MAXTXT + 1] = "OV";
@@ -509,26 +518,38 @@ void Ovelse::lagResultat(ifstream & inn)
 
 		switch (resultatMetode)
 		{
-		case 0: lesTid(i, MMSST);   break;
-		case 1: lesTid(i, MMSSHH);	break;
-		case 2: lesTid(i, MMSSTTT);	break;
-		case 3: lesPoeng(i, POENGX);    break;
-		case 4: lesPoeng(i, POENGXX);   break;
+		case 0: resultatListe[i][2] = lesTid(i, MMSST);   break;
+		case 1: resultatListe[i][2] =  lesTid(i, MMSSHH);	break;
+		case 2: resultatListe[i][2] = lesTid(i, MMSSTTT);	break;
+		case 3: resultatListe[i][2] = lesPoeng(i, POENGX);    break;
+		case 4: resultatListe[i][2] = lesPoeng(i, POENGXX);   break;
 		default:
 			break;
 		}
 	}
-	switch (resultatMetode)
-	{
-	case 0: sorterResultater('t');  break;
-	case 1: sorterResultater('t');  break;
-	case 2: sorterResultater('t');	break;
-	case 3: sorterResultater('p');	break;
-	case 4:  sorterResultater('p');	break;
-	default:
-		break;
-	}
 
+	bool alleBrutt = true;
+
+	for (int g = 1; g <= antallDeltagere; g++)
+	{
+		if (resultatListe[g][2] > 0)
+		{
+			alleBrutt = false;
+		}
+	}
+	if (!alleBrutt)
+	{
+		switch (resultatMetode)
+		{
+		case 0: sorterResultater('t');  break;
+		case 1: sorterResultater('t');  break;
+		case 2: sorterResultater('t');	break;
+		case 3: sorterResultater('p');	break;
+		case 4:  sorterResultater('p');	break;
+		default:
+			break;
+		}
+	}
 	
 	switch (resultatMetode)
 	{
@@ -550,8 +571,15 @@ void Ovelse::skrivTid(int in)
 	for (int m = 1; m <= antallDeltagere; m++)
 	{
 		cout << "\n\tNummer: " << m << " \tDeltager: " << resultatListe[m][1]
-			<< " \tStartnummer: " << resultatListe[m][0]
-			<< " \tTid: " << int(resultatListe[m][2]/ (in*100)) << ":" << (int(resultatListe[m][2]/in) % 100) << ":" << (int(resultatListe[m][2]) % in) << endl;
+			<< " \tStartnummer: " << resultatListe[m][0];
+		if (resultatListe[m][2] > 0)
+		{
+			cout << " \tTid: " << int(resultatListe[m][2] / (in * 100)) << ":" << (int(resultatListe[m][2] / in) % 100) << ":" << (int(resultatListe[m][2]) % in) << endl;
+		}
+		else
+		{
+			cout << "\tUgyldig tid pga brutt/disket/ikke møtt opp." << endl;
+		}
 	}
 }
 
@@ -561,48 +589,63 @@ void Ovelse::skrivPoeng(int t)
 	for (int m = 1; m <= antallDeltagere; m++)
 	{
 		cout << "\n\tNummer: " << m << " \tDeltager: " << resultatListe[m][1]
-			<< " \tStartnummer: " << resultatListe[m][0]
-			<< " \tPoeng: " << int(resultatListe[m][2] / t) << "." << (int(resultatListe[m][2]) % t) << endl;
+			<< " \tStartnummer: " << resultatListe[m][0];
+			if (true)
+			{
+				cout << " \tPoeng: " << int(resultatListe[m][2] / t) << "." << (int(resultatListe[m][2]) % t) << endl;
+			}
+			else
+			{
+				cout << "\tUgyldig poeng pga brutt/disket/ikke møtt opp." << endl;
+			}
 	}
 }
 
 
 
-void Ovelse::lesTid(int i, const int c)
+int Ovelse::lesTid(int i, const int c)
 {	
 	bool sant = true;
 	char temp[MAXTXT + 1];
 	int temp2;
 	do
 	{
-		les("\n\tLes inn tid (MMSST)", temp, MAXTXT);
-		if (kunTall(temp))
+		les("\n\tLes inn tid (MMSST), eller B for brutt/disket/ikke møtt opp", temp, MAXTXT);
+		if (!(strcmp(temp, "B") || !(strcmp(temp, "b"))))
+		{
+			return (-1);
+		}
+		else if (kunTall(temp))
 		{
 			temp2 = atoi(temp);
 			sant = false;
 		}
-	} while (sant || ((temp2 / (c*100)) > 59) 
+	} while (sant || ((temp2 / (c*100)) > 59)
 		|| (( (temp2/ c) % 100) > 59) || (temp2 % c) > int(c*0.999) );
-	resultatListe[i][2] = temp2;
+	return(temp2);
 }
 
 
-void Ovelse::lesPoeng(int i, int x)
+int Ovelse::lesPoeng(int i, int x)
 {
 	bool sant = true;
 	float temp2;
 	char temp[MAXTXT + 1];
 	do
 	{
-		les("\n\tLes inn poeng", temp, MAXTXT);
-		if (kunTallFloat)
+		les("\n\tLes inn poeng eller B for brutt/disket/ikke møtt opp", temp, MAXTXT);
+		if (!(strcmp(temp, "B") || !(strcmp(temp, "b"))))
+		{
+			return(-1);
+		}
+		if (kunTallFloat(temp))
 		{
 			temp2 = atof(temp);
 			temp2 = (temp2 * x);
 			temp2 = int(temp2);
 			temp2 = float(temp2);
 			temp2 = (temp2 / x);
-			resultatListe[i][2] = temp2;
+			return(temp2);
 			sant = false;
 		}
 	} while (sant);
@@ -627,6 +670,20 @@ void Ovelse::sorterResultater(char hva)
 				{
 					sorteringsProsess(i, j);
 				}
+			}
+			while (resultatListe[i][2] < 0)
+			{
+				int temp = resultatListe[i][2];
+				int temp1 = resultatListe[i][1];
+				int temp0 = resultatListe[i][0];
+
+				resultatListe[i][2] = resultatListe[j][2];
+				resultatListe[i][1] = resultatListe[j][1];
+				resultatListe[i][0] = resultatListe[j][0];
+
+				resultatListe[j][2] = temp;
+				resultatListe[j][1] = temp1;
+				resultatListe[j][0] = temp0;
 			}
 		}
 	}
@@ -668,47 +725,65 @@ void Ovelse::ajourfor(plusminus oppned)
 
 void Ovelse::ajourfor1(int i, plusminus oppned)
 {
-	char tempNasjon[LANDSKODE];
-	deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
-	poengobjekt.oppdaterPoeng(tempNasjon, 7, oppned);
-	medaljeObjekt.endreMedalje(tempNasjon, gull, oppned);
+	if (resultatListe[i][2]> 0)
+	{
+		char tempNasjon[LANDSKODE];
+		deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
+		poengobjekt.oppdaterPoeng(tempNasjon, 7, oppned);
+		medaljeObjekt.endreMedalje(tempNasjon, gull, oppned);
+	}
 }
 
 void Ovelse::ajourfor2(int i, plusminus oppned)
 {
-	char tempNasjon[LANDSKODE];
-	deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
-	poengobjekt.oppdaterPoeng(tempNasjon, 5, oppned);
-	medaljeObjekt.endreMedalje(tempNasjon, solv, oppned);
+	if (resultatListe[i][2] > 0)
+	{
+		char tempNasjon[LANDSKODE];
+		deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
+		poengobjekt.oppdaterPoeng(tempNasjon, 5, oppned);
+		medaljeObjekt.endreMedalje(tempNasjon, solv, oppned);
+	}
 }
 
 void Ovelse::ajourfor3(int i, plusminus oppned)
 {
-	char tempNasjon[LANDSKODE];
-	deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
-	poengobjekt.oppdaterPoeng(tempNasjon, 4, oppned);
-	medaljeObjekt.endreMedalje(tempNasjon, bronse, oppned);
+	if (resultatListe[i][2] > 0)
+	{
+		char tempNasjon[LANDSKODE];
+		deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
+		poengobjekt.oppdaterPoeng(tempNasjon, 4, oppned);
+		medaljeObjekt.endreMedalje(tempNasjon, bronse, oppned);
+	}
 }
 
 void Ovelse::ajourfor4(int i, plusminus oppned)
 {
-	char tempNasjon[LANDSKODE];
-	deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
-	poengobjekt.oppdaterPoeng(tempNasjon, 3, oppned);
+	if (resultatListe[i][2] > 0)
+	{
+		char tempNasjon[LANDSKODE];
+		deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
+		poengobjekt.oppdaterPoeng(tempNasjon, 3, oppned);
+	}
 }
 
 void Ovelse::ajourfor5(int i, plusminus oppned)
 {
-	char tempNasjon[LANDSKODE];
-	deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
-	poengobjekt.oppdaterPoeng(tempNasjon, 2, oppned);
+	if (resultatListe[i][2] > 0)
+	{
+		char tempNasjon[LANDSKODE];
+		deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
+		poengobjekt.oppdaterPoeng(tempNasjon, 2, oppned);
+	}
 }
 
 void Ovelse::ajourfor6(int i, plusminus oppned)
 {
-	char tempNasjon[LANDSKODE];
-	deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
-	poengobjekt.oppdaterPoeng(tempNasjon, 1, oppned);
+	if (resultatListe[i][2] > 0)
+	{
+		char tempNasjon[LANDSKODE];
+		deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
+		poengobjekt.oppdaterPoeng(tempNasjon, 1, oppned);
+	}
 }
 
 void Ovelse::slettResultatListe()
@@ -773,6 +848,10 @@ void Ovelse::skrivResultatliste()
 		inn.close();
 		remove(filnavn);
 		skrivSortertResultatListe();
+	}
+	else
+	{
+		cout << "\n\tResutatliste finnes ikke!" << endl;
 	}
 }
 

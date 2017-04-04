@@ -23,11 +23,12 @@ private:
 public:
 	Ovelse(int i, char chr[], resultatType rt);
 	Ovelse(ifstream & inn, int i, resultatType rs);	//Constructor for å lese øvelse fra fil
+	void fjernOvelse();
 	void lagResultat(ifstream & inn);
 	void skrivTid(int in);
 	void skrivPoeng(int t);
-	void lesTid(int i, const int c);
-	void lesPoeng(int i, int x);
+	int lesTid(int i, const int c);
+	int lesPoeng(int i, int x);
 	void sorterResultater(char hva);
 	void sorteringsProsess(int i, int j);
 	void ajourfor(plusminus oppned);

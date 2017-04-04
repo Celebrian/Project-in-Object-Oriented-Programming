@@ -32,6 +32,7 @@ public:
 	void skrivOvelseTilFil(ofstream &ut);
 	void lesOvelseFraFil(ifstream &inn);
 	void resultatListeMeny();
+	void fjernOvelse();
 };
 
 #endif
