@@ -199,14 +199,14 @@ void Deltagere::skrivDeltagereTilFil()
 	}
 }
 
-void Deltagere::skrivDeltagerStart(int n)
+void Deltagere::skrivDeltagerStart(int n) // henter ut valgt deltager og kjører funksjon på den.
 {
 	Deltager* tempPeker = (Deltager*)deltagerListe->remove(n);
 	tempPeker->startSkriv();
 	deltagerListe->add(tempPeker);	
 }
 
-void Deltagere::hentNasjon(char chr[LANDSKODE], int n)
+void Deltagere::hentNasjon(char chr[LANDSKODE], int n) // henter ut valgt deltager og kjører funksjon på den.
 {
 	Deltager* tempPeker = (Deltager*)deltagerListe->remove(n);
 	tempPeker->hentNasjon(chr);

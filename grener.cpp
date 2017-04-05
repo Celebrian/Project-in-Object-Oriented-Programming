@@ -103,26 +103,26 @@ void Grener::skrivMenyG()
 	cout << "\n\tQ = Forrige meny";
 }
 
-void Grener::finnGren()
+void Grener::finnGren()				// sjekker om en gren finner, før man får øvelse meny.
 {
 	Gren* tempptr;
 	char temp[MAXTXT], temp2[MAXTXT];
 
-	if (!grenListe->isEmpty())
+	if (!grenListe->isEmpty())	// sjekker om grenlista faktisk inneholder elementer.
 	{
-		les("Skriv inn navn på gren", temp, MAXTXT);
-		gjorStor(temp);
+		les("Skriv inn navn på gren", temp, MAXTXT);	// leser inn en tekst.
+		gjorStor(temp);									// gjør den caps.
 
-		for (int i = 1; i <= grenListe->noOfElements(); i++)
+		for (int i = 1; i <= grenListe->noOfElements(); i++)	// går gjennom alle elemter i lista.
 		{
-			tempptr = (Gren*)grenListe->removeNo(i);
-			tempptr->returnNavn(temp2);
-			gjorStor(temp2);
-			if (!strcmp(temp, temp2))
+			tempptr = (Gren*)grenListe->removeNo(i);	// tar ut den valgte.
+			tempptr->returnNavn(temp2);		// sjekker navnet.
+			gjorStor(temp2);	// gjør stor.
+			if (!strcmp(temp, temp2))	// kjøres hvis de to navnene er like. aka innskrevet er lik navnet til objektet.
 			{
-				tempptr->MenyO();
+				tempptr->MenyO();	//kjører menyen til øvelse objektet.
 			}
-			grenListe->add(tempptr);
+			grenListe->add(tempptr); // legger den tilbake i lista.
 		}
 	}
 	else

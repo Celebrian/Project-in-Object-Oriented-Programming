@@ -142,12 +142,12 @@ void Deltager::endreKjonn()
 	cout << "\n\tDeltagers kjønn endret" << endl;
 }
 
-void Deltager::startSkriv()
+void Deltager::startSkriv() // skriver ut dataene i startliste.
 {
 	cout << '\t' << number << '\t' << navn << '\t' << nasjon << endl;
 }
 
-void Deltager::hentNasjon(char chr[])
+void Deltager::hentNasjon(char chr[]) // henter nasjonen til deltageren.
 {
 	strcpy(chr, nasjon);
 }

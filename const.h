@@ -12,12 +12,12 @@ const int MAXDELTAGER = 20000;			//Max antall deltagere i en øvelse
 const int MINDELTAGERE = 100;			//Minste deltagernummer
 const int MAXDELTAGERE = 20100;			//Høyeste deltagernummer
 const int TELEFONNUMMER = 8;			//8 siffer langt telefonnummer, uten landskode
-const int MINOVNR = 1000;
-const int MAXOVNR = 9999;
-const int MMSST = 10;
-const int MMSSHH = 100;
-const int MMSSTTT = 1000;
-const int POENGX = 10;
-const int POENGXX = 100;
+const int MINOVNR = 1000;				// minste tillate øvelsenummer
+const int MAXOVNR = 9999;				// største tillate ovelsenummer
+const int MMSST = 10;					// for å skirve in tideler
+const int MMSSHH = 100;					// for å skrive inn hundredeler
+const int MMSSTTT = 1000;				// for å skrive inn tusendeler
+const int POENGX = 10;					// for å skrive in poeng med 1 desimal
+const int POENGXX = 100;				// for å skrive inn poeng med 2 desimaler
 #endif
 
