@@ -388,8 +388,8 @@ Ovelse::Ovelse(ifstream & inn, int i, resultatType rs) : NumElement (i)
 void Ovelse::fjernOvelse()
 {
 	delete[] ovelseNavn;
-	fjernDeltagerliste();
 	slettResultatListe();
+	fjernDeltagerliste();
 	delete[] resultatListe;
 	delete[] startListe;
 }
