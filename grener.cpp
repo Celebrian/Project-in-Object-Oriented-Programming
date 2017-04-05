@@ -169,7 +169,9 @@ void Grener::finnGren()				// sjekker om en gren finner, før man får øvelse meny
 		}
 		if (fantNavn)	// kjøres hvis de to navnene er like. aka innskrevet er lik navnet til objektet.
 		{
+			temppeker = (Gren*)grenListe->remove(tmpnavn);
 			temppeker->MenyO();	//kjører menyen til øvelse objektet.
+			grenListe->add(temppeker);
 		}
 		else
 		{
