@@ -4,10 +4,7 @@
 //Nasjon klasse deklarasjon
 #include <fstream>
 
-#include "deltagere.h"
 #include "ListTool2B.h"
-
-extern Deltagere deltagerobjekt;
 
 class Nasjon : public TextElement {
 private:								//text = nasjonsforkortelse
@@ -15,13 +12,16 @@ private:								//text = nasjonsforkortelse
 	int antallDeltagere;				//Antall Deltagere
 	char* kontaktNavn;					//Navn på kontaktperson
 	int kontaktTelefon;					//Telefon til kontaktperson
+	char* annet;						//Annen informasjon
 
 	void endreNasjonNavn();				//Endre navn på nasjon
 	void endreKontaktNavn();			//Endre navn på kontaktperson
 	void endreTelefon();				//Endre telefon på kontaktperson
+	void endreAnnet();					//Endre annen informasjon om nasjonen
 public:
 	Nasjon(char* landskode);			//Construktor for ny nasjon
-	Nasjon(ifstream & inn, char* landskode);//Construktor for ny nasjon fra fil
+	Nasjon(ifstream & inn, char* landskode);	//Construktor for ny nasjon fra fil
+	void skrivMenyNE();					//Skriver endre nasjon meny
 	void endreNasjon();					//Endre data om nasjon
 	virtual void display();				//Vise info om nasjon
 	void displayAlt();					//Vise all info om nasjon

@@ -122,6 +122,7 @@ void Deltagere::MenyD()
 		case 'S': skrivUtValgt();  break;
 		default:  skrivMenyD();       break;
 		}
+		skrivMenyD();
 		valg = les();
 	}
 }

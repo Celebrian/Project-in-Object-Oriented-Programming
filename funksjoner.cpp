@@ -133,6 +133,7 @@ void Meny()
 		case 'M': medaljeObjekt.visMedaljer();	break;
 		default:  skrivMeny();					break;
 		}
+		skrivMeny();
 		kommando = les();
 	}
 }

@@ -2,7 +2,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif 
 
-#pragma warning( disable : 4244 )
+#pragma warning( disable : 4244 )		//Disable warning om at det mister data ved konvertering mellom float og int
+//da dette er poenget.
 
 #include <iostream>
 #include <cstring> 
@@ -52,19 +53,29 @@ Ovelse::Ovelse(int i, char chr[], resultatType rt) : NumElement(i)	// leser inn 
 	resultatMetode = rt;											// går fra 1-6.
 }
 
+void Ovelse::skrivMenyOE()
+{
+	cout << "\n\nHva vil du endre:"
+		<< "\n\tN = Navn"
+		<< "\n\tD = Dato"
+		<< "\n\tK = Klokkeslett"
+		<< "\n\tQ = Forrige meny";
+}
+
 void Ovelse::endreOvelsen()
 {
-	cout << "\nHva vil du endre på? (N)avn, (D)ato eller (K)lokkeslett. Q for å avslutte " << endl;
+	skrivMenyOE();
 	char ch = les();	// leser inn en uppercase tegn
 	while (ch != 'Q')	// sjekker at brukeren ikke vil avslutte
 	{
 		switch (ch)		// Utfører brukerens valg
 		{
-		case 'N': endreNavn();					break; // sletter først navn, så leser inn nytt
-		case 'D': endreOvelseDato();		    break; // endrer på dato i øvelse.
-		case 'K': endreKlokkeslett();			break; // leser inn nytt klokkeslett via egen funksjon.
-		default: cout << "\nHva vil du endre på? (N)avn, (D)ato eller (K)lokkeslett. Q for å avslutte " << endl; break;
+		case 'N': endreNavn();			break; // sletter først navn, så leser inn nytt
+		case 'D': endreOvelseDato();	break; // endrer på dato i øvelse.
+		case 'K': endreKlokkeslett();	break; // leser inn nytt klokkeslett via egen funksjon.
+		default: skrivMenyOE();			break;
 		}
+		skrivMenyOE();
 		ch = les();
 	}
 }
@@ -122,6 +133,7 @@ void Ovelse::skrivStartliste()							//Skriver en startliste til skjerm
 			cout << "Startnummer: " << i << " ";		//Skriv startnummer
 			deltagerobjekt.skrivID(startListe[i][1]);	//Og detaljene om hver deltager
 		}
+		delete[] startListe;
 	}
 	else
 	{
@@ -176,6 +188,7 @@ void Ovelse::nyStartliste()								//Lager ny startliste
 				}										//tell ned i, slik at samme deltager leses inn på nytt
 			}
 			skrivStartlisteTilFil();					//Skriv startliste til fil
+			delete[] startListe;						//Frigjør plassen til startliste i memory
 		}
 		else
 		{
@@ -217,9 +230,9 @@ void Ovelse::endreStartliste()							//Legger til, tar bort eller bytter en delt
 				case 'B': byttStartlisteDeltager();		break;
 				default:  skrivMenyOLE();				break;
 				}
+				skrivMenyOLE();
 				valg = les();
 			}
-			skrivStartlisteTilFil();
 		}
 		else
 		{
@@ -363,7 +376,7 @@ void Ovelse::fjernDeltagerliste()							//Fjerner startlisten hvis den eksistere
 		}
 		else
 		{
-			cout << "\n\tResultatliste allerede laget." << endl;
+			cout << "\n\tKan ikke slette startliste, da resultatliste allerede er laget." << endl;
 		}
 	}
 	else
@@ -431,6 +444,7 @@ void Ovelse::MenyOR()
 		case 'F': slettResultatListe();  break;
 		default:  skrivMenyOR();       break;
 		}
+		skrivMenyOR();
 		valg = les();
 	}
 }
@@ -496,6 +510,7 @@ void Ovelse::nyResultatliste()				// lager en ny resultatliste utifra innlest de
 			innfil >> antallDeltagere;	// leser inn antall deltagere på fila.
 			resultatListe = new float[antallDeltagere + 1][3];	// lager en ny array til deltagerne.
 			lagResultat(innfil);				// sender det videre til ny funksjon.
+			delete[] resultatListe;				//Frigjør resultatliste i memory
 		}
 		else
 		{
@@ -807,6 +822,7 @@ void Ovelse::slettResultatListe()		// sjekker om det finnes en resultatliste, fo
 		resultatListe = new float[antallDeltagere + 1][3];	// legger deltagrne inn i ny array som blir opprettet.
 		slettStatistikk(inn, sortertemp);	// ny funksjon som sletter alle medaljer og poeng fra resultatlista som skal slettes.
 		inn.close();	// lukker filen.
+		delete[] resultatListe;	//Frigjør arrayens plass i memory
 		if (remove(filnavn) == 0) {	// sletter filen og retunerer om filen ble sletta.
 			cout << "\n\tResultatliste slettet!" << endl;
 		}
@@ -855,6 +871,7 @@ void Ovelse::skrivResultatliste()	// henter resultatliste, sorterer og skriver d
 		inn.close();		// lukker og
 		remove(filnavn);	// sletter den gamle fila.
 		skrivSortertResultatListe(); // lager en ny fil som er sortert.
+		delete[] resultatListe;
 	}
 	else
 	{

@@ -34,13 +34,18 @@ Deltager::Deltager(int n, ifstream & inn) : NumElement(n)
 	gender = ((temp == 0) ? jente : gutt);	// hvor 0 = jente og 1 = gutt.
 }
 
-void Deltager::endreNyDeltager()
+void Deltager::skrivMenyDE()
 {
-	cout << "\n\tHva vil du endre for deltager " << number
+	cout << "\n\tHva vil du endre for deltager:" << number
 		<< "\n\tN - Deltagerens fulle navn"
 		<< "\n\tA - Deltagerens Nasjon"
 		<< "\n\tK - Deltagerens kjønn"
-		<< "\n\tQ - Ingenting, gå opp en meny";	
+		<< "\n\tQ - Ingenting, gå opp en meny";
+}
+
+void Deltager::endreNyDeltager()
+{
+	skrivMenyDE();
 	char ch = les();	// leser inn en uppercase tegn
 	while (ch != 'Q')	// sjekker at brukeren ikke vil avslutte
 	{
@@ -49,12 +54,9 @@ void Deltager::endreNyDeltager()
 		case 'N': endreNavn();					break; // sletter først navn, så leser inn nytt
 		case 'A': endreDeltagersNasjon(nasjon); break; // leser inn en ny gyldig nasjon
 		case 'K': endreKjonn();					break;
-		default:  cout << "\n\tHva vil du endre for deltager " << number
-			<< "\n\tN - Deltagerens fulle navn"
-			<< "\n\tA - Deltagerens Nasjon"
-			<< "\n\tK - Deltagerens kjønn"
-			<< "\n\tQ - Ingenting, gå opp en meny";	break;
+		default: skrivMenyDE();					break;
 		}
+		skrivMenyDE();
 		ch = les();
 	}
 }

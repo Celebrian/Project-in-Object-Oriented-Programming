@@ -16,6 +16,7 @@ Nasjon::Nasjon(char * landskode) : TextElement(landskode)	//Sender landskode opp
 	les("Komplett nasjonsnavn", navn);
 	les("Skriv navnet på nasjonens kontaktperson", kontaktNavn);
 	kontaktTelefon = lesTelefon();
+	les("Annen informasjon", annet);
 }
 
 Nasjon::Nasjon(ifstream & inn, char* landskode) : TextElement(landskode)	//Sender landskode med til text
@@ -23,18 +24,23 @@ Nasjon::Nasjon(ifstream & inn, char* landskode) : TextElement(landskode)	//Sende
 	lesInnFraFil(navn, inn);
 	lesInnFraFil(kontaktNavn, inn);
 	inn >> kontaktTelefon; inn.ignore();
+	lesInnFraFil(annet, inn);
 }
 
-void Nasjon::endreNasjon()
+void Nasjon::skrivMenyNE()
 {
-	char ch;
-
 	cout << "\n\tHva vil du endre? "
 		<< "\n\tN - Det fulle navnet til nasjonen."
 		<< "\n\tK - Navn på kontaktperson"
 		<< "\n\tT - Telefon på kontaktperson"
+		<< "\n\tA - Annen informasjon"
 		<< "\n\tQ - Ingenting, gå opp en meny";
-	ch = les();
+}
+
+void Nasjon::endreNasjon()
+{
+	skrivMenyNE();
+	char ch = les();
 	while (ch != 'Q')
 	{
 		switch (ch)
@@ -42,12 +48,10 @@ void Nasjon::endreNasjon()
 		case 'N': endreNasjonNavn();	break;
 		case 'K': endreKontaktNavn();	break;
 		case 'T': endreTelefon();		break;
-		default: cout << "\n\tHva vil du endre? "
-			<< "\n\tN - Det fulle navnet til nasjonen."
-			<< "\n\tK - Navn på kontaktperson"
-			<< "\n\tT - Telefon på kontaktperson"
-			<< "\n\tQ - Ingenting, gå opp en meny";	break;
+		case 'A': endreAnnet();			break;
+		default: skrivMenyNE();			break;
 		}
+		skrivMenyNE();
 		ch = les();
 	}
 }
@@ -72,6 +76,13 @@ void Nasjon::endreTelefon()
 	cout << "\n\tTelefonnummer til kontaktperson endret." << endl << endl;
 }
 
+void Nasjon::endreAnnet()
+{
+	delete[] annet;
+	les("Skriv inn annen informasjon", annet);
+	cout << "\n\tAnnen informasjon endret." << endl << endl;
+}
+
 void Nasjon::display()
 {
 	cout << "\n\tLandskode: " << text
@@ -89,6 +100,7 @@ void Nasjon::displayAlt()
 		<< "\n\tAntall deltagere: " << antallDeltagere
 		<< "\n\tKontaktperson: " << kontaktNavn
 		<< "\n\tTelefonkontakt: " << kontaktTelefon
+		<< "\n\tAnnen informasjon:" << annet
 		<< endl << endl;
 }
 
@@ -107,6 +119,7 @@ void Nasjon::skrivNasjonTilFil(ofstream & ut)
 	ut << text << endl
 		<< navn << endl
 		<< kontaktNavn << endl
-		<< kontaktTelefon << endl;
+		<< kontaktTelefon << endl
+		<< annet << endl;
 }
 

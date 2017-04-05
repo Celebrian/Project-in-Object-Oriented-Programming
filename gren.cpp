@@ -127,6 +127,7 @@ void Gren::MenyO()
 		case 'R': resultatListeMeny(); break;	// meny for resultatliste
 		default:  skrivMenyO();       break;	
 		}
+		skrivMenyO();
 		valg = les();
 	}
 }
@@ -154,6 +155,7 @@ void Gren::MenyOL()
 				case 'F': ovelser[i]->fjernDeltagerliste();	break;
 				default:  skrivMenyOL();					break;
 				}
+				skrivMenyOL();
 				valg = les();
 			}
 		}
