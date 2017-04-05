@@ -30,20 +30,28 @@ extern Poeng poengobjekt;
 
 char les() // leser inn et ikke-blankt tegn.
 {
+	char temp[MAXTXT + 1];
 	char ch;
 	cout << "\n\nKommando:  ";
-	cin >> ch;  cin.ignore();
+	cin >> ch; cin.getline(temp, MAXTXT);
 	return (toupper(ch));
 }
 
 int les(char* t, const int min, const int max) { // leser inn et tall mellom to grenser.
-	int tall;
+	bool erTall = false;						//Regner med at det ikke er tall
+	char tall[MAXTXT + 1];
+	int faktiskTall;
 	do {
 		cout << '\t' << t << " (" << min << '-' << max << "):  ";
-		cin >> tall;  cin.ignore();
-	} while (tall < min || tall > max);
-	return tall;
-}
+		cin.getline(tall, MAXTXT);
+		if (kunTall(tall))						//Skjekker om det faktisk er bare tall
+		{
+			faktiskTall = atoi(tall);			//Gjør om dersom det er bare tall
+			erTall = true;						//Setter at det er tall
+		}										//Looper mens det ikke er et tall mellom min og max
+	} while (!erTall || faktiskTall < min || faktiskTall > max);
+	return faktiskTall;							//Returnerer faktisk tall
+}	
 
 void les(const char t[], char s[], const int LEN) { // leser inn en ikke-blank text
 	do {
@@ -131,7 +139,7 @@ void Meny()
 		case 'G': grenobjekt.MenyG();			break;
 		case 'O': grenobjekt.finnGren();		break;
 		case 'M': medaljeObjekt.visMedaljer();	break;
-		default:  skrivMeny();					break;
+		default:								break;
 		}
 		skrivMeny();
 		kommando = les();
@@ -250,13 +258,37 @@ void gjorStor(char s[]) // tar en array og gjør alle bokstavene store.
 bool erLik(const char t[], const char s[]) //sjekker om to tekster er like.
 {
 	char temp[MAXTXT + 1], temp2[MAXTXT + 1];
-	for (int i = 0; i <= strlen(t); i++) // går gjennom begge tekstene og gjør de uppercase.
+	for (int i = 0; i <= strlen(t); i++) // går gjennom begge tekstene
 	{
-		temp[i] = toupper(t[i]);
+		if (isalpha(t[i]))				//Hvis det er snakk om bokstaver
+		{
+			temp[i] = toupper(t[i]);	//Gjør de uppercase
+		}
+		else if (isdigit(t[i]))			//Hvis det er snakk om tall
+		{
+			temp[i] = t[i];				//Legg tallet slik det er over
+		}
+		else if (t[i] == '-' || t[i] == '.' || t[i] == '\0' || t[i] == ' ')	//Hvis det er snakk om - eller .
+		{
+			temp[i] = t[i];				//Bare legg det over
+		}
+		else return false;			//Hvis det ikke er noe av det over, bare si de ikke er like(PGA ulovlige tegn)
 	}
-	for (int j = 0; j <= strlen(s); j++)
+	for (int j = 0; j <= strlen(s); j++)	//Samme for den andre arrayen
 	{
-		temp2[j] = toupper(s[j]);
+		if (isalpha(s[j]))
+		{
+			temp2[j] = toupper(s[j]);
+		}
+		else if (isdigit(s[j]))
+		{
+			temp2[j] = s[j];
+		}
+		else if (s[j] == '-' || s[j] == '.' || s[j] == '\0' || s[j] == ' ')
+		{
+			temp2[j] = s[j];
+		}
+		else return false;	
 	}
-	return strcmp(temp, temp2); // sjekker om innholdet er likt.
+	return !strcmp(temp, temp2);		//Returnerer true (1) hvis like
 }

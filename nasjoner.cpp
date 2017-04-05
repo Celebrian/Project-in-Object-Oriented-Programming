@@ -39,8 +39,9 @@ void Nasjoner::MenyN()
 		case 'A': skrivAlleNasjoner();			break;
 		case 'T': skrivNasjonDeltagere();		break;
 		case 'S': skrivEnNasjon();				break;
-		default:  skrivMenyN();					break;
+		default:								break;
 		}
+		skrivNasjonerTilFil();
 		skrivMenyN();
 		valg = les();
 	}
@@ -211,4 +212,3 @@ void Nasjoner::skrivNasjonerTilFil()
 		}
 	}
 }
-

@@ -8,7 +8,6 @@
 class Grener {
 private:
 	List* grenListe;
-	int sisteGren; // HUSK
 public:
 	Grener();
 	void lagNyGren();

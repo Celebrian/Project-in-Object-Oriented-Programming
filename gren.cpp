@@ -45,12 +45,12 @@ Gren::Gren(char ch[], ifstream & inn) : TextElement(ch)
 	strcpy(navn, ch); // kopierer over i arrayen ch
 	int temp; inn >> temp; inn.ignore(); // leser inn 0 eller 1 fra fil
 	switch (temp) {
-	case 0: typeResultat = tidel; break;		//MMSST
-	case 1: typeResultat = hundredel; break;	//MMSSHH
-	case 2: typeResultat = tusendel; break;		//MMSSTTT
-	case 3: typeResultat = poengx; break;		//PoengX
-	case 4: typeResultat = poengxx; break;		//PoengXX
-	default: break; 
+	case 0: typeResultat = tidel;		break;		//MMSST
+	case 1: typeResultat = hundredel;	break;		//MMSSHH
+	case 2: typeResultat = tusendel;	break;		//MMSSTTT
+	case 3: typeResultat = poengx;		break;		//PoengX
+	case 4: typeResultat = poengxx;		break;		//PoengXX
+	default:							break; 
 	}
 	inn >> antallOvelser; inn.ignore(); 
 }
@@ -59,12 +59,12 @@ void Gren::SkrivGrenTilFil(ofstream & ut)	// skriver grenens data til fil.
 {
 	ut << navn << '\n';	// skriver ut navn
 	switch (typeResultat) {
-	case tidel: ut << tidel << '\n'; break;
-	case hundredel: ut << hundredel << '\n'; break;
-	case tusendel: ut << tusendel << '\n'; break;
-	case poengx: ut << poengx << '\n'; break;
-	case poengxx: ut << poengxx << '\n'; break;
-	default: break; 
+	case tidel: ut << tidel << '\n';		break;
+	case hundredel: ut << hundredel << '\n';break;
+	case tusendel: ut << tusendel << '\n';	break;
+	case poengx: ut << poengx << '\n';		break;
+	case poengxx: ut << poengxx << '\n';	break;
+	default:								break; 
 	}
 	ut << antallOvelser << '\n';
 }
@@ -85,12 +85,12 @@ void Gren::display()	// skriver ut data om gren til skjerm.
 	cout << "\n\tNavn: " << navn
 		<< "\n\tRegistrering av prestasjon: ";
 	switch (typeResultat) {
-	case tidel: cout << "tidel" << '\n'; break;
-	case hundredel: cout << "hundredel" << '\n'; break;
-	case tusendel: cout << "tusendel" << '\n'; break;
-	case poengx: cout << "poengx" << '\n'; break;
-	case poengxx: cout << "poengxx" << '\n'; break;
-	default: break;
+	case tidel: cout << "tidel" << '\n';		break;
+	case hundredel: cout << "hundredel" << '\n';break;
+	case tusendel: cout << "tusendel" << '\n';	break;
+	case poengx: cout << "poengx" << '\n';		break;
+	case poengxx: cout << "poengxx" << '\n';	break;
+	default:									break;
 	}
 		cout << "\n\tAntall øvelser i gren: " << antallOvelser << endl;
 }
@@ -113,14 +113,15 @@ void Gren::MenyO()
 	valg = les();             //  Leser brukerens valg.
 	while (valg != 'Q') {
 		switch (valg) {
-		case 'N': nyOvelse(); break;			// lager ny øvelse
-		case 'E': endreOvelse();  break;		// endrer på øvelsen
-		case 'F': fjernOvelse(); break;			// sletter en øvelse
-		case 'A': skrivAlle();  break;			// skriver hoveddata om alle øvelse
-		case 'L': MenyOL(); break;				// meny for startliste
-		case 'R': resultatListeMeny(); break;	// meny for resultatliste
-		default:  skrivMenyO();       break;	
+		case 'N': nyOvelse();			break;		// lager ny øvelse
+		case 'E': endreOvelse();		break;		// endrer på øvelsen
+		case 'F': fjernOvelse();		break;		// sletter en øvelse
+		case 'A': skrivAlle();			break;		// skriver hoveddata om alle øvelse
+		case 'L': MenyOL();				break;		// meny for startliste
+		case 'R': resultatListeMeny();	break;		// meny for resultatliste
+		default:						break;	
 		}
+		grenobjekt.skrivOvelserTilFil();
 		skrivMenyO();
 		valg = les();
 	}
@@ -147,7 +148,7 @@ void Gren::MenyOL()
 				case 'N': ovelser[i]->nyStartliste();		break;
 				case 'E': ovelser[i]->endreStartliste();	break;
 				case 'F': ovelser[i]->fjernDeltagerliste();	break;
-				default:  skrivMenyOL();					break;
+				default:									break;
 				}
 				skrivMenyOL();
 				valg = les();
@@ -206,10 +207,12 @@ void Gren::nyOvelse()					// oppretter ny øvelse.
 			if (idfinnesikke)							// kjøres hvis boolen er true.
 			{
 				char* temp;
+				char temp2[MAXTXT + 1];
 				les("\n\tLes inn navn på ovelse", temp);	// leser inn navn på øvelse.
 				for (int j = 1; j <= antallOvelser; j++)
 				{
-					if (ovelser[j]->sjekkNavn(temp))	// sjekker om navnet allerede finnes.
+					ovelser[j]->returnerNavn(temp2);
+					if (erLik(temp, temp2))	// sjekker om navnet allerede finnes.
 					{
 						navnfinnesikke = false;			//bool blir false hvis navnet finnes.
 					}				

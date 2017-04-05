@@ -73,7 +73,7 @@ void Ovelse::endreOvelsen()
 		case 'N': endreNavn();			break; // sletter først navn, så leser inn nytt
 		case 'D': endreOvelseDato();	break; // endrer på dato i øvelse.
 		case 'K': endreKlokkeslett();	break; // leser inn nytt klokkeslett via egen funksjon.
-		default: skrivMenyOE();			break;
+		default:						break;
 		}
 		skrivMenyOE();
 		ch = les();
@@ -115,6 +115,11 @@ bool Ovelse::sjekkNavn(char c[])		// sjekker om en øvelse har samme navn som det
 bool Ovelse::sjekkID(int i)			// sjekker om en øvelse har samme id som brukeren skrev inn.
 {
 	return(i == number);
+}
+
+void Ovelse::returnerNavn(char t[])
+{
+	strcpy(t, ovelseNavn);
 }
 
 void Ovelse::skrivStartliste()							//Skriver en startliste til skjerm
@@ -231,7 +236,7 @@ void Ovelse::endreStartliste()							//Legger til, tar bort eller bytter en delt
 				case 'S': minusStartlisteDeltager();	break;
 				case 'N': plussStartlisteDeltager();	break;
 				case 'B': byttStartlisteDeltager();		break;
-				default:  skrivMenyOLE();				break;
+				default:								break;
 				}
 				skrivMenyOLE();
 				valg = les();
@@ -443,9 +448,9 @@ void Ovelse::MenyOR()
 	while (valg != 'Q') {
 		switch (valg) {
 		case 'S': skrivResultatliste(); break;
-		case 'N': nyResultatliste();  break;
-		case 'F': slettResultatListe();  break;
-		default:  skrivMenyOR();       break;
+		case 'N': nyResultatliste();	break;
+		case 'F': slettResultatListe(); break;
+		default:						break;
 		}
 		skrivMenyOR();
 		valg = les();
@@ -543,10 +548,9 @@ void Ovelse::lagResultat(ifstream & inn)					// lager selve resultatlista.
 		case 0: resultatListe[i][2] = lesTid(i, MMSST);		break;
 		case 1: resultatListe[i][2] =  lesTid(i, MMSSHH);	break;
 		case 2: resultatListe[i][2] = lesTid(i, MMSSTTT);	break;
-		case 3: resultatListe[i][2] = lesPoeng(i, POENGX);	break;
-		case 4: resultatListe[i][2] = lesPoeng(i, POENGXX);	break;
-		default:
-			break;
+		case 3: resultatListe[i][2] = lesPoeng(i, POENGX);  break;
+		case 4: resultatListe[i][2] = lesPoeng(i, POENGXX); break;
+		default:											break;
 		}
 	}
 
@@ -568,20 +572,18 @@ void Ovelse::lagResultat(ifstream & inn)					// lager selve resultatlista.
 		case 2: sorterResultater('t');	break;
 		case 3: sorterResultater('p');	break;
 		case 4:  sorterResultater('p');	break;
-		default:
-			break;
+		default:						break;
 		}
 	}
 	
 	switch (resultatMetode)						// switch som skriver resultatet utifra om det er tid eller poeng.
 	{
-	case 0: skrivTid(MMSST);		break;
-	case 1: skrivTid(MMSSHH);		break;
+	case 0: skrivTid(MMSST);	break;
+	case 1: skrivTid(MMSSHH);	break;
 	case 2: skrivTid(MMSSTTT);	break;
 	case 3: skrivPoeng(POENGX);	break;
-	case 4: skrivPoeng(POENGXX);	break;
-	default:
-		break;
+	case 4: skrivPoeng(POENGXX);break;
+	default:					break;
 	}
 	ajourfor(pluss);						// tildeler medaljer og poeng.
 	skrivSortertResultatListe();			// opprettetr selve resultatliste-fila og skriver data til den.
@@ -733,15 +735,13 @@ void Ovelse::ajourfor(plusminus oppned) // tar enten pluss eller minus for så å 
 	{
 		switch (i)
 		{
-		case 1:ajourfor1(i, oppned); break;	// oppdaterer for 1 plass
-		case 2:ajourfor2(i, oppned); break;	// 2 plass
-		case 3:ajourfor3(i, oppned); break;	// 3 plass
-		case 4:ajourfor4(i, oppned); break;	// 4 plass
-		case 5:ajourfor5(i, oppned); break;	// 5 plass
-		case 6:ajourfor6(i, oppned); break;	// 6 plass.
-
-		default:
-			break;
+		case 1:ajourfor1(i, oppned);	break;	// oppdaterer for 1 plass
+		case 2:ajourfor2(i, oppned);	break;	// 2 plass
+		case 3:ajourfor3(i, oppned);	break;	// 3 plass
+		case 4:ajourfor4(i, oppned);	break;	// 4 plass
+		case 5:ajourfor5(i, oppned);	break;	// 5 plass
+		case 6:ajourfor6(i, oppned);	break;	// 6 plass.
+		default:						break;
 		}
 	}
 }
@@ -849,8 +849,7 @@ void Ovelse::slettStatistikk(ifstream & inn, char ch)			// sletter medaljer og p
 		case 2: sorterResultater('t');	break;
 		case 3: sorterResultater('p');	break;
 		case 4:  sorterResultater('p');	break;
-		default:
-			break;
+		default:						break;
 		}
 	}
 	ajourfor(minusssssssss);		// oppdaterer statistikk, men sender med minus for at det skal slettes.
@@ -908,20 +907,18 @@ void Ovelse::lagStatistikk(ifstream & inn, char ch)		// sorterer og oppdaterer s
 		case 2: sorterResultater('t');	break;
 		case 3: sorterResultater('p');	break;
 		case 4:  sorterResultater('p');	break;
-		default:
-			break;
+		default:						break;
 		}
 	}
 
 	switch (resultatMetode)		// skriver ut resultatet besert på type.
 	{
-	case 0: skrivTid(MMSST);		break;
-	case 1: skrivTid(MMSSHH);		break;
+	case 0: skrivTid(MMSST);	break;
+	case 1: skrivTid(MMSSHH);	break;
 	case 2: skrivTid(MMSSTTT);	break;
 	case 3: skrivPoeng(POENGX);	break;
-	case 4: skrivPoeng(POENGXX);	break;
-	default:
-		break;
+	case 4: skrivPoeng(POENGXX);break;
+	default:					break;
 	}
 
 	ajourfor(pluss);		// oppdatere medaljer og poeng.

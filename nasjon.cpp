@@ -17,6 +17,7 @@ Nasjon::Nasjon(char * landskode) : TextElement(landskode)	//Sender landskode opp
 	les("Skriv navnet på nasjonens kontaktperson", kontaktNavn);
 	kontaktTelefon = lesTelefon();
 	les("Annen informasjon", annet);
+	antallDeltagere = 0;
 }
 
 Nasjon::Nasjon(ifstream & inn, char* landskode) : TextElement(landskode)	//Sender landskode med til text
@@ -25,6 +26,7 @@ Nasjon::Nasjon(ifstream & inn, char* landskode) : TextElement(landskode)	//Sende
 	lesInnFraFil(kontaktNavn, inn);
 	inn >> kontaktTelefon; inn.ignore();
 	lesInnFraFil(annet, inn);
+	antallDeltagere = 0;
 }
 
 void Nasjon::skrivMenyNE()
@@ -49,7 +51,7 @@ void Nasjon::endreNasjon()
 		case 'K': endreKontaktNavn();	break;
 		case 'T': endreTelefon();		break;
 		case 'A': endreAnnet();			break;
-		default: skrivMenyNE();			break;
+		default:						break;
 		}
 		skrivMenyNE();
 		ch = les();
@@ -87,7 +89,7 @@ void Nasjon::display()
 {
 	cout << "\n\tLandskode: " << text
 		<< "\n\tNasjonsnavn: " << navn
-		<< "\n\tAntall deltagere i troppen" << antallDeltagere
+		<< "\n\tAntall deltagere i troppen: " << antallDeltagere
 		<< "\n\tKontaktperson: " << kontaktNavn
 		<< "\n\tTelefonkontakt: " << kontaktTelefon
 		<< endl << endl;
@@ -100,7 +102,7 @@ void Nasjon::displayAlt()
 		<< "\n\tAntall deltagere: " << antallDeltagere
 		<< "\n\tKontaktperson: " << kontaktNavn
 		<< "\n\tTelefonkontakt: " << kontaktTelefon
-		<< "\n\tAnnen informasjon:" << annet
+		<< "\n\tAnnen informasjon: " << annet
 		<< endl << endl;
 }
 
