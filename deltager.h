@@ -12,6 +12,7 @@ private:
 	char* navn;	
 	char nasjon[LANDSKODE + 1];		// Tre bokstaver
 	kjonn gender;		// enum med gutt/jente
+	char andreData[MAXTXT + 1];
 public:
 	Deltager(int n, char chr[]);	// kjøres når en ny deltager opprettes
 	Deltager(int n, ifstream & inn);
@@ -25,6 +26,7 @@ public:
 	void endreDeltagersNasjon(char ch[]); // endrer nasjonen til valgt deltager
 	void endreNavn();	// sletter først også leser inn nytt navn på valgt deltager
 	void endreKjonn();	// endrer kjønnet på valgt deltager
+	void endreAndreData(); // endrer andre data.
 	void startSkriv();	// skriver startnummeret til en deltager
 	void hentNasjon(char chr[]);	// retunerer nasjonen til en deltager
 };

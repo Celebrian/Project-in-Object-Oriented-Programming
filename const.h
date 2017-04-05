@@ -19,5 +19,6 @@ const int MMSSHH = 100;					// for å skrive inn hundredeler
 const int MMSSTTT = 1000;				// for å skrive inn tusendeler
 const int POENGX = 10;					// for å skrive in poeng med 1 desimal
 const int POENGXX = 100;				// for å skrive inn poeng med 2 desimaler
+const int MAXPOENG = 10;
 #endif
 

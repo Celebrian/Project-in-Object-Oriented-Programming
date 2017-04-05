@@ -22,6 +22,7 @@ Deltager::Deltager(int n, char chr[]) : NumElement(n)
 	char ch;  cout << "\nVelg kjønn G(utt)/J(ente)";	// Setter kjønn i enumen
 	ch = les();
 	gender = (ch == 'G') ? gutt : jente;
+	les("\n\tLes in andre data", andreData, MAXTXT);
 }
 
 Deltager::Deltager(int n, ifstream & inn) : NumElement(n)
@@ -32,6 +33,7 @@ Deltager::Deltager(int n, ifstream & inn) : NumElement(n)
 	int temp;
 	inn >> temp; inn.ignore();		// leser inn 0 eller 1 fra fil
 	gender = ((temp == 0) ? jente : gutt);	// hvor 0 = jente og 1 = gutt.
+	inn.getline(andreData, MAXTXT);
 }
 
 void Deltager::endreNyDeltager()
@@ -40,6 +42,7 @@ void Deltager::endreNyDeltager()
 		<< "\n\tN - Deltagerens fulle navn"
 		<< "\n\tA - Deltagerens Nasjon"
 		<< "\n\tK - Deltagerens kjønn"
+		<< "\n\tD - Andre data om deltager"
 		<< "\n\tQ - Ingenting, gå opp en meny";	
 	char ch = les();	// leser inn en uppercase tegn
 	while (ch != 'Q')	// sjekker at brukeren ikke vil avslutte
@@ -49,10 +52,12 @@ void Deltager::endreNyDeltager()
 		case 'N': endreNavn();					break; // sletter først navn, så leser inn nytt
 		case 'A': endreDeltagersNasjon(nasjon); break; // leser inn en ny gyldig nasjon
 		case 'K': endreKjonn();					break;
+		case 'D': endreAndreData();				break; // endrer andre data
 		default:  cout << "\n\tHva vil du endre for deltager " << number
 			<< "\n\tN - Deltagerens fulle navn"
 			<< "\n\tA - Deltagerens Nasjon"
 			<< "\n\tK - Deltagerens kjønn"
+			<< "\n\tD - Andre data om deltager"
 			<< "\n\tQ - Ingenting, gå opp en meny";	break;
 		}
 		ch = les();
@@ -71,7 +76,8 @@ void Deltager::displayAll()	// leser ut alle data om objektet
 	cout << "\n\tDeltagernummer: " << number
 		<< "\n\tNavn: " << navn
 		<< "\n\tNasjon: " << nasjon << "\n\tKjønn: "
-		<< ((gender == jente) ? "jente" : "gutt") << endl;
+		<< ((gender == jente) ? "jente" : "gutt")
+		<< "\n\tAndre data: " << andreData << endl;
 }
 
 void Deltager::skrivDeltagerID()
@@ -90,6 +96,7 @@ void Deltager::skrivDeltagerTilFil(ofstream & ut) // skriver data fra objektet t
 	ut << navn << '\n';
 	ut << nasjon << '\n';
 	(gender == jente) ? ut << jente << '\n' : ut << gutt << '\n';
+	ut << andreData << '\n';
 }
 
 void Deltager::lesInnNasjon(char ch[])
@@ -140,6 +147,11 @@ void Deltager::endreKjonn()
 	chr = les();
 	gender = (chr == 'M') ? gutt : jente; 
 	cout << "\n\tDeltagers kjønn endret" << endl;
+}
+
+void Deltager::endreAndreData()
+{
+	les("\t\nLes inn andre data om deltager", andreData, MAXTXT);
 }
 
 void Deltager::startSkriv() // skriver ut dataene i startliste.

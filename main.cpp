@@ -5,6 +5,8 @@
 #include "medaljer.h"
 #include "poeng.h"
 
+#include <iostream>
+
 Nasjoner nasjonerObjekt;
 Deltagere deltagerobjekt;
 Grener grenobjekt;
@@ -12,6 +14,7 @@ Medaljer medaljeObjekt;
 Poeng poengobjekt;
 
 int main() {
+
 	nasjonerObjekt.lesNasjonerFraFil();
 	deltagerobjekt.LesDeltagereFraFil();
 	grenobjekt.LesGrenerFraFil();
