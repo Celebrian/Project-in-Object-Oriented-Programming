@@ -16,6 +16,7 @@ private:
 public:
 	Deltager(int n, char chr[]);	// kjøres når en ny deltager opprettes
 	Deltager(int n, ifstream & inn);
+	void skrivMenyDE();		// skriver endre deltager meny
 	void endreNyDeltager();	// for å endre en deltager besert på nummer innskrevet
 	virtual void display();	// skriver ut data
 	void displayAll();	// skriver ut alle data

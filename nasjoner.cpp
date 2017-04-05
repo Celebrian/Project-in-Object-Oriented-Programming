@@ -41,6 +41,7 @@ void Nasjoner::MenyN()
 		case 'S': skrivEnNasjon();				break;
 		default:  skrivMenyN();					break;
 		}
+		skrivMenyN();
 		valg = les();
 	}
 }

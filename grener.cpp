@@ -89,6 +89,7 @@ void Grener::MenyG()
 			case 'S': skrivUtValgt();		break;
 			default:  skrivMenyG();			break;
 			}
+			skrivMenyG();
 			valg = les();
 	}
 }

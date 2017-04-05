@@ -22,6 +22,7 @@ private:
 
 public:
 	Ovelse(int i, char chr[], resultatType rt);
+	void skrivMenyOE();								//Skriver meny for endring av øvelse
 	Ovelse(ifstream & inn, int i, resultatType rs);	//Constructor for å lese øvelse fra fil.
 	void fjernOvelse();								// fjerner en øvelse og sletter relaterte data.
 	void lagResultat(ifstream & inn);				// lager resultat utifra deltagerliste som blir lest inn fra fil.

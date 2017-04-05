@@ -36,14 +36,19 @@ Deltager::Deltager(int n, ifstream & inn) : NumElement(n)
 	inn.getline(andreData, MAXTXT);
 }
 
-void Deltager::endreNyDeltager()
+void Deltager::skrivMenyDE()
 {
-	cout << "\n\tHva vil du endre for deltager " << number
+	cout << "\n\tHva vil du endre for deltager:" << number
 		<< "\n\tN - Deltagerens fulle navn"
 		<< "\n\tA - Deltagerens Nasjon"
 		<< "\n\tK - Deltagerens kjønn"
 		<< "\n\tD - Andre data om deltager"
 		<< "\n\tQ - Ingenting, gå opp en meny";	
+}
+
+void Deltager::endreNyDeltager()
+{
+	skrivMenyDE();
 	char ch = les();	// leser inn en uppercase tegn
 	while (ch != 'Q')	// sjekker at brukeren ikke vil avslutte
 	{
@@ -53,13 +58,9 @@ void Deltager::endreNyDeltager()
 		case 'A': endreDeltagersNasjon(nasjon); break; // leser inn en ny gyldig nasjon
 		case 'K': endreKjonn();					break;
 		case 'D': endreAndreData();				break; // endrer andre data
-		default:  cout << "\n\tHva vil du endre for deltager " << number
-			<< "\n\tN - Deltagerens fulle navn"
-			<< "\n\tA - Deltagerens Nasjon"
-			<< "\n\tK - Deltagerens kjønn"
-			<< "\n\tD - Andre data om deltager"
-			<< "\n\tQ - Ingenting, gå opp en meny";	break;
+		default: skrivMenyDE();					break;
 		}
+		skrivMenyDE();
 		ch = les();
 	}
 }
