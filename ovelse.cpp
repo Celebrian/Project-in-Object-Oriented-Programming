@@ -42,14 +42,14 @@ void Ovelse::nyttDynamiskArray()							//Lager nytt array som er akkurat så lang
 	startListe = endretStartliste;							//Peker startliste på endret startliste
 }
 
-Ovelse::Ovelse(int i, char chr[], resultatType rt) : NumElement(i)
+Ovelse::Ovelse(int i, char chr[], resultatType rt) : NumElement(i)	// leser inn data til øvelse objekt.
 {
-	ovelseNavn = new char[strlen(chr) + 1];
-	strcpy(ovelseNavn, chr);	
-	klokkeStart = lesKlokkeSlett();
-	dato = lesDato();
-	antallDeltagere = 0;
-	resultatMetode = rt;
+	ovelseNavn = new char[strlen(chr) + 1];							// oppretter et nytt array med akkurat den lengden man trenger.
+	strcpy(ovelseNavn, chr);										// kopierer navn over i den nye arrayen
+	klokkeStart = lesKlokkeSlett();									// leser inn klokkeslett via egen funksjon.
+	dato = lesDato();												// leser inn dato via egen funksjon.
+	antallDeltagere = 0;											// antall deltagere er 0 intil en deltager blir lagt til.
+	resultatMetode = rt;											// går fra 1-6.
 }
 
 void Ovelse::endreOvelsen()
@@ -69,22 +69,22 @@ void Ovelse::endreOvelsen()
 	}
 }
 
-void Ovelse::endreNavn()
+void Ovelse::endreNavn()	// sletter først det gamle navnet, så leser inn et nytt.
 {
 	delete[] ovelseNavn; les("\n\tLes inn nytt navn", ovelseNavn);
 }
 
-void Ovelse::endreOvelseDato()
+void Ovelse::endreOvelseDato()		// leser inn dato på nytt.
 {
 	dato = lesDato();
 }
 
-void Ovelse::endreKlokkeslett()
+void Ovelse::endreKlokkeslett()		// leser inn klokkelsett på nytt.
 {
 	klokkeStart = lesKlokkeSlett();
 }
 
-void Ovelse::skrivAlt()
+void Ovelse::skrivAlt()		// skriver ut alle data om en øvelse.
 {
 	cout << "\n\tNummer: " << number 
 		<< "\n\tNavn: " << ovelseNavn 
@@ -93,12 +93,12 @@ void Ovelse::skrivAlt()
 		<< "\n\tAntall Deltagere: " << antallDeltagere << endl;
 }
 
-bool Ovelse::sjekkNavn(char c[])
+bool Ovelse::sjekkNavn(char c[])		// sjekker om en øvelse har samme navn som det brukeren skrev inn.
 {
 	return(!strcmp(c, ovelseNavn));
 }
 
-bool Ovelse::sjekkID(int i)
+bool Ovelse::sjekkID(int i)			// sjekker om en øvelse har samme id som brukeren skrev inn.
 {
 	return(i == number);
 }
@@ -372,49 +372,49 @@ void Ovelse::fjernDeltagerliste()							//Fjerner startlisten hvis den eksistere
 	}
 }
 
-void Ovelse::skrivTilFil(ofstream &ut)
+void Ovelse::skrivTilFil(ofstream &ut)			// skriver alle øvelsens data til fil.
 {
 	ut << number << '\n' << ovelseNavn << '\n'
 		<< klokkeStart << " " << dato << " " << antallDeltagere << endl;
 }
 
-Ovelse::Ovelse(ifstream & inn, int i, resultatType rs) : NumElement (i)
+Ovelse::Ovelse(ifstream & inn, int i, resultatType rs) : NumElement (i)		// leser alle øvelsens data fra fil.
 {
-	lesInnFraFil(ovelseNavn, inn);
+	lesInnFraFil(ovelseNavn, inn);											// egen les funksjon for å lese inn i en peker.
 	inn >> klokkeStart >> dato >> antallDeltagere; inn.ignore();
 	resultatMetode = rs;
 }
 
-void Ovelse::fjernOvelse()
+void Ovelse::fjernOvelse()		// sletter alle øvelsens data som må slettes, alle som har blitt opprettet med "new".
 {
-	delete[] ovelseNavn;
-	fjernDeltagerliste();
-	slettResultatListe();
-	delete[] resultatListe;
-	delete[] startListe;
+	delete[] ovelseNavn;		// sletter navnet.
+	slettResultatListe();		// sletter resultatlista via dens egen remove funksjon.
+	fjernDeltagerliste();		// sletter så deltagerlista via dens egen remove funksjon.
+	delete[] resultatListe;		// sletter arrayen resultatliste.
+	delete[] startListe;		// sletter arrayn startiste.
 }
 
-void Ovelse::lagFilNavn(char ch[], filtype ft)
+void Ovelse::lagFilNavn(char ch[], filtype ft)	// lager alle filnavn for å lese fra/skrive til fil.
 {
-	char temp[MAXTXT + 1] = "OV";
+	char temp[MAXTXT + 1] = "OV";			// lager en ny array med "'ov" på starten.
 	char temp2[MAXTXT + 1];
-	_itoa(number, temp2, 10);
+	_itoa(number, temp2, 10);				// gjør om char til int. 
 	
 	//char temp[MAXTXT + 1] = (ft == startliste) ?  ".STA" : ".RES";	// TIL SENERE INSPEKSJON, HJELP BLIR SATT PRIS PÅ *HINT HINT*
 
-	if (ft == startliste)
+	if (ft == startliste)		// kjøres hvis det er en startliste som tilkaller funksjonen.
 	{
-		char temp3[MAXTXT + 1] = ".STA";
-		strcat(ch, temp);
-		strcat(ch, temp2);
-		strcat(ch, temp3);
+		char temp3[MAXTXT + 1] = ".STA";	// legges til på slutten.
+		strcat(ch, temp);	//legger til OV
+		strcat(ch, temp2);	// skøter på nummer (eks 1000)
+		strcat(ch, temp3);	// skøter på .STA.
 	}
-	else
+	else				// kjøres hvis det er en resultatliste.
 	{ 
-		char temp3[MAXTXT + 1] = ".RES"; 
-		strcat(ch, temp);
-		strcat(ch, temp2);
-		strcat(ch, temp3);
+		char temp3[MAXTXT + 1] = ".RES"; // legges til på slutten.
+		strcat(ch, temp);	//legger til OV
+		strcat(ch, temp2);	// skøter på nummer.
+		strcat(ch, temp3);	// skøter på .RES
 	}
 }
 
@@ -435,7 +435,7 @@ void Ovelse::MenyOR()
 	}
 }
 
-void Ovelse::skrivMenyOR()
+void Ovelse::skrivMenyOR()			// skriver alle valgene mulig i resultatliste menyen.
 {
 	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:"
 		<< "\n\tS = Skriv resultatliste"
@@ -444,7 +444,7 @@ void Ovelse::skrivMenyOR()
 		<< "\n\tQ = Forrige meny";
 }
 
-void Ovelse::skrivMenyOLE()
+void Ovelse::skrivMenyOLE()			// skriver alle valgene mulig i startliste menyen.
 {
 	cout << "\n\tFØLGENDE KOMMANDOER ER TILGJENGLIGE:"
 		<< "\n\tN = Legge til ny deltager"
@@ -476,25 +476,26 @@ void Ovelse::skrivStartlisteTilFil()						//Skriver startliste til fil
 	}
 }
 
-void Ovelse::nyResultatliste()
+void Ovelse::nyResultatliste()				// lager en ny resultatliste utifra innlest deltagerliste.
 {
 	filtype ft = resultatliste;
 	char filnavn[MAXTXT + 1] = "gruppe03/";
-	ifstream inn(filnavn);
+	lagFilNavn(filnavn, resultatliste);
+	ifstream inn(filnavn);		// sjekker om det allerde finnes en resultatliste.
 	if (!inn)
 	{
-		inn.close();
+		inn.close(); // lukker fila igjen.
 		filtype ft = startliste;
 		char filnavn2[MAXTXT + 1] = "gruppe03/";
 		lagFilNavn(filnavn2, ft);
-		ifstream innfil(filnavn2);
-		if (innfil)
+		ifstream innfil(filnavn2); // åpner statrlista.
+		if (innfil)					// sjekker om fila ble åpnet.
 		{
-			char sortertemp;
+			char sortertemp;		// leser inn om den er sortert eller ikke.
 			innfil >> sortertemp;
-			innfil >> antallDeltagere;
-			resultatListe = new float[antallDeltagere + 1][3];
-			lagResultat(innfil);
+			innfil >> antallDeltagere;	// leser inn antall deltagere på fila.
+			resultatListe = new float[antallDeltagere + 1][3];	// lager en ny array til deltagerne.
+			lagResultat(innfil);				// sender det videre til ny funksjon.
 		}
 		else
 		{
@@ -509,17 +510,17 @@ void Ovelse::nyResultatliste()
 }
 
 
-void Ovelse::lagResultat(ifstream & inn)
+void Ovelse::lagResultat(ifstream & inn)					// lager selve resultatlista.
 {
-	for (int i = 1; i <= antallDeltagere; i++)
+	for (int i = 1; i <= antallDeltagere; i++)				// looper gjennom alle deltagere som ble lest inn.
 	{
-		inn >> resultatListe[i][0] >> resultatListe[i][1];
+		inn >> resultatListe[i][0] >> resultatListe[i][1];	// legger startnummer og deltagernummer inn i arrayen.
 		inn.ignore();
 
-		cout << "\n\tStartnummer: " << resultatListe[i][0];
+		cout << "\n\tStartnummer: " << resultatListe[i][0];				//skriver ut info om deltageren.
 		deltagerobjekt.skrivDeltagerStart(resultatListe[i][1]);
 
-		switch (resultatMetode)
+		switch (resultatMetode)											// switch som bestemmer om resultat skal leses inn som tide eller poeng.
 		{
 		case 0: resultatListe[i][2] = lesTid(i, MMSST);   break;
 		case 1: resultatListe[i][2] =  lesTid(i, MMSSHH);	break;
@@ -531,18 +532,18 @@ void Ovelse::lagResultat(ifstream & inn)
 		}
 	}
 
-	bool alleBrutt = true;
+	bool alleBrutt = true;	// sjekker om alle deltagerne har brutt, fordi da skal det ikke sorteres. grunnen er at sorteringa blir da en evig loop.
 
 	for (int g = 1; g <= antallDeltagere; g++)
 	{
-		if (resultatListe[g][2] > 0)
+		if (resultatListe[g][2] > 0)	// sjekker om resultatet er et neativt tall. fordi -1 = brutt.
 		{
 			alleBrutt = false;
 		}
 	}
-	if (!alleBrutt)
+	if (!alleBrutt) // kjøres hvis minst 1 deltager har fullført med gyldig resultat
 	{
-		switch (resultatMetode)
+		switch (resultatMetode)					// switch som sorterer utifra om det er tid eller poeng.
 		{
 		case 0: sorterResultater('t');  break;
 		case 1: sorterResultater('t');  break;
@@ -554,7 +555,7 @@ void Ovelse::lagResultat(ifstream & inn)
 		}
 	}
 	
-	switch (resultatMetode)
+	switch (resultatMetode)						// switch som skriver resultatet utifra om det er tid eller poeng.
 	{
 	case 0: skrivTid(MMSST);		break;
 	case 1: skrivTid(MMSSHH);		break;
@@ -564,20 +565,22 @@ void Ovelse::lagResultat(ifstream & inn)
 	default:
 		break;
 	}
-	ajourfor(pluss);
-	skrivSortertResultatListe();
+	ajourfor(pluss);						// tildeler medaljer og poeng.
+	skrivSortertResultatListe();			// opprettetr selve resultatliste-fila og skriver data til den.
 }
 
-void Ovelse::skrivTid(int in)
+void Ovelse::skrivTid(int in)				// skriver ut tid basert på medsendt variabel (MMSST / MMSSHH/ MMSSTTT)
 {
 	cout << "\n\n\tResultatliste for: " << ovelseNavn << endl;
 	for (int m = 1; m <= antallDeltagere; m++)
 	{
 		cout << "\n\tNummer: " << m << " \tDeltager: " << resultatListe[m][1]
 			<< " \tStartnummer: " << resultatListe[m][0];
-		if (resultatListe[m][2] > 0)
+		if (resultatListe[m][2] > 0) // sjekker om en deltagers resultat er gyldig før det skrives ut.
 		{
-			cout << " \tTid: " << int(resultatListe[m][2] / (in * 100)) << ":" << (int(resultatListe[m][2] / in) % 100) << ":" << (int(resultatListe[m][2]) % in) << endl;
+			cout << " \tTid: " << int(resultatListe[m][2] / (in * 100))  // deler med 100 * medsent for å få tak de to første siffrene i det innleste tallet.
+				<< ":" << (int(resultatListe[m][2] / in) % 100)			// delet først med medsendt verdi, så modder med 100 for å få tak i de midterste siffrene i tallet.
+				<< ":" << (int(resultatListe[m][2]) % in) << endl;		// modder det med medsendt verdi for å få tak i det/de bakerste siffrene i tallet.
 		}
 		else
 		{
@@ -586,16 +589,17 @@ void Ovelse::skrivTid(int in)
 	}
 }
 
-void Ovelse::skrivPoeng(int t)
+void Ovelse::skrivPoeng(int t)								// skriver ut poeng ufifra medsend variabel (poengX / poengXX)
 {
 	cout << "\n\n\tResultatliste for: " << ovelseNavn << endl;
 	for (int m = 1; m <= antallDeltagere; m++)
 	{
 		cout << "\n\tNummer: " << m << " \tDeltager: " << resultatListe[m][1]
 			<< " \tStartnummer: " << resultatListe[m][0];
-			if (true)
+			if (true)	// sjekker om resultater er gyldig.
 			{
-				cout << " \tPoeng: " << int(resultatListe[m][2] / t) << "." << (int(resultatListe[m][2]) % t) << endl;
+				cout << " \tPoeng: " << int(resultatListe[m][2] / t)	// deler med medsendt verdi for å få tak i siffer før komma.
+					<< "." << (int(resultatListe[m][2]) % t) << endl;	// modder med medsendt verdi for å få tak i siffer bak komma.
 			}
 			else
 			{
@@ -606,7 +610,7 @@ void Ovelse::skrivPoeng(int t)
 
 
 
-int Ovelse::lesTid(int i, const int c)
+int Ovelse::lesTid(int i, const int c)			// leser inn resultat som tid.
 {	
 	bool sant = true;
 	char temp[MAXTXT + 1];
@@ -614,16 +618,16 @@ int Ovelse::lesTid(int i, const int c)
 	do
 	{
 		les("\n\tLes inn tid (MMSST), eller B for brutt/disket/ikke møtt opp", temp, MAXTXT);
-		if (!(strcmp(temp, "B") || !(strcmp(temp, "b"))))
+		if (!(strcmp(temp, "B") || !(strcmp(temp, "b"))))	// sjekker om brukeren skrev inn B for brutt.
 		{
-			return (-1);
+			return (-1);		// brutt har verdien -1.
 		}
-		else if (kunTall(temp))
+		else if (kunTall(temp))		// sjekker om det ble lest inn bare tall.
 		{
-			temp2 = atoi(temp);
+			temp2 = atoi(temp);	// gjor om char til int.
 			sant = false;
 		}
-	} while (sant || ((temp2 / (c*100)) > 59)
+	} while (sant || ((temp2 / (c*100)) > 59)							// sikrer at innlest tidspunkt er innenfor et gyldig spektrum.
 		|| (( (temp2/ c) % 100) > 59) || (temp2 % c) > int(c*0.999) );
 	return(temp2);
 }
@@ -637,44 +641,44 @@ int Ovelse::lesPoeng(int i, int x)
 	do
 	{
 		les("\n\tLes inn poeng eller B for brutt/disket/ikke møtt opp", temp, MAXTXT);
-		if (!(strcmp(temp, "B") || !(strcmp(temp, "b"))))
+		if (!(strcmp(temp, "B") || !(strcmp(temp, "b")))) // sjekker om deltager har brutt.
 		{
-			return(-1);
+			return(-1); // brutt = -1.
 		}
-		if (kunTallFloat(temp))
+		if (kunTallFloat(temp)) // sjekker om det er bare tall.
 		{
-			temp2 = atof(temp);
-			temp2 = (temp2 * x);
-			temp2 = int(temp2);
-			temp2 = float(temp2);
-			temp2 = (temp2 / x);
+			temp2 = atof(temp); // gjør om fra char til float.
+			temp2 = (temp2 * x); // ganger med 10/100 for å bare beholde 1 eller 2 siffre som var bak komma.
+			temp2 = int(temp2);		// gjør det om til int for å kaste de andre siffrene.
+			temp2 = float(temp2);	// gjør det om igjen til float for å kunne få deismaltall.
+			temp2 = (temp2 / x);	// delet det med 10/100 for å flytte tallene bak komma igjen.
 			return(temp2);
 			sant = false;
 		}
-	} while (sant);
+	} while (sant);			// kjøres helt til brukeren har lest inn et gyldig resultat
 }
 
-void Ovelse::sorterResultater(char hva)
+void Ovelse::sorterResultater(char hva)				// sorterer resultater basert på type,
 {
-	for (int i = 1; i <= antallDeltagere; i++)
+	for (int i = 1; i <= antallDeltagere; i++)		// teller opp første arrayskuff.
 	{
-		for (int j = i + 1; j <= antallDeltagere; j++)
+		for (int j = i + 1; j <= antallDeltagere; j++)	// teller op andre arrayskuff.
 		{
-			if (hva == 'p')
+			if (hva == 'p')								// hvis det er poeng.
 			{
-				if (resultatListe[i][2] < resultatListe[j][2])
+				if (resultatListe[i][2] < resultatListe[j][2])	// skal den største først.
 				{
-					sorteringsProsess(i ,j);
+					sorteringsProsess(i ,j);		// selve sorteringsprosessen som flytter ting.
 				}
 			}
-			else if (hva == 't')
+			else if (hva == 't')				// hvis det er tid
 			{
-				if (resultatListe[i][2] > resultatListe[j][2])
+				if (resultatListe[i][2] > resultatListe[j][2])	// skal den minste veriden først.
 				{
-					sorteringsProsess(i, j);
+					sorteringsProsess(i, j);	//flytteprossessen.
 				}
 			}
-			while (resultatListe[i][2] < 0)
+			while (resultatListe[i][2] < 0)		// hvis veriden er -1, aka deltager har brutt, skal deltageren flyttes nederst på resultatlista.
 			{
 				int temp = resultatListe[i][2];
 				int temp1 = resultatListe[i][1];
@@ -692,7 +696,7 @@ void Ovelse::sorterResultater(char hva)
 	}
 }
 
-void Ovelse::sorteringsProsess(int i, int j)
+void Ovelse::sorteringsProsess(int i, int j)  // selve flyttingsprosessen der i og j skuffene blir byttet.
 {
 	int temp = resultatListe[i][2];
 	int temp1 = resultatListe[i][1];
@@ -707,18 +711,18 @@ void Ovelse::sorteringsProsess(int i, int j)
 	resultatListe[j][0] = temp0;
 }
 
-void Ovelse::ajourfor(plusminus oppned)
+void Ovelse::ajourfor(plusminus oppned) // tar enten pluss eller minus for så å oppdatere medaljer og poeng utifra dette.
 {
-	for (int i = 1; i <= antallDeltagere; i++)
+	for (int i = 1; i <= antallDeltagere; i++) // kjører til antall deltagere slik at det bare blir oppdatert på deltagere som finnes.
 	{
 		switch (i)
 		{
-		case 1:ajourfor1(i, oppned); break;
-		case 2:ajourfor2(i, oppned); break;
-		case 3:ajourfor3(i, oppned); break;
-		case 4:ajourfor4(i, oppned); break;
-		case 5:ajourfor5(i, oppned); break;
-		case 6:ajourfor6(i, oppned); break;
+		case 1:ajourfor1(i, oppned); break;	// oppdaterer for 1 plass
+		case 2:ajourfor2(i, oppned); break;	// 2 plass
+		case 3:ajourfor3(i, oppned); break;	// 3 plass
+		case 4:ajourfor4(i, oppned); break;	// 4 plass
+		case 5:ajourfor5(i, oppned); break;	// 5 plass
+		case 6:ajourfor6(i, oppned); break;	// 6 plass.
 
 		default:
 			break;
@@ -726,18 +730,18 @@ void Ovelse::ajourfor(plusminus oppned)
 	}
 }
 
-void Ovelse::ajourfor1(int i, plusminus oppned)
+void Ovelse::ajourfor1(int i, plusminus oppned)			// tar pluss eller minus og sender det videre til medalje og poeng.
 {
-	if (resultatListe[i][2]> 0)
+	if (resultatListe[i][2]> 0)		// sjekker at resultatet er gyldig, slik at en som har brutt ikke får noe medalje/poeng.
 	{
-		char tempNasjon[LANDSKODE];
+		char tempNasjon[LANDSKODE];				// henter landskoden fra deltageren.
 		deltagerobjekt.hentNasjon(tempNasjon, resultatListe[i][1]);
-		poengobjekt.oppdaterPoeng(tempNasjon, 7, oppned);
-		medaljeObjekt.endreMedalje(tempNasjon, gull, oppned);
+		poengobjekt.oppdaterPoeng(tempNasjon, 7, oppned);		// oppdaterer poeng.
+		medaljeObjekt.endreMedalje(tempNasjon, gull, oppned);	// oppdaterer medaljer.
 	}
 }
 
-void Ovelse::ajourfor2(int i, plusminus oppned)
+void Ovelse::ajourfor2(int i, plusminus oppned)		// samme som overnfor, bare for 2 plass.
 {
 	if (resultatListe[i][2] > 0)
 	{
@@ -748,7 +752,7 @@ void Ovelse::ajourfor2(int i, plusminus oppned)
 	}
 }
 
-void Ovelse::ajourfor3(int i, plusminus oppned)
+void Ovelse::ajourfor3(int i, plusminus oppned)		// samme for 3 plass.
 {
 	if (resultatListe[i][2] > 0)
 	{
@@ -759,7 +763,7 @@ void Ovelse::ajourfor3(int i, plusminus oppned)
 	}
 }
 
-void Ovelse::ajourfor4(int i, plusminus oppned)
+void Ovelse::ajourfor4(int i, plusminus oppned)		// 4 plass.
 {
 	if (resultatListe[i][2] > 0)
 	{
@@ -769,7 +773,7 @@ void Ovelse::ajourfor4(int i, plusminus oppned)
 	}
 }
 
-void Ovelse::ajourfor5(int i, plusminus oppned)
+void Ovelse::ajourfor5(int i, plusminus oppned)		// 5 plass.
 {
 	if (resultatListe[i][2] > 0)
 	{
@@ -779,7 +783,7 @@ void Ovelse::ajourfor5(int i, plusminus oppned)
 	}
 }
 
-void Ovelse::ajourfor6(int i, plusminus oppned)
+void Ovelse::ajourfor6(int i, plusminus oppned)		// 6 plass.
 {
 	if (resultatListe[i][2] > 0)
 	{
@@ -789,39 +793,39 @@ void Ovelse::ajourfor6(int i, plusminus oppned)
 	}
 }
 
-void Ovelse::slettResultatListe()
+void Ovelse::slettResultatListe()		// sjekker om det finnes en resultatliste, for så å slette den og oppdaterer statistikk.
 {
 	filtype ft = resultatliste;
 	char filnavn[MAXTXT + 1] = "gruppe03/";
 	lagFilNavn(filnavn, ft);
-	ifstream inn(filnavn);
-	if (inn)
+	ifstream inn(filnavn);		// prøver å åpne resultatliste.
+	if (inn)					// hvis den ble åpna.
 	{
-		char sortertemp;
-		inn >> sortertemp;
-		inn >> antallDeltagere; inn.ignore();
-		resultatListe = new float[antallDeltagere + 1][3];
-		slettStatistikk(inn, sortertemp);
-		inn.close();
-		if (remove(filnavn) == 0) {
+		char sortertemp;		// sjekker om den var sortert.
+		inn >> sortertemp;		
+		inn >> antallDeltagere; inn.ignore();	// leser in antall deltagere.
+		resultatListe = new float[antallDeltagere + 1][3];	// legger deltagrne inn i ny array som blir opprettet.
+		slettStatistikk(inn, sortertemp);	// ny funksjon som sletter alle medaljer og poeng fra resultatlista som skal slettes.
+		inn.close();	// lukker filen.
+		if (remove(filnavn) == 0) {	// sletter filen og retunerer om filen ble sletta.
 			cout << "\n\tResultatliste slettet!" << endl;
 		}
 	}
-	else
+	else // hvis filen ikke kunne åpnes.
 	{
 		cout << "\n\tFinner ikke resultatliste." << endl;
 	}
 }
 
-void Ovelse::slettStatistikk(ifstream & inn, char ch)
+void Ovelse::slettStatistikk(ifstream & inn, char ch)			// sletter medaljer og poeng fra resultatliste som skal fjernes.
 {
-	for (int  i = 1; i <= antallDeltagere; i++)
+	for (int  i = 1; i <= antallDeltagere; i++)  // legger de innleste deltagerne inn i arrayen.
 	{
 		inn >> resultatListe[i][0] >> resultatListe[i][1] >> resultatListe[i][2]; inn.ignore();
 	}
-	if (ch == 'I') 
+	if (ch == 'I')  // hvis den ikke er sortert, så blir den sortert.
 	{
-		switch (resultatMetode)
+		switch (resultatMetode) 
 		{
 		case 0: sorterResultater('t');  break;
 		case 1: sorterResultater('t');  break;
@@ -832,25 +836,25 @@ void Ovelse::slettStatistikk(ifstream & inn, char ch)
 			break;
 		}
 	}
-	ajourfor(minusssssssss);
+	ajourfor(minusssssssss);		// oppdaterer statistikk, men sender med minus for at det skal slettes.
 }
 
-void Ovelse::skrivResultatliste()
+void Ovelse::skrivResultatliste()	// henter resultatliste, sorterer og skriver den til fil sortert.
 {
 	filtype ft = resultatliste;
 	char filnavn[MAXTXT + 1] = "gruppe03/";
 	lagFilNavn(filnavn, ft);
 	ifstream inn(filnavn);
-	if (inn)
+	if (inn)				// åpner resultatlista.
 	{
 		char sortertemp;
-		inn >> sortertemp;
+		inn >> sortertemp;		// leser inn enten I eller S
 		inn >> antallDeltagere; inn.ignore();
 		resultatListe = new float[antallDeltagere + 1][3];
-		lagStatistikk(inn, sortertemp);
-		inn.close();
-		remove(filnavn);
-		skrivSortertResultatListe();
+		lagStatistikk(inn, sortertemp); // sendes videre til sortering.
+		inn.close();		// lukker og
+		remove(filnavn);	// sletter den gamle fila.
+		skrivSortertResultatListe(); // lager en ny fil som er sortert.
 	}
 	else
 	{
@@ -858,14 +862,14 @@ void Ovelse::skrivResultatliste()
 	}
 }
 
-void Ovelse::lagStatistikk(ifstream & inn, char ch)
+void Ovelse::lagStatistikk(ifstream & inn, char ch)		// sorterer og oppdaterer statistikk.
 {
-	for (int i = 1; i <= antallDeltagere; i++)
+	for (int i = 1; i <= antallDeltagere; i++) // legger deltagere inn i memory.
 	{
 		inn >> resultatListe[i][0] >> resultatListe[i][1] >> resultatListe[i][2]; inn.ignore();
 	}
 
-	if (ch == 'I')
+	if (ch == 'I')	// sjekker om den trengs å sorteres.
 	{
 		switch (resultatMetode)
 		{
@@ -879,7 +883,7 @@ void Ovelse::lagStatistikk(ifstream & inn, char ch)
 		}
 	}
 
-	switch (resultatMetode)
+	switch (resultatMetode)		// skriver ut resultatet besert på type.
 	{
 	case 0: skrivTid(MMSST);		break;
 	case 1: skrivTid(MMSSHH);		break;
@@ -890,18 +894,18 @@ void Ovelse::lagStatistikk(ifstream & inn, char ch)
 		break;
 	}
 
-	ajourfor(pluss);
+	ajourfor(pluss);		// oppdatere medaljer og poeng.
 
 }
 
-void Ovelse::skrivSortertResultatListe()
+void Ovelse::skrivSortertResultatListe()		// lager og skriver selve resultatliste fila.
 {
 	filtype ft = resultatliste;
 	char filnavn[MAXTXT + 1] = "gruppe03/";
-	lagFilNavn(filnavn, ft);
-	ofstream utfil(filnavn);
+	lagFilNavn(filnavn, ft);		// lager filnavnet.
+	ofstream utfil(filnavn);		// lager fila med det oppretta filnavnet.
 	utfil << "S" << " " << antallDeltagere << endl;
-	for (int m = 1; m <= antallDeltagere; m++)
+	for (int m = 1; m <= antallDeltagere; m++)	// kjører gjennom hver deltager og skriver ut dataene om de.
 	{
 		utfil << resultatListe[m][0] << " " << resultatListe[m][1] << " " << resultatListe[m][2] << endl;
 	}

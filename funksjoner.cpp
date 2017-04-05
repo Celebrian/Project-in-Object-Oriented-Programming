@@ -139,19 +139,19 @@ void Meny()
 
 int lesKlokkeSlett()
 {
-	bool sant = true;
-	char klokka[MAXTXT+1];
+	bool sant = true; // flagg
+	char klokka[MAXTXT+1]; 
 	int gyldigKlokka;
 	do
 	{
-		les("\n\tLes inn klokkeslett (TTMM)", klokka, MAXTXT + 1);
-		if (kunTall(klokka)) 
+		les("\n\tLes inn klokkeslett (TTMM)", klokka, MAXTXT + 1); // leser inn i et char array.
+		if (kunTall(klokka))	//sjekker om teksten består av bare tall.
 		{
-			gyldigKlokka = atoi(klokka);
+			gyldigKlokka = atoi(klokka); // konverterer fra char til int met atoi.
 			sant = false;
 		}
-	} while (sant || (gyldigKlokka < 0)
-		|| ((gyldigKlokka / 100) > 23) || ((gyldigKlokka % 100) > 59));
+	} while (sant || (gyldigKlokka < 0)									//sjekker at det som er innlest
+		|| ((gyldigKlokka / 100) > 23) || ((gyldigKlokka % 100) > 59));	// er et gyldig klokkeslett.
 	return gyldigKlokka;
 }
 	
@@ -197,28 +197,28 @@ bool finnesDato(int da, int ma, int aa) {
 	return true;                          // Returnerer at datoen finnes.
 }
 
-bool kunTall(char t[])
+bool kunTall(char t[]) // sjekker om en int bare er tall.
 {
 	int i = 0;
 
-	while (i < strlen(t))
+	while (i < strlen(t)) // kjører helt til arrayet et slutt.
 	{
-		if (!isdigit(t[i]))
+		if (!isdigit(t[i])) // sjekker om hver skuff er en tall, med isdigit funksjon.
 		{
-			return false;
+			return false; // returnerer false hvis den finner en bokstav.
 		}
 		i++;
 	}
-	return true;
+	return true;	// ellers retunerer true.
 }
 
-bool kunTallFloat(char t[])
+bool kunTallFloat(char t[])  // samme som funksjonen ovenfor, men her tar den en float istedet for int.
 {
 	int i = 0;
 
 	while (i < strlen(t))
 	{
-		if (t[i] = ',') 
+		if (t[i] = ',') // godtar punktum fordi float er desimaltall.
 		{
 			t[i] = '.';
 		}
@@ -231,29 +231,29 @@ bool kunTallFloat(char t[])
 	return true;
 }
 
-void gjorStor(char s[])
+void gjorStor(char s[]) // tar en array og gjør alle bokstavene store.
 {
 	bool erBokstav = true;
 	int temp = strlen(s);
 	for (int i = 0; i < temp; i++)
 	{
-		if (!isalpha(s[i])) 
+		if (!isalpha(s[i]))  // sjekker om det er en bokstav med isalpha.
 		{
-			erBokstav = false;
+			erBokstav = false; // returnerer false om det er et tall.
 		}
 	}
-	if (erBokstav) {
-		for (int i = 0; i < temp; i++)
+	if (erBokstav) {			//hvis det bare var bokstaver.
+		for (int i = 0; i < temp; i++) // kjører gjennom alle,
 		{
-			s[i] = toupper(s[i]);
+			s[i] = toupper(s[i]);	// gjør alle til uppercase.
 		}
 	}
 }
 
-bool erLik(const char t[], const char s[])
+bool erLik(const char t[], const char s[]) //sjekker om to tekster er like.
 {
 	char temp[MAXTXT + 1], temp2[MAXTXT + 1];
-	for (int i = 0; i <= strlen(t); i++)
+	for (int i = 0; i <= strlen(t); i++) // går gjennom begge tekstene og gjør de uppercase.
 	{
 		temp[i] = toupper(t[i]);
 	}
@@ -261,5 +261,5 @@ bool erLik(const char t[], const char s[])
 	{
 		temp2[j] = toupper(s[j]);
 	}
-	return strcmp(temp, temp2);
+	return strcmp(temp, temp2); // sjekker om innholdet er likt.
 }

@@ -13,22 +13,22 @@ using namespace std;
 
 Gren::Gren(char * ch) : TextElement(ch)
 {
-	navn = ch;
-	char chr; 
-	skrivShit();
-	chr = les();
-	switch (chr){
-	case 'T': typeResultat = tidel; break;
-	case 'H': typeResultat = hundredel; break;
-	case 'D': typeResultat = tusendel; break;
-	case 'P': typeResultat = poengx; break;
-	case 'X': typeResultat = poengxx; break;
+	navn = ch;										// navnet på grenen
+	char chr;
+	skrivShit();									// skriver menyen med oversit over de forksjellige måtene og registrere poeng.
+	chr = les();									// leser inn brukerens valg.
+	switch (chr){									// resultat blir:
+	case 'T': typeResultat = tidel; break;			// MMSST
+	case 'H': typeResultat = hundredel; break;		// MMSSHH
+	case 'D': typeResultat = tusendel; break;		// MMSSTTT
+	case 'P': typeResultat = poengx; break;			// PoengX
+	case 'X': typeResultat = poengxx; break;		// PoengXX
 	default: skrivShit(); break; 
 	}
-	antallOvelser = 0;
+	antallOvelser = 0;								// en gren har ingen øvelser da den blir opprettet, disse legges inn siden.
 }
 
-void Gren::skrivShit()
+void Gren::skrivShit()								// navnet kommer av at jeg var trøtt etter en lang dag.
 {
 	cout << "\n\tT for tidel" 
 		<< "\n\tH for hundredel" 
@@ -43,11 +43,11 @@ Gren::Gren(char ch[], ifstream & inn) : TextElement(ch)
 	strcpy(navn, ch); // kopierer over i arrayen ch
 	int temp; inn >> temp; inn.ignore(); // leser inn 0 eller 1 fra fil
 	switch (temp) {
-	case 0: typeResultat = tidel; break;
-	case 1: typeResultat = hundredel; break;
-	case 2: typeResultat = tusendel; break;
-	case 3: typeResultat = poengx; break;
-	case 4: typeResultat = poengxx; break;
+	case 0: typeResultat = tidel; break;		//MMSST
+	case 1: typeResultat = hundredel; break;	//MMSSHH
+	case 2: typeResultat = tusendel; break;		//MMSSTTT
+	case 3: typeResultat = poengx; break;		//PoengX
+	case 4: typeResultat = poengxx; break;		//PoengXX
 	default: break; 
 	}
 	inn >> antallOvelser; inn.ignore(); 
@@ -57,7 +57,7 @@ Gren::Gren(char ch[], ifstream & inn) : TextElement(ch)
 	//}
 }
 
-void Gren::SkrivGrenTilFil(ofstream & ut)
+void Gren::SkrivGrenTilFil(ofstream & ut)	// skriver grenens data til fil.
 {
 	ut << navn << '\n';	// skriver ut navn
 	switch (typeResultat) {
@@ -67,7 +67,7 @@ void Gren::SkrivGrenTilFil(ofstream & ut)
 	case poengx: ut << poengx << '\n'; break;
 	case poengxx: ut << poengxx << '\n'; break;
 	default: break; 
-	}	// skriver ut 0 eller 1 for poeng eller tid.
+	}
 	ut << antallOvelser << '\n';
 	//for (int i = 1; i <= antallOvelser; i++)	// looper hele ovelser arrayen.
 	//{
@@ -75,7 +75,7 @@ void Gren::SkrivGrenTilFil(ofstream & ut)
 	//}
 }
 
-void Gren::endreNyGren()
+void Gren::endreNyGren()		// endrer data på en gren, bare navn er lov å endre.
 {
 	cout << "\nVil du endre på navnet? J(a) / N(ei) " << endl;
 	char ch = les();
@@ -101,12 +101,12 @@ void Gren::display()	// skriver ut data om gren til skjerm.
 		cout << "\n\tAntall øvelser i gren: " << antallOvelser << endl;
 }
 
-void Gren::displayValgt()
+void Gren::displayValgt()			// skriver ut alle data om en valgt gren.
 {
-	display();
+	display();						// skriver data om grenen.
 	for (int i = 1; i <= antallOvelser; i++)
-	{
-		ovelser[i]->skrivAlt();
+	{	
+		ovelser[i]->skrivAlt();		// skriver data om alle øvelse i grenen.
 	}
 }
 
@@ -119,13 +119,13 @@ void Gren::MenyO()
 	valg = les();             //  Leser brukerens valg.
 	while (valg != 'Q') {
 		switch (valg) {
-		case 'N': nyOvelse(); break;
-		case 'E': endreOvelse();  break;
-		case 'F': fjernOvelse(); break;
-		case 'A': skrivAlle();  break;
-		case 'L': MenyOL(); break;
-		case 'R': resultatListeMeny(); break;
-		default:  skrivMenyO();       break;
+		case 'N': nyOvelse(); break;			// lager ny øvelse
+		case 'E': endreOvelse();  break;		// endrer på øvelsen
+		case 'F': fjernOvelse(); break;			// sletter en øvelse
+		case 'A': skrivAlle();  break;			// skriver hoveddata om alle øvelse
+		case 'L': MenyOL(); break;				// meny for startliste
+		case 'R': resultatListeMeny(); break;	// meny for resultatliste
+		default:  skrivMenyO();       break;	
 		}
 		valg = les();
 	}
@@ -164,7 +164,7 @@ void Gren::MenyOL()
 	}
 }
 
-void Gren::skrivMenyO()
+void Gren::skrivMenyO()				// mulige valg for øvelser.
 {
 	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
 	cout << "\n\tN = Registrer en ny øvelse";
@@ -175,7 +175,7 @@ void Gren::skrivMenyO()
 	cout << "\n\tQ = Forrige meny";
 }
 
-void Gren::skrivMenyOL()
+void Gren::skrivMenyOL()		// mulige valg for startliste.
 {
 	cout << "\n\nFoLGENDE KOMMANDOER ER TILGJENGELIGE:";
 	cout << "\n\tS = Skriv deltakerliste";
@@ -185,42 +185,42 @@ void Gren::skrivMenyOL()
 	cout << "\n\tQ = Forrige meny";
 }
 
-void Gren::returnNavn(char t[])
+void Gren::returnNavn(char t[]) // returnerer navnet på en gren, via å kopiere det inn i et medsendt array.
 {
 	strcpy(t, text);
 }
 
-void Gren::nyOvelse()
+void Gren::nyOvelse()					// oppretter ny øvelse.
 {
 	bool idfinnesikke = true;
 	bool navnfinnesikke = true;
-	if (antallOvelser < MAXOVELSER)
+	if (antallOvelser < MAXOVELSER)		// sjekker om det er plass til en ny øvelse.
 	{
 		int tempID;
-		tempID = les("\nLes inn unik ID", MINOVNR, MAXOVNR);
-		if(antallOvelser >= 0)
+		tempID = les("\nLes inn unik ID", MINOVNR, MAXOVNR);	// leser inn en ID
+		if(antallOvelser >= 0)	// sjekker om det finnes en øvelse allerede
 		{
-			for (int i = 1; i <= antallOvelser; i++)
+			for (int i = 1; i <= antallOvelser; i++)	// går gjennom alle eksisterende øvelser.
 			{
-				if (ovelser[i]->sjekkID(tempID))
+				if (ovelser[i]->sjekkID(tempID))		// sjekker om den innlsete ID-en allerede finnes i en øvelse.
 				{
-					idfinnesikke = false;
+					idfinnesikke = false;				// hvis den finnes blir bool-en til false.
 				}
 			}
-			if (idfinnesikke) 
+			if (idfinnesikke)							// kjøres hvis boolen er true.
 			{
 				char* temp;
-				les("\n\tLes inn navn på ovelse", temp);
+				les("\n\tLes inn navn på ovelse", temp);	// leser inn navn på øvelse.
 				for (int j = 1; j <= antallOvelser; j++)
 				{
-					if (ovelser[j]->sjekkNavn(temp)) 
+					if (ovelser[j]->sjekkNavn(temp))	// sjekker om navnet allerede finnes.
 					{
-						navnfinnesikke = false;
+						navnfinnesikke = false;			//bool blir false hvis navnet finnes.
 					}				
 				}
-				if (navnfinnesikke)
+				if (navnfinnesikke)						// hvis navnet ikke allerede var opptatt.
 				{
-					ovelser[++antallOvelser] = new Ovelse(tempID, temp, typeResultat);
+					ovelser[++antallOvelser] = new Ovelse(tempID, temp, typeResultat); // opprett en ny øvelse bakerst i øvelse arrayen ved hjelp av antallOvelser. teller også opp antallOvelser.
 				}
 				else
 				{
@@ -239,24 +239,24 @@ void Gren::nyOvelse()
 	}
 }
 
-void Gren::endreOvelse()
+void Gren::endreOvelse()						// endrer på en øvelse.
 {
 	bool ovelseFinnes = false;
-	if (antallOvelser > 0)
+	if (antallOvelser > 0)		// sjekker om det finnes noen øvelser.
 	{
 		int tempID;
-		tempID = les("\nLes inn ID på øvelse du vil endre", MINOVNR, MAXOVNR);
-		for (int i = 1; i <= antallOvelser; i++)
+		tempID = les("\nLes inn ID på øvelse du vil endre", MINOVNR, MAXOVNR);	// leser inn id på øvelsen man vil endre.
+		for (int i = 1; i <= antallOvelser; i++)								// går gjennom alle øvelser.
 		{
-			if (ovelser[i]->sjekkID(tempID))
+			if (ovelser[i]->sjekkID(tempID))									// sjekker om ID-en finnes.
 			{
-				ovelseFinnes = true;
-				tempID = i;
+				ovelseFinnes = true;											// bool blir true.
+				tempID = i;														// tempID blir nummeret i arrayen der man fikk match med den innleste ID-en.
 			}
 		}
-		if (ovelseFinnes)
+		if (ovelseFinnes)														// hvis man fikk match.
 		{
-			ovelser[tempID]->endreOvelsen();
+			ovelser[tempID]->endreOvelsen();									// kjør funksjon på det objektet som pekeren i arrayen peker på, der matchen var.
 		}	
 		else
 		{
@@ -269,12 +269,12 @@ void Gren::endreOvelse()
 	}
 }
 
-void Gren::skrivAlle()
+void Gren::skrivAlle()								// skriver hoveddata om alle øvelser
 {
-	if (antallOvelser > 0) {
-		for (int i = 1; i <= antallOvelser; i++)
+	if (antallOvelser > 0) {						// sjekker om det finnes noen øvelser.
+		for (int i = 1; i <= antallOvelser; i++)	// går gjennom alle øvelser som finnes.
 		{
-			ovelser[i]->skrivAlt();
+			ovelser[i]->skrivAlt();					// kjører skriv funksjon på alle.
 		}
 	}
 	else
@@ -283,36 +283,36 @@ void Gren::skrivAlle()
 	}
 }
 
-void Gren::skrivOvelseTilFil(ofstream & ut)
+void Gren::skrivOvelseTilFil(ofstream & ut)		// skriver øvelser til fil.
 {
-	ut << antallOvelser << endl;
-	for (int i = 1; i <= antallOvelser; i++)
+	ut << antallOvelser << endl;				// skriv først ut antall for å gjøre det lettere å lese inn.
+	for (int i = 1; i <= antallOvelser; i++)	// går gjennom alle øvelser.
 	{
-		ovelser[i]->skrivTilFil(ut);
+		ovelser[i]->skrivTilFil(ut);			// skriv ut data om hver enkelt.
 	}
 }
 
-void Gren::lesOvelseFraFil(ifstream & inn)
+void Gren::lesOvelseFraFil(ifstream & inn)	// leser inn alle øvelser fra fil.
 {
 	int temp, temp2;
-	inn >> temp; 
-	for (int i = 1; i <= temp; i++)
+	inn >> temp;							// leser inn antall øvelser, som skal ligge først på fila
+	for (int i = 1; i <= temp; i++)			// kjører opp til den innleste antall øvelser.
 	{
-		inn >> temp2; inn.ignore();
-		ovelser[i] = new Ovelse(inn, temp2,typeResultat);
+		inn >> temp2; inn.ignore();			// leser inn øvelsenummer.
+		ovelser[i] = new Ovelse(inn, temp2,typeResultat);	// oppretter en ny øvelse med det innleste nummeret.
 	}
 }
 
-void Gren::resultatListeMeny()
+void Gren::resultatListeMeny()			// meny for resultatliste.
 {
 	bool fantOvelse = false;
 	int temp;
-	temp = les("\nSkriv inn nummer", MINOVNR, MAXOVNR);
-	for (int i = 1; i <= antallOvelser; i++)
+	temp = les("\nSkriv inn nummer", MINOVNR, MAXOVNR);		// leser inn øvelser du vil se resultatlistemenyen til.
+	for (int i = 1; i <= antallOvelser; i++)				// går gjennom alle øvelser.
 	{
-		if (ovelser[i]->sjekkID(temp)) 
+		if (ovelser[i]->sjekkID(temp))						// sjekker om øvelsen finnes.
 		{
-			ovelser[i]->MenyOR();
+			ovelser[i]->MenyOR();							// skriver menyen.
 			fantOvelse = true;
 		}
 	}
@@ -323,35 +323,35 @@ void Gren::resultatListeMeny()
 	}
 }
 
-void Gren::fjernOvelse()
+void Gren::fjernOvelse()							// fjerner en øvelse og alle relaterte data.
 {
 	bool ovelseFinnes = false;
 	if (antallOvelser > 0)
 	{
 		int tempID;
-		tempID = les("\nLes inn ID på øvelse du vil slette", MINOVNR, MAXOVNR);
-		for (int i = 1; i <= antallOvelser; i++)
+		tempID = les("\nLes inn ID på øvelse du vil slette", MINOVNR, MAXOVNR);	//leser inn en ID.
+		for (int i = 1; i <= antallOvelser; i++)								// går gjennom alle øvelser.
 		{
-			if (ovelser[i]->sjekkID(tempID))
+			if (ovelser[i]->sjekkID(tempID))									// sjekker om en øvelse med innskrevet ID finnes.
 			{
-				ovelseFinnes = true;
+				ovelseFinnes = true;											// hvis den finnes blir bool true.
 				tempID = i;
 			}
 		}
-		if (ovelseFinnes)
+		if (ovelseFinnes)														// hvis bool er true.
 		{
-			ovelser[tempID]->fjernOvelse();
-			delete ovelser[tempID];
-			for (int j = tempID; j <= antallOvelser - 1; j++)
+			ovelser[tempID]->fjernOvelse();										// kjør fjern funksjonen på øvelsen.
+			delete ovelser[tempID];												// slett selve øvelsen fra arrayen.
+			for (int j = tempID; j <= antallOvelser - 1; j++)					// loop gjennom restrerende øvelser.			
 			{
-				ovelser[tempID] = ovelser[tempID + 1];
+				ovelser[tempID] = ovelser[tempID + 1];							// flytt de bakover for å tette hull i arrayen.
 			}
 		}
 		else
 		{
 			cout << "\n\tOvelsen med dette nummeret finnes ikke." << endl;
 		}
-		antallOvelser--;
+		antallOvelser--;														// tell ned antallOvelser med 1.
 	}
 	else
 	{

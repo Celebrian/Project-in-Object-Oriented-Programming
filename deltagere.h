@@ -19,13 +19,13 @@ public:
 	void loopGjennom(char ch[LANDSKODE+1]); // sjekker om en nasjon finnes.
 	void MenyD();	// lager en meny.
 	void skrivMenyD();	// skriver menyvalg.
-	void skrivID(const int id);
-	bool finnesID(const int id);
-	int antallDeltagere();
-	void LesDeltagereFraFil(); 
-	void skrivDeltagereTilFil();
-	void skrivDeltagerStart(int n);
-	void hentNasjon(char chr[LANDSKODE], int n);
+	void skrivID(const int id);	// skriver ID-en til en deltager.
+	bool finnesID(const int id);	// sjekker om en deltager finnes ved å sammenligne ID med det brukeren skrev inn.
+	int antallDeltagere();	// returnerer antall deltagere.
+	void LesDeltagereFraFil();  //leser deltagere fra fil.
+	void skrivDeltagereTilFil();	//skriver deltagere til fil.
+	void skrivDeltagerStart(int n);	//skriver deltagerne sitt startnummer.
+	void hentNasjon(char chr[LANDSKODE], int n); //henter nasjonen til en deltager.
 };
 
 #endif

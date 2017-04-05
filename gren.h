@@ -23,16 +23,16 @@ public:
 	void SkrivGrenTilFil(ofstream & ut);	// skriver grener til fil
 	void MenyO();							//Skriver menyO
 	void MenyOL();							//Skriver menyOL
-	void skrivMenyO();						
-	void skrivMenyOL();
-	void returnNavn(char t[]);
-	void nyOvelse();
-	void endreOvelse();
-	void skrivAlle();
-	void skrivOvelseTilFil(ofstream &ut);
-	void lesOvelseFraFil(ifstream &inn);
-	void resultatListeMeny();
-	void fjernOvelse();
+	void skrivMenyO();						// skriver menyen for øvelse
+	void skrivMenyOL();						//skriver menyen for start/deltagerliste
+	void returnNavn(char t[]);				// retunerer navnet på en nasjon til en deltager
+	void nyOvelse();						// funksjon for å lage en ny øvelse
+	void endreOvelse();						// endrer på en valgt øvelse
+	void skrivAlle();						// skriver alle data om en øvelse
+	void skrivOvelseTilFil(ofstream &ut);	// skriver øvelsene til fil
+	void lesOvelseFraFil(ifstream &inn);	// leser øvelser fra fil
+	void resultatListeMeny();				// meny for resultatliste
+	void fjernOvelse();						// fjerner en øvelse, og alle relaterte data.
 };
 
 #endif
