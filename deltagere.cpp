@@ -44,7 +44,7 @@ void Deltagere::lagNyDeltager()
 		}
 		else
 		{
-			cout << "\nDeltagernummer finnes allerede!" << endl;
+			cout << "\nDeltagernummer er ugyldig!" << endl;
 		}
 }
 
@@ -116,12 +116,13 @@ void Deltagere::MenyD()
 	valg = les();             //  Leser brukerens valg.
 	while (valg != 'Q') {
 		switch (valg) {
-		case 'N': lagNyDeltager();; break;
+		case 'N': lagNyDeltager();	break;
 		case 'E': endreDeltager();  break;
-		case 'A': skrivUt();  break;
-		case 'S': skrivUtValgt();  break;
-		default:  skrivMenyD();       break;
+		case 'A': skrivUt();		break;
+		case 'S': skrivUtValgt();	break;
+		default:				    break;
 		}
+		skrivDeltagereTilFil();
 		skrivMenyD();
 		valg = les();
 	}

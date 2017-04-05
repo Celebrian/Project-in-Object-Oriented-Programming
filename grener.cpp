@@ -14,14 +14,26 @@ Grener::Grener() // lager en ny liste med gren objekter
 
 void Grener::lagNyGren()
 {
+	Gren* grenptr;
+	bool fantNavn = false;
 	char* temp;
-	les("\nSkriv inn navn på gren: ", temp);
-	if (!grenListe->inList(temp))  // sjekker om grenene allerede finnes
+	char tmpnavn[MAXTXT + 1];
+	les("\n\tSkriv inn navn på gren", temp);
+
+	for (int i = 1; i <= grenListe->noOfElements(); i++)	//Går gjennom eksisterende grener
 	{
-			Gren* nyGren;
-			nyGren = new Gren(temp); // lager en ny gren med navnet
-			grenListe->add(nyGren); // og legger den til i lista.
-			sisteGren++;
+		grenptr = (Gren*)grenListe->removeNo(i);
+		grenptr->returnNavn(tmpnavn);						//Henter navnet på grenen
+		if (erLik(temp, tmpnavn))							//Sammenlikner navn, om de er like
+		{
+			fantNavn = true;								//Setter at det ble funnet navn
+		}
+		grenListe->add(grenptr);
+	}
+	if (!fantNavn)  // sjekker om grenene allerede finnes
+	{
+			grenptr = new Gren(temp); // lager en ny gren med navnet
+			grenListe->add(grenptr); // og legger den til i lista.
 	}
 	else
 	{
@@ -31,24 +43,40 @@ void Grener::lagNyGren()
 
 void Grener::endreGren()
 {
-	if (!grenListe->isEmpty()) {
-		Gren* temppeker;
-		char*  temp;
-		les("\nSkriv inn navn på gren du vil endre: ", temp);
-			if (grenListe->inList(temp)) // sjekker om grenen finnes i lista
+	Gren* temppeker;
+	bool fantNavn = false;
+	char* temp;
+	char tmpnavn[MAXTXT + 1];
+
+	if (!grenListe->isEmpty())
+	{
+		les("\n\tSkriv inn navn på gren", temp);
+
+		for (int i = 1; i <= grenListe->noOfElements(); i++)	//Går gjennom eksisterende grener
+		{
+			temppeker = (Gren*)grenListe->removeNo(i);
+			temppeker->returnNavn(tmpnavn);						//Henter navnet på grenen
+			if (erLik(temp, tmpnavn))							//Sammenlikner navn, om de er like
 			{
-				temppeker = (Gren*)grenListe->remove(temp); // tar den ut av lista
-				temppeker->endreNyGren();					// kjører endre funkjson
-				grenListe->add(temppeker);					// og legger den inn igjen.
+				fantNavn = true;								//Setter at det ble funnet navn
 			}
-			else 
-			{
-				cout << "\nGren finnes ikke." << endl;
-			}
+			grenListe->add(temppeker);
+		}
+
+		if (fantNavn)
+		{
+			temppeker = (Gren*)grenListe->remove(tmpnavn); // tar den ut av lista
+			temppeker->endreNyGren();					// kjører endre funkjson
+			grenListe->add(temppeker);					// og legger den inn igjen.
+		}
+		else
+		{
+			cout << "\n\tFant ingen grener med dette navnet." << endl;
+		}
 	}
 	else
 	{
-		cout << "\nDet finnes ingen grener i lista!" << endl;
+		cout << "\n\tDet finnes ingen grener i lista!" << endl;
 	}
 }
 
@@ -61,10 +89,23 @@ void Grener::skrivUtValgt()
 {
 	Gren* temppeker;
 	char* temp; // leser inn navn på gren du vil se data om.
-	les("\nSkriv inn grennavn", temp);
-	if (grenListe->inList(temp))	// sjekker om grenen finnes.
+	bool fantNavn = false;
+	char tmpnavn[MAXTXT + 1];
+	les("\nSkriv inn navn på gren: ", temp);
+
+	for (int i = 1; i <= grenListe->noOfElements(); i++)	//Går gjennom eksisterende grener
 	{
-		temppeker = (Gren*)grenListe->remove(temp);
+		temppeker = (Gren*)grenListe->removeNo(i);
+		temppeker->returnNavn(tmpnavn);						//Henter navnet på grenen
+		if (erLik(temp, tmpnavn))							//Sammenlikner navn, om de er like
+		{
+			fantNavn = true;								//Setter at det ble funnet navn
+		}
+		grenListe->add(temppeker);
+	}
+	if (fantNavn)	// sjekker om grenen finnes.
+	{
+		temppeker = (Gren*)grenListe->remove(tmpnavn);
 		temppeker->displayValgt();
 		grenListe->add(temppeker);
 		// tar gren ut av lista, displayer den, og setter den inn igjen.
@@ -87,8 +128,9 @@ void Grener::MenyG()
 			case 'E': endreGren();			break;
 			case 'A': skrivUt();			break;
 			case 'S': skrivUtValgt();		break;
-			default:  skrivMenyG();			break;
+			default:						break;
 			}
+			SkrivGrenerTilFil();
 			skrivMenyG();
 			valg = les();
 	}
@@ -106,24 +148,32 @@ void Grener::skrivMenyG()
 
 void Grener::finnGren()				// sjekker om en gren finner, før man får øvelse meny.
 {
-	Gren* tempptr;
-	char temp[MAXTXT], temp2[MAXTXT];
-
 	if (!grenListe->isEmpty())	// sjekker om grenlista faktisk inneholder elementer.
 	{
-		les("Skriv inn navn på gren", temp, MAXTXT);	// leser inn en tekst.
-		gjorStor(temp);									// gjør den caps.
+		Gren* temppeker;
+		char* temp; // leser inn navn på gren du vil se data om.
+		bool fantNavn = false;
+		char tmpnavn[MAXTXT + 1];
 
-		for (int i = 1; i <= grenListe->noOfElements(); i++)	// går gjennom alle elemter i lista.
+		les("\nSkriv inn navn på gren: ", temp);
+
+		for (int i = 1; i <= grenListe->noOfElements(); i++)	//Går gjennom eksisterende grener
 		{
-			tempptr = (Gren*)grenListe->removeNo(i);	// tar ut den valgte.
-			tempptr->returnNavn(temp2);		// sjekker navnet.
-			gjorStor(temp2);	// gjør stor.
-			if (!strcmp(temp, temp2))	// kjøres hvis de to navnene er like. aka innskrevet er lik navnet til objektet.
+			temppeker = (Gren*)grenListe->removeNo(i);
+			temppeker->returnNavn(tmpnavn);						//Henter navnet på grenen
+			if (erLik(temp, tmpnavn))							//Sammenlikner navn, om de er like
 			{
-				tempptr->MenyO();	//kjører menyen til øvelse objektet.
+				fantNavn = true;								//Setter at det ble funnet navn
 			}
-			grenListe->add(tempptr); // legger den tilbake i lista.
+			grenListe->add(temppeker); // legger den tilbake i lista.
+		}
+		if (fantNavn)	// kjøres hvis de to navnene er like. aka innskrevet er lik navnet til objektet.
+		{
+			temppeker->MenyO();	//kjører menyen til øvelse objektet.
+		}
+		else
+		{
+			cout << "\n\tFant ingen gren med dette navn." << endl;
 		}
 	}
 	else
@@ -144,7 +194,6 @@ void Grener::LesGrenerFraFil()
 			Gren* nyGren;	// så lages det et nytt deltagerobjekt
 			nyGren = new Gren(temp, inn);	// og legger det inn i lista
 			grenListe->add(nyGren);		// baser på innskrevet nummer.
-			sisteGren++;	// teller opp variabelen.
 			inn.getline(temp, MAXTXT);
 		}
 	}

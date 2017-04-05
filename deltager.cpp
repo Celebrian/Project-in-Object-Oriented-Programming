@@ -54,7 +54,7 @@ void Deltager::endreNyDeltager()
 		case 'N': endreNavn();					break; // sletter først navn, så leser inn nytt
 		case 'A': endreDeltagersNasjon(nasjon); break; // leser inn en ny gyldig nasjon
 		case 'K': endreKjonn();					break;
-		default: skrivMenyDE();					break;
+		default:								break;
 		}
 		skrivMenyDE();
 		ch = les();

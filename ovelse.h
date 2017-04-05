@@ -46,6 +46,7 @@ public:
 	void skrivAlt();								// Skriver alt om øvelsen på skjerm
 	bool sjekkNavn(char c[]);						// Returnerer true hvis navnet på øvelsen matcher parameter
 	bool sjekkID(int i);							// Returnerer true hvis number matcher parameter
+	void returnerNavn(char t[]);					//Returnerer navnet til en øvelse
 	void skrivStartliste();							// Skriver startliste på skjerm
 	void nyStartliste();							// Lager ny startliste
 	void endreStartliste();							// Viser endre startlistemeny
