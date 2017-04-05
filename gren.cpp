@@ -8,8 +8,10 @@
 using namespace std;
 
 #include "gren.h"
+#include "grener.h"
 #include "funksjoner.h"
 
+extern Grener grenobjekt;
 
 Gren::Gren(char * ch) : TextElement(ch)
 {
@@ -51,10 +53,6 @@ Gren::Gren(char ch[], ifstream & inn) : TextElement(ch)
 	default:							break; 
 	}
 	inn >> antallOvelser; inn.ignore(); 
-	//for (int i = 1; i <= antallOvelser; i++) // looper gjennom hele arrayen med ovelser
-	//{
-		//inn >> ovelser[i];	// leser inn ovelsenummeret
-	//}
 }
 
 void Gren::SkrivGrenTilFil(ofstream & ut)	// skriver grenens data til fil.
@@ -123,7 +121,7 @@ void Gren::MenyO()
 		case 'R': resultatListeMeny();	break;		// meny for resultatliste
 		default:						break;	
 		}
-		skrivOvelseTilFil();
+		grenobjekt.skrivOvelserTilFil();
 		skrivMenyO();
 		valg = les();
 	}
@@ -353,6 +351,7 @@ void Gren::fjernOvelse()							// fjerner en øvelse og alle relaterte data.
 			cout << "\n\tOvelsen med dette nummeret finnes ikke." << endl;
 		}
 		antallOvelser--;														// tell ned antallOvelser med 1.
+		grenobjekt.SkrivGrenerTilFil();
 	}
 	else
 	{

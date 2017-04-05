@@ -225,19 +225,15 @@ bool kunTallFloat(char t[])  // samme som funksjonen ovenfor, men her tar den en
 {
 	int i = 0;
 
-	while (i < strlen(t))
+	while (i < strlen(t)) // kjører helt til arrayet et slutt.
 	{
-		if (t[i] = ',') // godtar punktum fordi float er desimaltall.
+		if (!((isdigit(t[i])) || ( t[i] == '.'))) // sjekker om hver skuff er en tall, med isdigit funksjon.
 		{
-			t[i] = '.';
-		}
-		if (!isdigit(t[i]) || t[i] != '.' )
-		{
-			return false;
+			return false; // returnerer false hvis den finner en bokstav.
 		}
 		i++;
 	}
-	return true;
+	return true;	// ellers retunerer true.
 }
 
 void gjorStor(char s[]) // tar en array og gjør alle bokstavene store.

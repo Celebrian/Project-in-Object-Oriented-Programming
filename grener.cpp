@@ -257,6 +257,7 @@ void Grener::lesOvelserFraFil()
 			Gren* grenPeker = (Gren*)grenListe->removeNo(temp); // tar ut objekt
 			grenPeker->lesOvelseFraFil(innfil);	// kjorer funskjonen les
 			grenListe->add(grenPeker);	// legger det inn i lista igjen.
+			innfil >> temp; innfil.ignore();
 		}
 	}
 	else

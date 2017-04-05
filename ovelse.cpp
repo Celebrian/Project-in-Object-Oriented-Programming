@@ -83,16 +83,19 @@ void Ovelse::endreOvelsen()
 void Ovelse::endreNavn()	// sletter først det gamle navnet, så leser inn et nytt.
 {
 	delete[] ovelseNavn; les("\n\tLes inn nytt navn", ovelseNavn);
+	cout << "\n\tNavn er endret" << endl << endl;
 }
 
 void Ovelse::endreOvelseDato()		// leser inn dato på nytt.
 {
 	dato = lesDato();
+	cout << "\n\tDato er endret" << endl << endl;
 }
 
 void Ovelse::endreKlokkeslett()		// leser inn klokkelsett på nytt.
 {
 	klokkeStart = lesKlokkeSlett();
+	cout << "\n\tKlokkeslett er endret" << endl << endl;
 }
 
 void Ovelse::skrivAlt()		// skriver ut alle data om en øvelse.
@@ -615,8 +618,7 @@ void Ovelse::skrivPoeng(int t)								// skriver ut poeng ufifra medsend variabe
 			<< " \tStartnummer: " << resultatListe[m][0];
 			if (true)	// sjekker om resultater er gyldig.
 			{
-				cout << " \tPoeng: " << int(resultatListe[m][2] / t)	// deler med medsendt verdi for å få tak i siffer før komma.
-					<< "." << (int(resultatListe[m][2]) % t) << endl;	// modder med medsendt verdi for å få tak i siffer bak komma.
+				cout << " \tPoeng: " << (resultatListe[m][2]/ t) << endl;
 			}
 			else
 			{
@@ -668,7 +670,6 @@ int Ovelse::lesPoeng(int i, int x)
 			temp2 = (temp2 * x); // ganger med 10/100 for å bare beholde 1 eller 2 siffre som var bak komma.
 			temp2 = int(temp2);		// gjør det om til int for å kaste de andre siffrene.
 			temp2 = float(temp2);	// gjør det om igjen til float for å kunne få deismaltall.
-			temp2 = (temp2 / x);	// delet det med 10/100 for å flytte tallene bak komma igjen.
 			return(temp2);
 			sant = false;
 		}
@@ -856,26 +857,38 @@ void Ovelse::slettStatistikk(ifstream & inn, char ch)			// sletter medaljer og p
 
 void Ovelse::skrivResultatliste()	// henter resultatliste, sorterer og skriver den til fil sortert.
 {
-	filtype ft = resultatliste;
-	char filnavn[MAXTXT + 1] = "gruppe03/";
-	lagFilNavn(filnavn, ft);
-	ifstream inn(filnavn);
-	if (inn)				// åpner resultatlista.
+	filtype ft = startliste;
+	char filnavn2[MAXTXT + 1] = "gruppe03/";
+	lagFilNavn(filnavn2, ft);
+	ifstream innStart(filnavn2);
+	if (innStart)
 	{
-		char sortertemp;
-		inn >> sortertemp;		// leser inn enten I eller S
-		inn >> antallDeltagere; inn.ignore();
-		resultatListe = new float[antallDeltagere + 1][3];
-		lagStatistikk(inn, sortertemp); // sendes videre til sortering.
-		inn.close();		// lukker og
-		remove(filnavn);	// sletter den gamle fila.
-		skrivSortertResultatListe(); // lager en ny fil som er sortert.
-		delete[] resultatListe;
+		filtype ft = resultatliste;
+		char filnavn[MAXTXT + 1] = "gruppe03/";
+		lagFilNavn(filnavn, ft);
+		ifstream inn(filnavn);
+		if (inn)				// åpner resultatlista.
+		{
+			char sortertemp;
+			inn >> sortertemp;		// leser inn enten I eller S
+			inn >> antallDeltagere; inn.ignore();
+			resultatListe = new float[antallDeltagere + 1][3];
+			lagStatistikk(inn, sortertemp); // sendes videre til sortering.
+			inn.close();		// lukker og
+			remove(filnavn);	// sletter den gamle fila.
+			skrivSortertResultatListe(); // lager en ny fil som er sortert.
+			delete[] resultatListe;
+		}
+		else
+		{
+			cout << "\n\tResutatliste finnes ikke!" << endl;
+		}
 	}
 	else
 	{
-		cout << "\n\tResutatliste finnes ikke!" << endl;
+		cout << "\n\tStartliste finnes ikke" << endl;
 	}
+	
 }
 
 void Ovelse::lagStatistikk(ifstream & inn, char ch)		// sorterer og oppdaterer statistikk.
