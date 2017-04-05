@@ -83,16 +83,19 @@ void Ovelse::endreOvelsen()
 void Ovelse::endreNavn()	// sletter først det gamle navnet, så leser inn et nytt.
 {
 	delete[] ovelseNavn; les("\n\tLes inn nytt navn", ovelseNavn);
+	cout << "\n\tNavn er endret" << endl << endl;
 }
 
 void Ovelse::endreOvelseDato()		// leser inn dato på nytt.
 {
 	dato = lesDato();
+	cout << "\n\tDato er endret" << endl << endl;
 }
 
 void Ovelse::endreKlokkeslett()		// leser inn klokkelsett på nytt.
 {
 	klokkeStart = lesKlokkeSlett();
+	cout << "\n\tKlokkeslett er endret" << endl << endl;
 }
 
 void Ovelse::skrivAlt()		// skriver ut alle data om en øvelse.
@@ -855,26 +858,38 @@ void Ovelse::slettStatistikk(ifstream & inn, char ch)			// sletter medaljer og p
 
 void Ovelse::skrivResultatliste()	// henter resultatliste, sorterer og skriver den til fil sortert.
 {
-	filtype ft = resultatliste;
-	char filnavn[MAXTXT + 1] = "gruppe03/";
-	lagFilNavn(filnavn, ft);
-	ifstream inn(filnavn);
-	if (inn)				// åpner resultatlista.
+	filtype ft = startliste;
+	char filnavn2[MAXTXT + 1] = "gruppe03/";
+	lagFilNavn(filnavn2, ft);
+	ifstream innStart(filnavn2);
+	if (innStart)
 	{
-		char sortertemp;
-		inn >> sortertemp;		// leser inn enten I eller S
-		inn >> antallDeltagere; inn.ignore();
-		resultatListe = new float[antallDeltagere + 1][3];
-		lagStatistikk(inn, sortertemp); // sendes videre til sortering.
-		inn.close();		// lukker og
-		remove(filnavn);	// sletter den gamle fila.
-		skrivSortertResultatListe(); // lager en ny fil som er sortert.
-		delete[] resultatListe;
+		filtype ft = resultatliste;
+		char filnavn[MAXTXT + 1] = "gruppe03/";
+		lagFilNavn(filnavn, ft);
+		ifstream inn(filnavn);
+		if (inn)				// åpner resultatlista.
+		{
+			char sortertemp;
+			inn >> sortertemp;		// leser inn enten I eller S
+			inn >> antallDeltagere; inn.ignore();
+			resultatListe = new float[antallDeltagere + 1][3];
+			lagStatistikk(inn, sortertemp); // sendes videre til sortering.
+			inn.close();		// lukker og
+			remove(filnavn);	// sletter den gamle fila.
+			skrivSortertResultatListe(); // lager en ny fil som er sortert.
+			delete[] resultatListe;
+		}
+		else
+		{
+			cout << "\n\tResutatliste finnes ikke!" << endl;
+		}
 	}
 	else
 	{
-		cout << "\n\tResutatliste finnes ikke!" << endl;
+		cout << "\n\tStartliste finnes ikke" << endl;
 	}
+	
 }
 
 void Ovelse::lagStatistikk(ifstream & inn, char ch)		// sorterer og oppdaterer statistikk.
