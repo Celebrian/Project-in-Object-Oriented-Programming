@@ -56,6 +56,7 @@ int les(char* t, const int min, const int max) { // leser inn et tall mellom to 
 void les(const char t[], char s[], const int LEN) { // leser inn en ikke-blank text
 	do {
 		cout << '\t' << t << ": ";	cin.getline(s, LEN);
+		fjernBlanke(s);
 	} while (strlen(s) == 0);
 }
 
@@ -92,6 +93,7 @@ void les(const char* t, char* &s) // tar med char pointer og en pointer
 	{
 		cout << "\t" << t << ": ";
 		cin.getline(temp, MAXTXT); // henter tenkst og legger den inn i temp
+		fjernBlanke(temp);
 	} while (strlen(temp) == 0);
 	s = new char[strlen(temp) + 1]; // lager array med fikset storrelse
 	strcpy(s, temp); // kopierer fra temp og inn i s
@@ -197,7 +199,7 @@ bool finnesDato(int da, int ma, int aa) {
 	//  Setter opp antall dager i månedene.
 	//   Verdien for februar settes senere.
 	int dagerPrMaaned[12] = { 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	if (aa < 1000 || aa > 3000) return false;    //  Ulovlig år.
+	if (aa < MINAAR || aa > MAXAAR) return false;    //  Ulovlig år.
 	if (ma < 1 || ma > 12)   return false;    //  Ulovlig måned.
 											  //Ut fra om året er skuddår eller ei
 	dagerPrMaaned[1] = (skuddaar(aa)) ? 29 : 28;//så settes februar verdien
@@ -291,4 +293,42 @@ bool erLik(const char t[], const char s[]) //sjekker om to tekster er like.
 		else return false;	
 	}
 	return !strcmp(temp, temp2);		//Returnerer true (1) hvis like
+}
+
+void fjernBlanke(char t[])			// stripper tekster av blanke foran og bak.
+{
+	int lengde = strlen(t), bokstaverForran = 0, bokstaverBak = 0, i = 0, l = 0;
+	bool bokstav = false;
+	char temp[MAXTXT + 1];
+	while (!(bokstav && i <=lengde)) // teller opp så lange skuffen inneholder blank
+	{
+		if (t[i] == ' ')
+		{
+			bokstaverForran++;		// holder styr på hvor mange blanke det var foran.
+		}
+		else
+		{
+			bokstav = true;		// settes til true hvis den møter på en bokstav.
+		}
+		i++;
+	}
+	bokstav = false;
+	while (!(bokstav && lengde >= 0))			// teller ned fra slutten så lenge det er blanke
+	{
+		if (t[lengde-1] == ' ')
+		{
+			bokstaverBak++;		// holder styr på hvor mange blanke det var bak.
+		}
+		else
+		{
+			bokstav = true;		// endres når den støter på en bokstav.
+		}
+		lengde--;
+	}
+	for (int k = bokstaverForran; k <= (strlen(t) - bokstaverBak); k++, l++)	// starter der den møtte en bokstav, går til der det ikke lengre er bokstaver, og kopierer over innholdet.
+	{
+		temp[l] = t[k];
+	}
+	temp[l-1] = '\0';		// leger til på slutten av arrayen.
+	strcpy(t, temp);		// kopierer det over i den referanseoverførte arrayen.
 }

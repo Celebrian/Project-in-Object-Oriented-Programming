@@ -20,7 +20,7 @@ public:
 	bool finnesNasjon(const char t[]);	//Skjekker om nasjon finnes
 	void plussDeltager(const char t[]);	//Legger til en deltager
 	void minusDeltager(const char t[]);	//Trekker fra en deltager
-	void lesNasjonerFraFil();			//Leser Nasjoner fra fil
+	bool lesNasjonerFraFil();			//Leser Nasjoner fra fil
 	void skrivNasjonerTilFil();			//Skriver nasjoner til fil
 };
 

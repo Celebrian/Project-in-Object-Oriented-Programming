@@ -42,6 +42,7 @@ void Poeng::oppdaterPoeng(char ch[LANDSKODE], int antP, plusminus oppened)
 		poengOversikt[temp] += antP; // legger poeng inn i poengarray.
 	}
 	sorterPoeng();
+	skrivTilFil();
 }
 
 void Poeng::sorterPoeng()

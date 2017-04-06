@@ -38,6 +38,7 @@ void Medaljer::endreMedalje(const char land[LANDSKODE], const medalje pris, cons
 		medaljeListe[sisteBrukt][pris]++;						//Legger til medaljen
 	}
 	sorterMedaljer();
+	skrivMedaljerTilFil();
 }
 
 void Medaljer::sorterMedaljer()									//Sorterer medaljer

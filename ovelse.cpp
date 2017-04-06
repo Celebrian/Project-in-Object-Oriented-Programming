@@ -399,7 +399,7 @@ void Ovelse::skrivTilFil(ofstream &ut)			// skriver alle øvelsens data til fil.
 		<< klokkeStart << " " << dato << " " << antallDeltagere << endl;
 }
 
-Ovelse::Ovelse(ifstream & inn, int i, resultatType rs) : NumElement (i)		// leser alle øvelsens data fra fil.
+Ovelse::Ovelse(ifstream & inn,int i, resultatType rs) : NumElement (i)		// leser alle øvelsens data fra fil.
 {
 	lesInnFraFil(ovelseNavn, inn);											// egen les funksjon for å lese inn i en peker.
 	inn >> klokkeStart >> dato >> antallDeltagere; inn.ignore();

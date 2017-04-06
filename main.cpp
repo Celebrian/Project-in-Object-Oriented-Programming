@@ -15,18 +15,23 @@ Poeng poengobjekt;
 
 int main() {
 
-	nasjonerObjekt.lesNasjonerFraFil();
-	deltagerobjekt.LesDeltagereFraFil();
-	grenobjekt.LesGrenerFraFil();
-	grenobjekt.lesOvelserFraFil();
-	medaljeObjekt.lesMedaljerFraFil();
-	poengobjekt.lesFraFil();
+	if (nasjonerObjekt.lesNasjonerFraFil())		// sjekker om nasjoner blir lest inn, fordi resten av programmet er avhengig av nasjoner for å fungere riktig.
+	{
+		deltagerobjekt.LesDeltagereFraFil();
+		grenobjekt.LesGrenerFraFil();
+		medaljeObjekt.lesMedaljerFraFil();
+		poengobjekt.lesFraFil();
+	}
+	else
+	{
+		cout << "\t\nError: noe var galt med en eller flere av filene." << endl << endl;
+	}
+	
 	Meny();
 	deltagerobjekt.skrivDeltagereTilFil();
 	nasjonerObjekt.skrivNasjonerTilFil();
 	grenobjekt.SkrivGrenerTilFil();
 	medaljeObjekt.skrivMedaljerTilFil();
 	poengobjekt.skrivTilFil();
-	grenobjekt.skrivOvelserTilFil();
 	return 0;
 }

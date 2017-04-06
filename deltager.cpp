@@ -153,6 +153,7 @@ void Deltager::endreKjonn()
 void Deltager::endreAndreData()
 {
 	les("\t\nLes inn andre data om deltager", andreData, MAXTXT);
+	cout << "\t\nAndre data om deltager endret" << endl;
 }
 
 void Deltager::startSkriv() // skriver ut dataene i startliste.

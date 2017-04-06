@@ -53,6 +53,12 @@ Gren::Gren(char ch[], ifstream & inn) : TextElement(ch)
 	default:							break; 
 	}
 	inn >> antallOvelser; inn.ignore(); 
+
+	for (int i = 1; i <= antallOvelser; i++)
+	{
+		int temp; inn >> temp; inn.ignore();
+		ovelser[i] = new Ovelse(inn, temp, typeResultat);
+	}
 }
 
 void Gren::SkrivGrenTilFil(ofstream & ut)	// skriver grenens data til fil.
@@ -67,6 +73,10 @@ void Gren::SkrivGrenTilFil(ofstream & ut)	// skriver grenens data til fil.
 	default:								break; 
 	}
 	ut << antallOvelser << '\n';
+	for (int i = 1; i <= antallOvelser; i++)
+	{
+		ovelser[i]->skrivTilFil(ut);
+	}
 }
 
 void Gren::endreNyGren()		// endrer data på en gren, bare navn er lov å endre.
@@ -77,6 +87,7 @@ void Gren::endreNyGren()		// endrer data på en gren, bare navn er lov å endre.
 	{
 		delete[] navn;			// sletter det eksisterende navnet
 		les("\n\tLes inn nytt navn", navn);	// leser det inn på nytt.
+		cout << "\t\nNavn på gren endret." << endl << endl;
 	}
 }
 
@@ -121,7 +132,6 @@ void Gren::MenyO()
 		case 'R': resultatListeMeny();	break;		// meny for resultatliste
 		default:						break;	
 		}
-		grenobjekt.skrivOvelserTilFil();
 		skrivMenyO();
 		valg = les();
 	}
@@ -279,26 +289,6 @@ void Gren::skrivAlle()								// skriver hoveddata om alle øvelser
 	else
 	{
 		cout << "\n\tIngen ovelser. " << endl;
-	}
-}
-
-void Gren::skrivOvelseTilFil(ofstream & ut)		// skriver øvelser til fil.
-{
-	ut << antallOvelser << endl;				// skriv først ut antall for å gjøre det lettere å lese inn.
-	for (int i = 1; i <= antallOvelser; i++)	// går gjennom alle øvelser.
-	{
-		ovelser[i]->skrivTilFil(ut);			// skriv ut data om hver enkelt.
-	}
-}
-
-void Gren::lesOvelseFraFil(ifstream & inn)	// leser inn alle øvelser fra fil.
-{
-	int temp, temp2;
-	inn >> temp;							// leser inn antall øvelser, som skal ligge først på fila
-	for (int i = 1; i <= temp; i++)			// kjører opp til den innleste antall øvelser.
-	{
-		inn >> temp2; inn.ignore();			// leser inn øvelsenummer.
-		ovelser[i] = new Ovelse(inn, temp2,typeResultat);	// oppretter en ny øvelse med det innleste nummeret.
 	}
 }
 

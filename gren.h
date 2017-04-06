@@ -9,6 +9,7 @@
 #include "ovelse.h"
 
 class Gren : public TextElement {
+private:
 	char* navn;								//Grenens fulle navn
 	resultatType typeResultat;				//Enum som er poeng eller tid
 	int antallOvelser;						//Antall øvelser i denne grenen

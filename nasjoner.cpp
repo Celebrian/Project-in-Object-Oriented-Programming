@@ -173,7 +173,7 @@ void Nasjoner::minusDeltager(const char t[])
 	nasjonListe->add(nasjonptr);
 }
 
-void Nasjoner::lesNasjonerFraFil()
+bool Nasjoner::lesNasjonerFraFil()
 {
 	Nasjon* nyNasjon;
 	char temp[LANDSKODE + 1];
@@ -187,13 +187,14 @@ void Nasjoner::lesNasjonerFraFil()
 			nyNasjon = new Nasjon(inn, temp);
 			nasjonListe->add(nyNasjon);
 			nyNasjon = nullptr;
-
 			inn.getline(temp, LANDSKODE);
 		}
+		return true;
 	}
 	else
 	{
 		cout << "\n\n\tFant ikke filen Nasjoner.DTA" << endl;
+		return false;
 	}
 }
 

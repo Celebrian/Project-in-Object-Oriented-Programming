@@ -35,6 +35,6 @@ bool kunTall(char t[]);				//Skjekker at en text bare inneholder tal
 bool kunTallFloat(char t[]);
 void gjorStor(char s[]);
 bool erLik(const char t[], const char s[]);
-
+void fjernBlanke(char t[]);
 
 #endif

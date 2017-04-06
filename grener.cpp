@@ -91,15 +91,20 @@ void Grener::skrivUtValgt()
 	char* temp; // leser inn navn på gren du vil se data om.
 	bool fantNavn = false;
 	char tmpnavn[MAXTXT + 1];
+	int i = 1;
 	les("\nSkriv inn navn på gren: ", temp);
 
-	for (int i = 1; i <= grenListe->noOfElements(); i++)	//Går gjennom eksisterende grener
+	while(!(fantNavn  && i <= grenListe->noOfElements()))	//Går gjennom eksisterende grener
 	{
 		temppeker = (Gren*)grenListe->removeNo(i);
 		temppeker->returnNavn(tmpnavn);						//Henter navnet på grenen
 		if (erLik(temp, tmpnavn))							//Sammenlikner navn, om de er like
 		{
 			fantNavn = true;								//Setter at det ble funnet navn
+		}
+		else
+		{
+			i++;
 		}
 		grenListe->add(temppeker);
 	}
@@ -154,16 +159,21 @@ void Grener::finnGren()				// sjekker om en gren finner, før man får øvelse meny
 		char* temp; // leser inn navn på gren du vil se data om.
 		bool fantNavn = false;
 		char tmpnavn[MAXTXT + 1];
+		int i = 1;
 
 		les("\nSkriv inn navn på gren: ", temp);
 
-		for (int i = 1; i <= grenListe->noOfElements(); i++)	//Går gjennom eksisterende grener
+		while(!( fantNavn && i <= grenListe->noOfElements()))	//Går gjennom eksisterende grener
 		{
 			temppeker = (Gren*)grenListe->removeNo(i);
 			temppeker->returnNavn(tmpnavn);						//Henter navnet på grenen
 			if (erLik(temp, tmpnavn))							//Sammenlikner navn, om de er like
 			{
 				fantNavn = true;								//Setter at det ble funnet navn
+			}
+			else
+			{
+				i++;
 			}
 			grenListe->add(temppeker); // legger den tilbake i lista.
 		}
@@ -224,46 +234,5 @@ void Grener::SkrivGrenerTilFil()
 		{
 			cout << "\nFil ikke tilgjengelig! " << endl;
 		}
-	}
-}
-
-void Grener::skrivOvelserTilFil()
-{
-	if (!grenListe->isEmpty()) 
-	{
-		ofstream utfil("gruppe03/OVELSER.DTA");
-		if (utfil) 
-		{
-			int temp = grenListe->noOfElements();  // henter antall i lista
-			for (int i = 1; i <= temp; i++)	// looper gjennom alle grener
-			{
-				Gren* grenPeker = (Gren*)grenListe->removeNo(i); // tar ut objekt
-				utfil << i << endl;
-				grenPeker->skrivOvelseTilFil(utfil);	// kjorer funskjonen skriv
-				grenListe->add(grenPeker);	// legger det inn i lista igjen.
-			}
-		}
-
-	}
-}
-
-void Grener::lesOvelserFraFil()
-{
-	int temp;
-	ifstream innfil("gruppe03/OVELSER.DTA"); // åpner filen fra harddisk
-	if (innfil) // sjekker om fila finnes.
-	{
-		innfil >> temp; innfil.ignore();
-		while (!innfil.eof()) // sjekker om det en slutt på fil, eller lista er for stor.
-		{
-			Gren* grenPeker = (Gren*)grenListe->removeNo(temp); // tar ut objekt
-			grenPeker->lesOvelseFraFil(innfil);	// kjorer funskjonen les
-			grenListe->add(grenPeker);	// legger det inn i lista igjen.
-			innfil >> temp; innfil.ignore();
-		}
-	}
-	else
-	{
-		cout << "\nFil ikke funnet! " << endl;
 	}
 }

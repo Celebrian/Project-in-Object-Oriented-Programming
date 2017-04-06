@@ -19,6 +19,8 @@ const int MMSSHH = 100;					// for å skrive inn hundredeler
 const int MMSSTTT = 1000;				// for å skrive inn tusendeler
 const int POENGX = 10;					// for å skrive in poeng med 1 desimal
 const int POENGXX = 100;				// for å skrive inn poeng med 2 desimaler
-const int MAXPOENG = 10;
+const int MAXPOENG = 10;				// maximalt lovlig poeng for å unngå å sprenge int-en i c++.
+const int MINAAR = 1600;				// lavest lovlig årstall
+const int MAXAAR = 2400;				// høyest lovlig årstall.
 #endif
 
